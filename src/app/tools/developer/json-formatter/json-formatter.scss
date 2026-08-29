@@ -1,0 +1,41 @@
+.workspace {
+  padding: 20px;
+
+  h2 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+}
+
+.code-input,
+.code-output {
+  width: 100%;
+  resize: vertical;
+  min-height: 200px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  overflow-x: auto;
+}
+
+.code-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.code-output {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}

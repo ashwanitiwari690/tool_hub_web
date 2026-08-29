@@ -1,0 +1,100 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="QR Code Generator"
+  description="Generate QR codes for links, text and Wi-Fi networks for free."
+>
+  <div class="workspace card">
+    <div class="type-tabs">
+      <button type="button" class="tab" [class.active]="type() === 'url'" (click)="setType('url')">URL</button>
+      <button type="button" class="tab" [class.active]="type() === 'text'" (click)="setType('text')">Text</button>
+      <button type="button" class="tab" [class.active]="type() === 'wifi'" (click)="setType('wifi')">Wi-Fi</button>
+    </div>
+
+    @if (type() === 'url') {
+      <label for="url-input">Website URL</label>
+      <input
+        id="url-input"
+        type="text"
+        placeholder="https://example.com"
+        [ngModel]="urlValue()"
+        (ngModelChange)="urlValue.set($event)"
+      />
+    } @else if (type() === 'text') {
+      <label for="text-input">Text</label>
+      <textarea
+        id="text-input"
+        rows="4"
+        placeholder="Enter any text..."
+        [ngModel]="textValue()"
+        (ngModelChange)="textValue.set($event)"
+      ></textarea>
+    } @else {
+      <label for="ssid-input">Network name (SSID)</label>
+      <input
+        id="ssid-input"
+        type="text"
+        placeholder="My Wi-Fi"
+        [ngModel]="wifiSsid()"
+        (ngModelChange)="wifiSsid.set($event)"
+      />
+      <label for="encryption-select">Encryption</label>
+      <select
+        id="encryption-select"
+        [ngModel]="wifiEncryption()"
+        (ngModelChange)="wifiEncryption.set($event)"
+      >
+        <option value="WPA">WPA/WPA2</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">None</option>
+      </select>
+      @if (wifiEncryption() !== 'nopass') {
+        <label for="password-input">Password</label>
+        <input
+          id="password-input"
+          type="text"
+          placeholder="Wi-Fi password"
+          [ngModel]="wifiPassword()"
+          (ngModelChange)="wifiPassword.set($event)"
+        />
+      }
+    }
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary" (click)="generate()">Generate QR Code</button>
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  <app-error-message [message]="error()" />
+
+  @if (processing()) {
+    <app-loading-state label="Generating QR code..." />
+  }
+
+  @if (qrDataUrl() && !processing()) {
+    <div class="qr-result card">
+      <img [src]="qrDataUrl()" alt="Generated QR code" />
+      <button type="button" class="btn btn-secondary" (click)="download()">Download PNG</button>
+    </div>
+  }
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is QR Code Generator?">
+    <p>
+      QR Code Generator turns a link, a piece of text, or Wi-Fi credentials into a scannable QR
+      code image that anyone can scan with a phone camera.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How to use QR Code Generator">
+    <ol>
+      <li>Choose URL, Text, or Wi-Fi.</li>
+      <li>Fill in the required field(s).</li>
+      <li>Click Generate QR Code, then download it as a PNG.</li>
+    </ol>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

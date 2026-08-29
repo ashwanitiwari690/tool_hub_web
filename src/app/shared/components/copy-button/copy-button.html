@@ -1,0 +1,7 @@
+<button type="button" class="btn btn-secondary" (click)="copy()" [disabled]="!text()">
+  @if (copied()) {
+    <span>✓ Copied</span>
+  } @else {
+    <span>{{ label() }}</span>
+  }
+</button>

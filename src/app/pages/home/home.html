@@ -1,0 +1,83 @@
+<section class="hero">
+  <div class="container hero-inner">
+    <h1>Free Online Tools</h1>
+    <p class="hero-sub">Simple. Fast. Useful.</p>
+    <p class="hero-desc">
+      Powerful browser-based tools for developers, students, creators and everyday tasks.
+    </p>
+    <button type="button" class="search-trigger" (click)="openSearch()">
+      <span>🔍 Search for a tool...</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Popular Tools</h2>
+    <div class="tool-grid">
+      @for (tool of featuredTools; track tool.slug) {
+        <app-tool-card [tool]="tool" />
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2>Browse Tools</h2>
+    <div class="category-grid">
+      @for (category of categories; track category.slug) {
+        <app-category-card [category]="category" />
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Why {{ siteConfig.name }}?</h2>
+    <div class="benefits-grid">
+      <div class="benefit card">
+        <h3>Free to use</h3>
+        <p>Every tool is free, with no hidden paywalls.</p>
+      </div>
+      <div class="benefit card">
+        <h3>Fast, browser-based tools</h3>
+        <p>Most tools run instantly in your browser without waiting on a server.</p>
+      </div>
+      <div class="benefit card">
+        <h3>No unnecessary account</h3>
+        <p>Use every tool without signing up or logging in.</p>
+      </div>
+      <div class="benefit card">
+        <h3>Privacy-conscious processing</h3>
+        <p>Client-side tools process your data locally rather than uploading it.</p>
+      </div>
+      <div class="benefit card">
+        <h3>Mobile friendly</h3>
+        <p>Every tool is designed to work comfortably on phones and tablets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2>Latest Guides</h2>
+    <div class="guide-grid">
+      @for (guide of guides; track guide.slug) {
+        <a class="guide-card card" [routerLink]="['/guides', guide.slug]">
+          <h3>{{ guide.title }}</h3>
+          <p>{{ guide.description }}</p>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <app-faq-section [items]="faqItems" />
+  </div>
+</section>

@@ -1,0 +1,64 @@
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  color: var(--text-primary);
+  transition: border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    text-decoration: none;
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+    flex-grow: 1;
+  }
+}
+
+.tool-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.tool-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--surface-hover);
+  color: var(--primary);
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  line-height: 1;
+  padding: 4px;
+
+  &.active {
+    color: var(--danger);
+  }
+}
+
+.tool-category {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--text-muted);
+}

@@ -1,0 +1,16 @@
+{
+  "name": "ToolNova - Free Online Tools",
+  "short_name": "ToolNova",
+  "description": "Useful online tools for text, images, developers, calculations, PDFs, QR codes and everyday tasks.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fc",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

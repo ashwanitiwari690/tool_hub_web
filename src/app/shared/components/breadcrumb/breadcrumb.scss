@@ -1,0 +1,35 @@
+.breadcrumb {
+  font-size: 0.8125rem;
+  margin-bottom: 20px;
+
+  ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  a {
+    color: var(--text-secondary);
+  }
+
+  a:hover {
+    color: var(--primary);
+  }
+
+  span[aria-current] {
+    color: var(--text-muted);
+  }
+
+  .sep {
+    color: var(--text-muted);
+  }
+}

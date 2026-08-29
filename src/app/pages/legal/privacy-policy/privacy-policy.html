@@ -1,0 +1,47 @@
+<div class="container static-page">
+  <app-breadcrumb [items]="breadcrumbItems" />
+  <h1>Privacy Policy</h1>
+  <p class="updated">
+    Draft placeholder — intended for legal review before this site goes live. Last updated: 2026-08-29.
+  </p>
+
+  <h2>Overview</h2>
+  <p>
+    {{ siteConfig.name }} is designed so that most tools process your input directly in your
+    browser using JavaScript. For tools where this is true, your files and text are never
+    transmitted to our servers. Each tool page states clearly whether its processing is local.
+  </p>
+
+  <h2>Information we do not collect</h2>
+  <ul>
+    <li>We do not require account registration.</li>
+    <li>We do not ask for your name, email, or other personal details to use a tool.</li>
+    <li>Client-side tools do not upload the files or text you enter into them.</li>
+  </ul>
+
+  <h2>Local storage</h2>
+  <p>
+    Your browser's local storage may be used to remember your theme preference, favorite tools,
+    and recently used tools. This information stays on your device and is not sent to us.
+  </p>
+
+  <h2>Analytics and advertising</h2>
+  <p>
+    If analytics or advertising services (such as Google AdSense) are enabled in the future, they
+    may use cookies or similar technologies to measure traffic or serve ads. This policy will be
+    updated to reflect any such service before it is enabled, and see our
+    <a routerLink="/cookie-policy">Cookie Policy</a> for details.
+  </p>
+
+  <h2>Third-party links</h2>
+  <p>
+    Guides and pages on this site may link to third-party resources. We are not responsible for
+    the privacy practices of external websites.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this policy can be sent to
+    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a>.
+  </p>
+</div>

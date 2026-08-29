@@ -1,0 +1,15 @@
+<div class="container page">
+  <app-breadcrumb [items]="breadcrumbItems" />
+  <h1>Guides</h1>
+  <p class="page-desc">Practical, step-by-step guides for getting the most out of our free tools.</p>
+
+  <div class="guide-grid">
+    @for (guide of guides; track guide.slug) {
+      <a class="guide-card card" [routerLink]="[guide.slug]">
+        <h2>{{ guide.title }}</h2>
+        <p>{{ guide.description }}</p>
+        <span class="updated">Updated {{ guide.updatedDate }}</span>
+      </a>
+    }
+  </div>
+</div>

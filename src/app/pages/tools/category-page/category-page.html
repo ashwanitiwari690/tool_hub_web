@@ -1,0 +1,17 @@
+@if (category) {
+  <div class="container page">
+    <app-breadcrumb [items]="breadcrumbItems" />
+    <h1>{{ category.name }}</h1>
+    <p class="page-desc">{{ category.description }}</p>
+
+    @if (tools.length) {
+      <div class="tool-grid">
+        @for (tool of tools; track tool.slug) {
+          <app-tool-card [tool]="tool" />
+        }
+      </div>
+    } @else {
+      <app-empty-state title="More tools coming soon" message="We're actively adding tools to this category." />
+    }
+  </div>
+}

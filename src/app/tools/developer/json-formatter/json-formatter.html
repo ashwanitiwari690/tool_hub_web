@@ -1,0 +1,61 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="JSON Formatter"
+  description="Format and beautify JSON directly in your browser."
+>
+  <div class="workspace card">
+    <h2>Input</h2>
+    <textarea
+      class="code-input"
+      rows="10"
+      placeholder='{"example": "Paste your JSON here"}'
+      [ngModel]="input()"
+      (ngModelChange)="input.set($event)"
+    ></textarea>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" (click)="format()">Format</button>
+      <button type="button" class="btn btn-secondary" (click)="minify()">Minify</button>
+      <button type="button" class="btn btn-secondary" (click)="validate()">Validate</button>
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  <app-error-message [message]="error()" />
+
+  @if (output()) {
+    <app-result-panel heading="Result">
+      <pre class="code-output">{{ output() }}</pre>
+      <div actions>
+        <app-copy-button [text]="output()" />
+        <app-download-button [content]="output()" fileName="formatted.json" mimeType="application/json" />
+      </div>
+    </app-result-panel>
+  }
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is JSON Formatter?">
+    <p>
+      JSON Formatter takes minified or messy JSON and re-prints it with clean indentation, making
+      it easy to read and debug. It can also minify and validate JSON.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How to use JSON Formatter">
+    <ol>
+      <li>Paste your JSON into the input box.</li>
+      <li>Click Format to beautify, Minify to compress, or Validate to check syntax.</li>
+      <li>Copy or download the result.</li>
+    </ol>
+  </app-info-section>
+
+  <app-info-section heading="Example">
+    <p>Input:</p>
+    <pre>{{ '{"name":"ToolNova","free":true}' }}</pre>
+    <p>Formatted output:</p>
+    <pre>{{ '{\n  "name": "ToolNova",\n  "free": true\n}' }}</pre>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

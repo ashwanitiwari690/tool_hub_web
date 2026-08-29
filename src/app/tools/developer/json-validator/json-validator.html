@@ -1,0 +1,46 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="JSON Validator"
+  description="Validate JSON syntax and find errors instantly in your browser."
+>
+  <div class="workspace card">
+    <textarea
+      class="code-input"
+      rows="10"
+      placeholder='{"example": "Paste your JSON here"}'
+      [ngModel]="input()"
+      (ngModelChange)="input.set($event)"
+    ></textarea>
+    <div class="actions">
+      <button type="button" class="btn btn-primary" (click)="validate()">Validate</button>
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  @if (status() === 'valid') {
+    <p class="status status-valid">✓ Valid JSON</p>
+  } @else if (status() === 'invalid') {
+    <p class="status status-invalid">✗ Invalid JSON — {{ errorMessage() }}</p>
+  }
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is JSON Validator?">
+    <p>
+      JSON Validator checks whether a block of text is syntactically valid JSON and reports the
+      specific error when it isn't, so you can fix malformed API responses or config files quickly.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Common JSON errors">
+    <ul>
+      <li>Trailing commas after the last item in an object or array</li>
+      <li>Using single quotes instead of double quotes for strings and keys</li>
+      <li>Unquoted object keys</li>
+      <li>Unescaped special characters inside strings</li>
+    </ul>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

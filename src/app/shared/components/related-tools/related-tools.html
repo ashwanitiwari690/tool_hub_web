@@ -1,0 +1,10 @@
+@if (tools().length) {
+  <section class="related-tools" aria-labelledby="related-heading">
+    <h2 id="related-heading">{{ heading() }}</h2>
+    <div class="related-grid">
+      @for (tool of tools(); track tool.slug) {
+        <app-tool-card [tool]="tool" />
+      }
+    </div>
+  </section>
+}

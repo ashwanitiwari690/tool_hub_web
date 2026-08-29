@@ -1,0 +1,14 @@
+.related-tools {
+  margin-block: 32px;
+
+  h2 {
+    font-size: 1.375rem;
+    margin-bottom: 16px;
+  }
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}

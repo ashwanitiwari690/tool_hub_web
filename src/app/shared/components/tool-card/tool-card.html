@@ -1,0 +1,18 @@
+<a class="tool-card card" [routerLink]="tool().route">
+  <div class="tool-card-top">
+    <span class="tool-icon"><app-tool-icon [name]="tool().icon" /></span>
+    <button
+      type="button"
+      class="favorite-btn"
+      [class.active]="favorites.isFavorite(tool().slug)"
+      (click)="toggleFavorite($event)"
+      [attr.aria-pressed]="favorites.isFavorite(tool().slug)"
+      [attr.aria-label]="favorites.isFavorite(tool().slug) ? 'Remove from favorites' : 'Add to favorites'"
+    >
+      {{ favorites.isFavorite(tool().slug) ? '♥' : '♡' }}
+    </button>
+  </div>
+  <h3>{{ tool().name }}</h3>
+  <p>{{ tool().description }}</p>
+  <span class="tool-category">{{ tool().category }}</span>
+</a>

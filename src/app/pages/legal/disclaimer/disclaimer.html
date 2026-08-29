@@ -1,0 +1,33 @@
+<div class="container static-page">
+  <app-breadcrumb [items]="breadcrumbItems" />
+  <h1>Disclaimer</h1>
+  <p class="updated">
+    Draft placeholder — intended for legal review before this site goes live. Last updated: 2026-08-29.
+  </p>
+
+  <h2>General information only</h2>
+  <p>
+    Tools and content on {{ siteConfig.name }} are provided for general informational and
+    productivity purposes only. They are not a substitute for professional financial, legal,
+    medical, or tax advice.
+  </p>
+
+  <h2>Financial and health calculators</h2>
+  <p>
+    Calculators such as the EMI, GST, Loan, and BMI calculators produce estimates based on the
+    numbers you enter. Actual results from a bank, lender, or medical professional may differ. Do
+    not make financial or health decisions based solely on these estimates.
+  </p>
+
+  <h2>Accuracy of tools</h2>
+  <p>
+    While we aim for accuracy in every tool, we do not guarantee that results are error-free.
+    Please verify important results independently before relying on them.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about this disclaimer can be sent to
+    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a>.
+  </p>
+</div>

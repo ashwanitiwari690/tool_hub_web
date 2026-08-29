@@ -1,0 +1,65 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="Word Counter"
+  description="Count words, characters, sentences and paragraphs instantly in your browser."
+>
+  <div class="workspace card">
+    <textarea
+      class="text-input"
+      rows="10"
+      placeholder="Type or paste your text here..."
+      [ngModel]="text()"
+      (ngModelChange)="text.set($event)"
+    ></textarea>
+    <div class="actions">
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat card">
+      <span class="stat-value">{{ words() }}</span>
+      <span class="stat-label">Words</span>
+    </div>
+    <div class="stat card">
+      <span class="stat-value">{{ characters() }}</span>
+      <span class="stat-label">Characters</span>
+    </div>
+    <div class="stat card">
+      <span class="stat-value">{{ charactersNoSpaces() }}</span>
+      <span class="stat-label">Characters (no spaces)</span>
+    </div>
+    <div class="stat card">
+      <span class="stat-value">{{ sentences() }}</span>
+      <span class="stat-label">Sentences</span>
+    </div>
+    <div class="stat card">
+      <span class="stat-value">{{ paragraphs() }}</span>
+      <span class="stat-label">Paragraphs</span>
+    </div>
+    <div class="stat card">
+      <span class="stat-value">{{ readingTimeMinutes() }} min</span>
+      <span class="stat-label">Reading time</span>
+    </div>
+  </div>
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is Word Counter?">
+    <p>
+      Word Counter analyzes your text in real time and reports the number of words, characters,
+      sentences and paragraphs — useful for essays, social posts, meta descriptions and more.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How to use Word Counter">
+    <ol>
+      <li>Type or paste your text into the box above.</li>
+      <li>Counts update automatically as you type.</li>
+      <li>Use Reset to clear the text and start over.</li>
+    </ol>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

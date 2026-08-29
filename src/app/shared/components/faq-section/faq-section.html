@@ -1,0 +1,11 @@
+<section class="faq" aria-labelledby="faq-heading">
+  <h2 id="faq-heading">{{ heading() }}</h2>
+  <div class="faq-list">
+    @for (item of items(); track item.question) {
+      <details class="faq-item">
+        <summary>{{ item.question }}</summary>
+        <p>{{ item.answer }}</p>
+      </details>
+    }
+  </div>
+</section>

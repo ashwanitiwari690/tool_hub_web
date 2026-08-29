@@ -1,0 +1,74 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="Percentage Calculator"
+  description="Calculate percentages, increases and decreases quickly."
+>
+  <div class="workspace card">
+    <div class="type-tabs">
+      <button type="button" class="tab" [class.active]="mode() === 'of'" (click)="setMode('of')">
+        % of a number
+      </button>
+      <button
+        type="button"
+        class="tab"
+        [class.active]="mode() === 'isWhatPercent'"
+        (click)="setMode('isWhatPercent')"
+      >
+        X is what % of Y
+      </button>
+      <button type="button" class="tab" [class.active]="mode() === 'change'" (click)="setMode('change')">
+        Percentage change
+      </button>
+    </div>
+
+    @if (mode() === 'of') {
+      <div class="input-row">
+        <input type="number" placeholder="Percentage" [ngModel]="a()" (ngModelChange)="a.set($event)" />
+        <span>% of</span>
+        <input type="number" placeholder="Number" [ngModel]="b()" (ngModelChange)="b.set($event)" />
+      </div>
+    } @else if (mode() === 'isWhatPercent') {
+      <div class="input-row">
+        <input type="number" placeholder="X" [ngModel]="a()" (ngModelChange)="a.set($event)" />
+        <span>is what % of</span>
+        <input type="number" placeholder="Y" [ngModel]="b()" (ngModelChange)="b.set($event)" />
+      </div>
+    } @else {
+      <div class="input-row">
+        <input type="number" placeholder="Original value" [ngModel]="a()" (ngModelChange)="a.set($event)" />
+        <span>→</span>
+        <input type="number" placeholder="New value" [ngModel]="b()" (ngModelChange)="b.set($event)" />
+      </div>
+    }
+
+    <div class="actions">
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  @if (result() !== null) {
+    <div class="result card">
+      <span class="result-label">Result</span>
+      <span class="result-value">{{ result() }}</span>
+    </div>
+  }
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is Percentage Calculator?">
+    <p>
+      Percentage Calculator covers the three most common percentage questions: finding a
+      percentage of a number, finding what percentage one number is of another, and calculating
+      the percentage change between two values.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Formula">
+    <p><strong>% of a number:</strong> (percentage ÷ 100) × number</p>
+    <p><strong>X is what % of Y:</strong> (X ÷ Y) × 100</p>
+    <p><strong>Percentage change:</strong> ((new − original) ÷ |original|) × 100</p>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

@@ -1,0 +1,38 @@
+<div class="container static-page">
+  <app-breadcrumb [items]="breadcrumbItems" />
+  <h1>About {{ siteConfig.name }}</h1>
+
+  <p>
+    {{ siteConfig.name }} is a free online tools hub. It brings together everyday utilities —
+    text tools, developer tools, image tools, calculators, PDF tools, QR tools and converters —
+    in one simple, fast website.
+  </p>
+
+  <h2>Why we built this</h2>
+  <p>
+    Many small tasks — formatting JSON, resizing an image, calculating a percentage — shouldn't
+    require installing software or digging through cluttered websites. {{ siteConfig.name }} exists
+    to make these everyday tasks quick and straightforward.
+  </p>
+
+  <h2>How the tools work</h2>
+  <p>
+    Wherever technically possible, tools run directly in your browser using standard web
+    technologies, rather than uploading your data to a server. Each tool page explains exactly how
+    that tool processes your data.
+  </p>
+
+  <h2>Our focus</h2>
+  <ul>
+    <li>Useful, genuinely functional tools</li>
+    <li>A simple, uncluttered interface</li>
+    <li>Fast performance on desktop and mobile</li>
+    <li>No unnecessary accounts or sign-ups</li>
+  </ul>
+
+  <h2>Get in touch</h2>
+  <p>
+    Have feedback or a tool suggestion? Visit our <a routerLink="/contact">Contact page</a> to
+    reach out.
+  </p>
+</div>
