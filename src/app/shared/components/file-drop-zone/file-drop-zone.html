@@ -1,0 +1,21 @@
+<div
+  class="drop-zone"
+  [class.dragging]="isDragging()"
+  role="button"
+  tabindex="0"
+  (click)="openPicker()"
+  (keydown.enter)="openPicker()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
+>
+  <input
+    #fileInput
+    type="file"
+    class="visually-hidden"
+    [accept]="accept()"
+    [multiple]="multiple()"
+    (change)="onFileChange($event)"
+  />
+  <p>{{ hint() }}</p>
+</div>

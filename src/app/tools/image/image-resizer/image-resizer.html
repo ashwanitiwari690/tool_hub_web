@@ -1,0 +1,84 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="Image Resizer"
+  description="Resize images to exact dimensions in your browser."
+>
+  @if (!originalUrl()) {
+    <app-file-drop-zone
+      accept="image/*"
+      hint="Drag & drop an image here, or click to browse"
+      (filesSelected)="onFilesSelected($event)"
+    />
+  }
+
+  <app-error-message [message]="error()" />
+
+  @if (processing()) {
+    <app-loading-state label="Processing image..." />
+  }
+
+  @if (originalUrl() && !processing()) {
+    <div class="controls card">
+      <p class="original-dims">Original: {{ originalWidth() }} × {{ originalHeight() }} px</p>
+      <div class="control-row">
+        <label for="width">Width (px)</label>
+        <input
+          id="width"
+          type="number"
+          min="1"
+          [ngModel]="targetWidth()"
+          (ngModelChange)="onWidthChange($event)"
+        />
+      </div>
+      <div class="control-row">
+        <label for="height">Height (px)</label>
+        <input
+          id="height"
+          type="number"
+          min="1"
+          [ngModel]="targetHeight()"
+          (ngModelChange)="onHeightChange($event)"
+        />
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" [ngModel]="lockAspectRatio()" (ngModelChange)="lockAspectRatio.set($event)" />
+        Lock aspect ratio
+      </label>
+      <button type="button" class="btn btn-primary" (click)="resize()">Resize</button>
+    </div>
+
+    @if (resultUrl()) {
+      <div class="preview card">
+        <img [src]="resultUrl()" alt="Resized image preview" />
+        <p class="size">{{ targetWidth() }} × {{ targetHeight() }} px</p>
+      </div>
+    }
+
+    <div class="actions">
+      <button type="button" class="btn btn-secondary" (click)="download()" [disabled]="!resultUrl()">
+        Download
+      </button>
+      <app-reset-button (reset)="reset()" />
+    </div>
+  }
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is Image Resizer?">
+    <p>
+      Image Resizer changes the pixel dimensions of an image directly in your browser, which is
+      useful for meeting upload size limits or preparing images for a specific layout.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How to use Image Resizer">
+    <ol>
+      <li>Upload an image.</li>
+      <li>Enter a new width or height — the other dimension adjusts automatically if aspect ratio is locked.</li>
+      <li>Click Resize, then download the result.</li>
+    </ol>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

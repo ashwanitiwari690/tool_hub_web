@@ -1,0 +1,50 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a routerLink="/" class="brand" (click)="closeMobileMenu()">{{ siteName }}</a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <a routerLink="/tools" routerLinkActive="active">Tools</a>
+      <a routerLink="/guides" routerLinkActive="active">Guides</a>
+      <a routerLink="/about" routerLinkActive="active">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <button
+        type="button"
+        class="icon-btn"
+        (click)="searchOverlay.open()"
+        aria-label="Search tools"
+        title="Search (Ctrl+K)"
+      >
+        🔍
+      </button>
+      <button
+        type="button"
+        class="icon-btn"
+        (click)="cycleTheme()"
+        [attr.aria-label]="'Theme: ' + theme.mode()"
+        [title]="'Theme: ' + theme.mode()"
+      >
+        {{ modeIcon[theme.mode()] }}
+      </button>
+      <button
+        type="button"
+        class="icon-btn menu-toggle"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="mobileMenuOpen()"
+        aria-label="Toggle menu"
+      >
+        ☰
+      </button>
+    </div>
+  </div>
+
+  @if (mobileMenuOpen()) {
+    <nav class="nav-mobile" aria-label="Mobile">
+      <a routerLink="/tools" (click)="closeMobileMenu()">Tools</a>
+      <a routerLink="/guides" (click)="closeMobileMenu()">Guides</a>
+      <a routerLink="/about" (click)="closeMobileMenu()">About</a>
+      <a routerLink="/contact" (click)="closeMobileMenu()">Contact</a>
+    </nav>
+  }
+</header>

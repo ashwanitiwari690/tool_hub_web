@@ -1,0 +1,58 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="Unit Converter"
+  description="Convert length, weight, temperature, speed, time, data and more."
+>
+  <div class="workspace card">
+    <label for="category">Category</label>
+    <select id="category" [ngModel]="categoryId()" (ngModelChange)="onCategoryChange($event)">
+      @for (category of categories; track category.id) {
+        <option [value]="category.id">{{ category.label }}</option>
+      }
+    </select>
+
+    <div class="convert-row">
+      <div class="field">
+        <label for="from-unit">From</label>
+        <select id="from-unit" [ngModel]="fromUnit()" (ngModelChange)="fromUnit.set($event)">
+          @for (unit of currentUnits(); track unit.id) {
+            <option [value]="unit.id">{{ unit.label }}</option>
+          }
+        </select>
+        <input
+          type="number"
+          [ngModel]="inputValue()"
+          (ngModelChange)="inputValue.set($event)"
+        />
+      </div>
+
+      <button type="button" class="swap-btn" (click)="swap()" aria-label="Swap units">⇄</button>
+
+      <div class="field">
+        <label for="to-unit">To</label>
+        <select id="to-unit" [ngModel]="toUnit()" (ngModelChange)="toUnit.set($event)">
+          @for (unit of currentUnits(); track unit.id) {
+            <option [value]="unit.id">{{ unit.label }}</option>
+          }
+        </select>
+        <input type="text" class="result-input" [value]="result() ?? ''" readonly />
+      </div>
+    </div>
+
+    <div class="actions">
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is Unit Converter?">
+    <p>
+      Unit Converter converts values across length, weight, temperature, speed, time, data
+      storage, area and volume — all calculated instantly in your browser.
+    </p>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

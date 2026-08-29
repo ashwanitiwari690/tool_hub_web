@@ -1,0 +1,54 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="Age Calculator"
+  description="Calculate your exact age in years, months and days."
+>
+  <div class="workspace card">
+    <label for="dob">Date of birth</label>
+    <input
+      id="dob"
+      type="date"
+      [max]="today"
+      [ngModel]="birthDate()"
+      (ngModelChange)="birthDate.set($event)"
+    />
+    <div class="actions">
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  <app-error-message [message]="error()" />
+
+  @if (age(); as result) {
+    <div class="result-grid">
+      <div class="stat card">
+        <span class="stat-value">{{ result.years }}</span>
+        <span class="stat-label">Years</span>
+      </div>
+      <div class="stat card">
+        <span class="stat-value">{{ result.months }}</span>
+        <span class="stat-label">Months</span>
+      </div>
+      <div class="stat card">
+        <span class="stat-value">{{ result.days }}</span>
+        <span class="stat-label">Days</span>
+      </div>
+      <div class="stat card">
+        <span class="stat-value">{{ result.totalDays }}</span>
+        <span class="stat-label">Total days lived</span>
+      </div>
+    </div>
+  }
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is Age Calculator?">
+    <p>
+      Age Calculator finds the exact difference between your date of birth and today, expressed
+      in years, months and days, plus the total number of days you have been alive.
+    </p>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

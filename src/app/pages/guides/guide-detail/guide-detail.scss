@@ -1,0 +1,33 @@
+.page {
+  padding-block: 28px 60px;
+  max-width: 780px;
+}
+
+.updated {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.intro {
+  font-size: 1rem;
+  margin-bottom: 28px;
+}
+
+.steps {
+  padding-left: 1.2em;
+  margin-bottom: 12px;
+
+  li {
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 4px;
+  }
+
+  p {
+    margin: 0;
+  }
+}

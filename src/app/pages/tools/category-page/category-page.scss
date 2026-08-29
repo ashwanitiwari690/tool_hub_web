@@ -1,0 +1,26 @@
+.page {
+  padding-block: 28px 60px;
+}
+
+.page-desc {
+  margin-bottom: 28px;
+  max-width: 640px;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .tool-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .tool-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

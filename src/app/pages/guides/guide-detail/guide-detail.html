@@ -1,0 +1,25 @@
+@if (guide) {
+  <article class="container page">
+    <app-breadcrumb [items]="breadcrumbItems" />
+    <h1>{{ guide.title }}</h1>
+    <p class="updated">Updated {{ guide.updatedDate }}</p>
+    <p class="intro">{{ guide.introduction }}</p>
+
+    <ol class="steps">
+      @for (step of guide.steps; track step.title) {
+        <li>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.detail }}</p>
+        </li>
+      }
+    </ol>
+
+    <app-faq-section [items]="guide.faq" />
+    <app-related-tools [tools]="relatedTools" />
+  </article>
+} @else {
+  <div class="container page">
+    <h1>Guide not found</h1>
+    <p>The guide you're looking for doesn't exist.</p>
+  </div>
+}

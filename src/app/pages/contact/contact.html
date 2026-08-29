@@ -1,0 +1,11 @@
+<div class="container static-page">
+  <app-breadcrumb [items]="breadcrumbItems" />
+  <h1>Contact</h1>
+  <p>
+    {{ siteConfig.name }} doesn't run a backend, so there's no contact form here. If you have a
+    question, found a bug, or want to suggest a tool, email us directly:
+  </p>
+  <p>
+    <a class="btn btn-primary" [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a>
+  </p>
+</div>

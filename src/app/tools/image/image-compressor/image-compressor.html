@@ -1,0 +1,92 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="Image Compressor"
+  description="Compress images in your browser without uploading them anywhere."
+>
+  @if (!originalUrl()) {
+    <app-file-drop-zone
+      accept="image/*"
+      hint="Drag & drop an image here, or click to browse (JPG, PNG, WebP)"
+      (filesSelected)="onFilesSelected($event)"
+    />
+  }
+
+  <app-error-message [message]="error()" />
+
+  @if (processing()) {
+    <app-loading-state label="Processing image..." />
+  }
+
+  @if (originalUrl() && !processing()) {
+    <div class="controls card">
+      <div class="control-row">
+        <label for="quality">Quality: {{ quality() | number: '1.0-2' }}</label>
+        <input
+          id="quality"
+          type="range"
+          min="0.1"
+          max="1"
+          step="0.05"
+          [ngModel]="quality()"
+          (ngModelChange)="quality.set($event); compress()"
+        />
+      </div>
+      <div class="control-row">
+        <label for="format">Output format</label>
+        <select id="format" [ngModel]="format()" (ngModelChange)="format.set($event); compress()">
+          <option value="image/jpeg">JPEG</option>
+          <option value="image/webp">WebP</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="preview-grid">
+      <div class="preview card">
+        <h3>Original</h3>
+        <img [src]="originalUrl()" alt="Original image preview" />
+        <p class="size">{{ (originalSize() / 1024) | number: '1.0-1' }} KB</p>
+      </div>
+      <div class="preview card">
+        <h3>Compressed</h3>
+        @if (resultUrl()) {
+          <img [src]="resultUrl()" alt="Compressed image preview" />
+          <p class="size">
+            {{ (resultSize() / 1024) | number: '1.0-1' }} KB
+            @if (reductionPercent() > 0) {
+              <span class="badge">-{{ reductionPercent() }}%</span>
+            }
+          </p>
+        }
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary" (click)="download()" [disabled]="!resultUrl()">
+        Download
+      </button>
+      <app-reset-button (reset)="reset()" />
+    </div>
+  }
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is Image Compressor?">
+    <p>
+      Image Compressor reduces the file size of your images directly in your browser using the
+      Canvas API, so you can share or upload smaller files without sending your original image to
+      a server.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How to use Image Compressor">
+    <ol>
+      <li>Drag and drop an image, or click to browse.</li>
+      <li>Adjust the quality slider to balance file size and visual quality.</li>
+      <li>Choose JPEG or WebP as the output format.</li>
+      <li>Download the compressed image.</li>
+    </ol>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

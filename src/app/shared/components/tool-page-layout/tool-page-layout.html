@@ -1,0 +1,8 @@
+<article class="tool-page container">
+  <app-breadcrumb [items]="breadcrumbItems()" />
+  <header class="tool-page-header">
+    <h1>{{ title() }}</h1>
+    <p>{{ description() }}</p>
+  </header>
+  <ng-content />
+</article>

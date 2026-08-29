@@ -1,0 +1,18 @@
+<div class="container page">
+  <app-breadcrumb [items]="breadcrumbItems" />
+  <h1>All Tools</h1>
+  <p class="page-desc">Browse every free tool on ToolNova, organized by category.</p>
+
+  <div class="category-grid">
+    @for (category of categories; track category.slug) {
+      <app-category-card [category]="category" />
+    }
+  </div>
+
+  <h2>Every Tool</h2>
+  <div class="tool-grid">
+    @for (tool of tools; track tool.slug) {
+      <app-tool-card [tool]="tool" />
+    }
+  </div>
+</div>

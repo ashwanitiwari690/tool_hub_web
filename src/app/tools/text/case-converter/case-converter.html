@@ -1,0 +1,48 @@
+<app-tool-page-layout
+  [breadcrumbItems]="breadcrumbItems"
+  title="Case Converter"
+  description="Convert text to uppercase, lowercase, title case, camelCase and more."
+>
+  <div class="workspace card">
+    <textarea
+      class="text-input"
+      rows="8"
+      placeholder="Type or paste your text here..."
+      [ngModel]="text()"
+      (ngModelChange)="text.set($event)"
+    ></textarea>
+    <div class="actions">
+      @for (c of cases; track c.type) {
+        <button type="button" class="btn btn-secondary" (click)="convert(c.type)">{{ c.label }}</button>
+      }
+      <app-reset-button (reset)="reset()" />
+    </div>
+  </div>
+
+  <app-result-panel heading="Result">
+    <p class="result-text">{{ result() || 'Your converted text will appear here.' }}</p>
+    <div actions>
+      <app-copy-button [text]="result()" />
+    </div>
+  </app-result-panel>
+
+  <app-ad-slot size="banner" />
+
+  <app-info-section heading="What is Case Converter?">
+    <p>
+      Case Converter transforms text between common casing styles — useful for writing headlines,
+      formatting variable names, or cleaning up pasted text.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How to use Case Converter">
+    <ol>
+      <li>Paste or type your text into the box above.</li>
+      <li>Click the casing style you want.</li>
+      <li>Copy the converted result.</li>
+    </ol>
+  </app-info-section>
+
+  <app-faq-section [items]="faqItems" />
+  <app-related-tools [tools]="relatedTools" />
+</app-tool-page-layout>

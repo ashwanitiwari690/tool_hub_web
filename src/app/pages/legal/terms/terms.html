@@ -1,0 +1,47 @@
+<div class="container static-page">
+  <app-breadcrumb [items]="breadcrumbItems" />
+  <h1>Terms of Service</h1>
+  <p class="updated">
+    Draft placeholder — intended for legal review before this site goes live. Last updated: 2026-08-29.
+  </p>
+
+  <h2>Acceptance of terms</h2>
+  <p>
+    By using {{ siteConfig.name }}, you agree to these terms. If you do not agree, please do not
+    use the website.
+  </p>
+
+  <h2>Use of tools</h2>
+  <p>
+    Tools are provided "as is" for free, general-purpose use. You are responsible for verifying
+    that any output (calculations, conversions, formatted data, generated files) is accurate and
+    suitable for your purpose before relying on it.
+  </p>
+
+  <h2>No warranty</h2>
+  <p>
+    We make reasonable efforts to keep tools accurate and available, but we do not guarantee that
+    the website will be error-free, uninterrupted, or fit for a particular purpose.
+  </p>
+
+  <h2>Limitation of liability</h2>
+  <p>
+    {{ siteConfig.name }} is not liable for any loss or damage arising from the use of, or
+    inability to use, the tools on this website.
+  </p>
+
+  <h2>Acceptable use</h2>
+  <ul>
+    <li>Do not attempt to disrupt or overload the website.</li>
+    <li>Do not use the tools for unlawful purposes.</li>
+  </ul>
+
+  <h2>Changes to these terms</h2>
+  <p>We may update these terms from time to time. Continued use of the website after changes means you accept the updated terms.</p>
+
+  <h2>Contact</h2>
+  <p>
+    Questions about these terms can be sent to
+    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a>.
+  </p>
+</div>
