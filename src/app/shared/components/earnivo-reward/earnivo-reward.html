@@ -1,0 +1,73 @@
+@if (reward.visible()) {
+  <aside class="earnivo-card" role="status" aria-live="polite">
+    <button type="button" class="earnivo-close" (click)="reward.dismiss()" aria-label="Hide reward panel">&times;</button>
+
+    <div class="earnivo-head">
+      <span class="earnivo-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 12v10H4V12" />
+          <path d="M2 7h20v5H2z" />
+          <path d="M12 22V7" />
+          <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+          <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+        </svg>
+      </span>
+      <div class="earnivo-title">
+        <strong>Earnivo reward</strong>
+        @if (reward.campaignName(); as name) {
+          <small>{{ name }}</small>
+        }
+      </div>
+    </div>
+
+    @switch (reward.state()) {
+      @case ('loading') {
+        <p class="earnivo-body">Checking your reward…</p>
+      }
+      @case ('waiting') {
+        <p class="earnivo-body">
+          Keep exploring for <strong>{{ formattedRemaining() }}</strong> to unlock
+          @if (reward.rewardAmount(); as amount) {
+            <strong>₹{{ amount }}</strong>
+          } @else {
+            your reward
+          }.
+        </p>
+        <div class="earnivo-progress" role="presentation"><span [style.width.%]="progressPercent()"></span></div>
+      }
+      @case ('ready') {
+        <p class="earnivo-body">
+          Your visit is verified. Claim
+          @if (reward.rewardAmount(); as amount) {
+            <strong>₹{{ amount }}</strong>
+          } @else {
+            your reward
+          }
+          straight to your Earnivo wallet.
+        </p>
+        <button type="button" class="earnivo-claim" (click)="reward.claim()">Claim reward</button>
+      }
+      @case ('claiming') {
+        <p class="earnivo-body">Crediting your wallet…</p>
+        <button type="button" class="earnivo-claim" disabled>Please wait…</button>
+      }
+      @case ('claimed') {
+        <p class="earnivo-body earnivo-success">
+          @if (reward.rewardAmount(); as amount) {
+            ₹{{ amount }} credited to your Earnivo wallet.
+          } @else {
+            Reward credited to your Earnivo wallet.
+          }
+          You can head back to the app.
+        </p>
+      }
+      @case ('error') {
+        <p class="earnivo-body earnivo-error">{{ reward.errorMessage() }}</p>
+      }
+    }
+
+    @if (reward.errorMessage() && reward.state() !== 'error') {
+      <p class="earnivo-body earnivo-error">{{ reward.errorMessage() }}</p>
+    }
+  </aside>
+}

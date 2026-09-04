@@ -159,3 +159,28 @@ Screen" across all platforms. No service worker / offline caching is included ye
   `tools.data.ts` — the registry is the single source of truth.
 - **Dependency conflicts**: inspect the actual conflicting packages before reaching for
   `--force` or `--legacy-peer-deps`; this project intentionally avoids both.
+
+
+## Earnivo visit rewards
+
+Visitors sent here by an Earnivo **Website Promotion** campaign arrive with a one-time token in
+the URL (`?ev_token=...`). A floating panel (`app-earnivo-reward`, mounted in `app.html`) counts
+down the visit duration the advertiser configured, then offers a **Claim reward** button that
+credits the visitor's Earnivo wallet.
+
+To enable it, set both values in `src/app/core/config/earnivo.config.ts`:
+
+| Key | Where it comes from |
+| --- | --- |
+| `apiBaseUrl` | The Earnivo API origin, including `/api`. |
+| `apiKey` | Earnivo agent panel &rarr; the campaign &rarr; **Website Verification** &rarr; API Key. |
+
+Leaving `apiKey` blank disables the panel entirely, so the site is safe to deploy as-is when no
+campaign is running.
+
+How it works: the token is copied into `sessionStorage` and stripped from the address bar, so it
+survives navigation between pages without leaking into bookmarks or shared links. The panel then
+asks `POST /website-verification/session` how much longer the visit must last, and the claim
+button calls `POST /website-verification/confirm`. The countdown here is presentation only -
+Earnivo independently re-checks how long the visit actually lasted before it credits anything, so
+a tampered client earns nothing.
