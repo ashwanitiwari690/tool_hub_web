@@ -1,13 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { getToolBySlug, getRelatedTools } from '../../../core/data/tools.data';
-import { RecentToolsService } from '../../../core/services/recent-tools.service';
-import { SeoService } from '../../../core/services/seo.service';
-import {
-  buildBreadcrumbSchema,
-  buildFaqSchema,
-  buildSoftwareAppSchema,
-} from '../../../core/services/structured-data.util';
+import { ToolPageSeoService } from '../../../core/services/tool-page-seo.service';
 import { ToolPageLayout } from '../../../shared/components/tool-page-layout/tool-page-layout';
 import { InfoSection } from '../../../shared/components/info-section/info-section';
 import { FaqSection } from '../../../shared/components/faq-section/faq-section';
@@ -65,21 +59,10 @@ export class PercentageCalculator implements OnInit {
     },
   ];
 
-  private readonly seo = inject(SeoService);
-  private readonly recentTools = inject(RecentToolsService);
+  private readonly toolPageSeo = inject(ToolPageSeoService);
 
   ngOnInit(): void {
-    this.recentTools.record(this.tool.slug);
-    this.seo.update({
-      title: this.tool.name,
-      description: this.tool.description,
-      path: this.tool.route,
-    });
-    this.seo.setStructuredData([
-      buildBreadcrumbSchema(this.breadcrumbItems),
-      buildFaqSchema(this.faqItems),
-      buildSoftwareAppSchema(this.tool),
-    ]);
+    this.toolPageSeo.init(this.tool, this.breadcrumbItems, this.faqItems);
   }
 
   setMode(mode: Mode): void {

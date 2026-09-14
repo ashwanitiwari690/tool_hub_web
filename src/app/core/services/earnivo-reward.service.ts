@@ -1,6 +1,8 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
-import { EARNIVO_CONFIG } from '../config/earnivo.config';
+import { environment } from '../../../environments/environment';
+
+const EARNIVO_CONFIG = environment.earnivo;
 
 // The query parameter Earnivo appends to this site's URL when it sends a
 // visitor here from a Website Promotion campaign. Must match

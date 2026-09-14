@@ -2,12 +2,12 @@ import { SITE_CONFIG } from '../config/site.config';
 import { ToolDefinition } from '../models/tool.model';
 import { GuideDefinition } from '../models/guide.model';
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   label: string;
   route?: string;
 }
 
-interface FaqItem {
+export interface FaqItem {
   question: string;
   answer: string;
 }
