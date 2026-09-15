@@ -81,8 +81,16 @@ export class EarnivoRewardService {
 
   readonly visible = computed(() => this.state() !== 'inactive');
 
+  private readonly pageActive = signal(this.isPageActive());
+  // True while a countdown exists but is stalled because the visitor has
+  // switched to another app or tab — Earnivo only credits time the visitor
+  // actually spent looking at the page, so a backgrounded tab shouldn't keep
+  // ticking down toward a reward it isn't earning.
+  readonly paused = computed(() => this.state() === 'waiting' && !this.pageActive());
+
   private token: string | null = null;
   private countdown?: ReturnType<typeof setInterval>;
+  private listenersBound = false;
 
   /**
    * Called once from the reward widget when it mounts. Safe to call on the
@@ -91,7 +99,22 @@ export class EarnivoRewardService {
    */
   init(): void {
     if (!this.isBrowser || this.state() !== 'inactive') return;
-    if (!EARNIVO_CONFIG.apiKey) return; // Not an Earnivo-enabled deployment.
+
+    if (!EARNIVO_CONFIG.apiKey) {
+      // Distinguishes "no campaign running" (silent, expected) from "a real
+      // Earnivo visit link arrived but this deployment's EARNIVO_API_KEY /
+      // EARNIVO_API_BASE_URL were never set" (a misconfiguration that would
+      // otherwise silently swallow every redirected visitor with no widget,
+      // no error and no clue why — see scripts/set-env.mjs).
+      if (new URL(this.document.location.href).searchParams.has(TOKEN_PARAM)) {
+        console.warn(
+          `[Earnivo] A visit link with a "${TOKEN_PARAM}" token arrived, but this deployment has no ` +
+            'EARNIVO_API_KEY configured (see .env.example) — the reward widget will not show. ' +
+            'Set EARNIVO_API_KEY and EARNIVO_API_BASE_URL in the deployment host and rebuild.',
+        );
+      }
+      return;
+    }
 
     this.token = this.readToken();
     if (!this.token) return;
@@ -103,6 +126,7 @@ export class EarnivoRewardService {
       return;
     }
 
+    this.bindVisibilityListeners();
     this.state.set('loading');
     void this.loadSession(this.token);
   }
@@ -155,28 +179,71 @@ export class EarnivoRewardService {
         return;
       }
       this.state.set('waiting');
-      this.startCountdown();
+      this.evaluateTimer();
     } catch (error) {
       this.errorMessage.set(this.messageFor(error));
       this.state.set('error');
     }
   }
 
-  private startCountdown(): void {
-    this.stopCountdown();
-    this.countdown = setInterval(() => {
-      const next = this.secondsRemaining() - 1;
-      this.secondsRemaining.set(Math.max(0, next));
-      if (next <= 0) {
-        this.stopCountdown();
-        this.state.set('ready');
-      }
-    }, 1000);
+  /**
+   * Starts or stops the countdown interval to match the current state and
+   * tab activity, without ever touching secondsRemaining itself. Called
+   * whenever either input changes: entering/leaving 'waiting', and every
+   * visibilitychange/focus/blur.
+   */
+  private evaluateTimer(): void {
+    const shouldRun = this.state() === 'waiting' && this.pageActive();
+
+    if (shouldRun && !this.countdown) {
+      this.countdown = setInterval(() => this.tick(), 1000);
+    } else if (!shouldRun && this.countdown) {
+      this.stopCountdown();
+    }
+  }
+
+  private tick(): void {
+    const next = this.secondsRemaining() - 1;
+    if (next <= 0) {
+      this.secondsRemaining.set(0);
+      this.stopCountdown();
+      this.state.set('ready');
+      return;
+    }
+    this.secondsRemaining.set(next);
   }
 
   private stopCountdown(): void {
     if (this.countdown) clearInterval(this.countdown);
     this.countdown = undefined;
+  }
+
+  private isPageActive(): boolean {
+    return this.isBrowser && this.document.visibilityState === 'visible' && this.document.hasFocus();
+  }
+
+  /**
+   * Bound once, the first time a token is found — so a deployment that never
+   * sees an Earnivo visitor never touches these listeners at all. Tracks
+   * both visibilitychange (tab switched away) and window focus/blur
+   * (switched to another app while this tab stays visible on some OSes),
+   * since either alone misses cases the other catches.
+   */
+  private bindVisibilityListeners(): void {
+    if (this.listenersBound || !this.isBrowser) return;
+    this.listenersBound = true;
+
+    const view = this.document.defaultView;
+    if (!view) return;
+
+    const handleActivityChange = () => {
+      this.pageActive.set(this.isPageActive());
+      this.evaluateTimer();
+    };
+
+    this.document.addEventListener('visibilitychange', handleActivityChange);
+    view.addEventListener('focus', handleActivityChange);
+    view.addEventListener('blur', handleActivityChange);
   }
 
   // --- Token plumbing ------------------------------------------------------
