@@ -29,11 +29,6 @@ yarn-error.log
 !.vscode/mcp.json
 .history/*
 
-# Environment files with real credentials — generated at build time by
-# scripts/set-env.mjs from environment variables, never hand-edited or
-# committed. src/environments/environment.ts (dev) has no real secrets and
-# stays tracked.
-/src/environments/environment.prod.ts
 
 # Miscellaneous
 /.angular/cache
