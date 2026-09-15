@@ -112,6 +112,11 @@
   color: var(--danger);
 }
 
+.earnivo-paused {
+  font-weight: 600;
+  color: var(--warning);
+}
+
 .earnivo-progress {
   height: 6px;
   border-radius: 999px;

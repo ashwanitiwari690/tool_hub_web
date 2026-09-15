@@ -34,6 +34,9 @@
           }.
         </p>
         <div class="earnivo-progress" role="presentation"><span [style.width.%]="progressPercent()"></span></div>
+        @if (reward.paused()) {
+          <p class="earnivo-body earnivo-paused">Paused — switch back to this tab to keep the timer running.</p>
+        }
       }
       @case ('ready') {
         <p class="earnivo-body">

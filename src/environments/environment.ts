@@ -7,8 +7,8 @@
 export const environment = {
   production: false,
   earnivo: {
-    // apiBaseUrl: 'https://api.admobility.in/api',
-    apiBaseUrl: ' http://localhost:4227/api',
+    apiBaseUrl: 'https://api.admobility.in/api',
+    // apiBaseUrl: 'http://localhost:4227/api',
     apiKey: 'ak_6375bbe8747ecf38999bda63fa7c0bae6270c510ae9bddaa',
   },
 } as const;
