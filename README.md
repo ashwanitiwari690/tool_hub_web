@@ -83,7 +83,22 @@ src/app/
   pages/      home, tools index/category pages, guides, about, contact, legal pages
   tools/      one folder per tool, grouped by category (text, developer, image, calculator,
               pdf, qr, converter)
+src/environments/
+  environment.ts       Development values (used by `ng serve` and non-production builds).
+                        Committed — must never hold real credentials.
+  environment.prod.ts  Production values. Gitignored and regenerated on every
+                        `npm run build` by `scripts/set-env.mjs` from environment variables
+                        (see `.env.example`), so real credentials never reach git.
 ```
+
+## Environment configuration
+
+This project keeps runtime configuration (currently just the Earnivo integration, see below) in
+`src/environments/environment.ts` / `environment.prod.ts` rather than hardcoded in source, and
+Angular's `fileReplacements` (`angular.json`) swaps the dev file for the prod one during
+`ng build`'s production configuration. Code should read config directly from `environment.<key>`,
+never by hardcoding a value that differs between dev and prod. Copy `.env.example` to see which
+variables production expects.
 
 ## Adding a new tool
 
@@ -159,3 +174,33 @@ Screen" across all platforms. No service worker / offline caching is included ye
   `tools.data.ts` — the registry is the single source of truth.
 - **Dependency conflicts**: inspect the actual conflicting packages before reaching for
   `--force` or `--legacy-peer-deps`; this project intentionally avoids both.
+
+
+## Earnivo visit rewards
+
+Visitors sent here by an Earnivo **Website Promotion** campaign arrive with a one-time token in
+the URL (`?ev_token=...`). A floating panel (`app-earnivo-reward`, mounted in `app.html`) counts
+down the visit duration the advertiser configured, then offers a **Claim reward** button that
+credits the visitor's Earnivo wallet.
+
+To enable it, set two environment variables in your deployment host's dashboard (e.g. Vercel
+&rarr; Project &rarr; Settings &rarr; Environment Variables) — see `.env.example`:
+
+| Variable | Where it comes from |
+| --- | --- |
+| `EARNIVO_API_BASE_URL` | The Earnivo API origin, including `/api`. |
+| `EARNIVO_API_KEY` | Earnivo agent panel &rarr; the campaign &rarr; **Website Verification** &rarr; API Key. |
+
+`npm run build` reads these via `scripts/set-env.mjs`, which generates
+`src/environments/environment.prod.ts` before compiling — real credentials never need to be
+committed to git (that file is gitignored). Leaving `EARNIVO_API_KEY` unset disables the panel
+entirely, so the site is safe to deploy as-is when no campaign is running. For local development,
+edit `src/environments/environment.ts` instead (used by `ng serve`); avoid committing a real key
+there.
+
+How it works: the token is copied into `sessionStorage` and stripped from the address bar, so it
+survives navigation between pages without leaking into bookmarks or shared links. The panel then
+asks `POST /website-verification/session` how much longer the visit must last, and the claim
+button calls `POST /website-verification/confirm`. The countdown here is presentation only -
+Earnivo independently re-checks how long the visit actually lasted before it credits anything, so
+a tampered client earns nothing.
