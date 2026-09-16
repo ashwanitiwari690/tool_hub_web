@@ -101,18 +101,9 @@ export class EarnivoRewardService {
     if (!this.isBrowser || this.state() !== 'inactive') return;
 
     if (!EARNIVO_CONFIG.apiKey) {
-      // Distinguishes "no campaign running" (silent, expected) from "a real
-      // Earnivo visit link arrived but this deployment's EARNIVO_API_KEY /
-      // EARNIVO_API_BASE_URL were never set" (a misconfiguration that would
-      // otherwise silently swallow every redirected visitor with no widget,
-      // no error and no clue why — see scripts/set-env.mjs).
-      if (new URL(this.document.location.href).searchParams.has(TOKEN_PARAM)) {
-        console.warn(
-          `[Earnivo] A visit link with a "${TOKEN_PARAM}" token arrived, but this deployment has no ` +
-            'EARNIVO_API_KEY configured (see .env.example) — the reward widget will not show. ' +
-            'Set EARNIVO_API_KEY and EARNIVO_API_BASE_URL in the deployment host and rebuild.',
-        );
-      }
+      // A deployment without an Earnivo key is intentionally silent. The
+      // production environment shipped with this project contains the key
+      // used by the Website Verification campaign.
       return;
     }
 

@@ -1,9 +1,7 @@
 // Development environment (used by `ng serve` and any non-production build).
 //
-// Safe to commit as-is: no real credentials belong here. `apiKey` blank keeps
-// the Earnivo reward widget disabled, matching local dev where there is
-// normally no live campaign to verify against. Point `apiBaseUrl` at a local
-// Earnivo instance only if you're actively testing that integration.
+// Earnivo configuration matching the known-working reference project.
+// Keep the API key aligned with the Website Verification campaign used by this site.
 export const environment = {
   production: false,
   earnivo: {

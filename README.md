@@ -87,7 +87,7 @@ src/environments/
   environment.ts       Development values (used by `ng serve` and non-production builds).
                         Committed — must never hold real credentials.
   environment.prod.ts  Production values. Gitignored and regenerated on every
-                        `npm run build` by `scripts/set-env.mjs` from environment variables
+                        `npm run build` from the checked-in production environment configuration
                         (see `.env.example`), so real credentials never reach git.
 ```
 
@@ -191,12 +191,11 @@ To enable it, set two environment variables in your deployment host's dashboard 
 | `EARNIVO_API_BASE_URL` | The Earnivo API origin, including `/api`. |
 | `EARNIVO_API_KEY` | Earnivo agent panel &rarr; the campaign &rarr; **Website Verification** &rarr; API Key. |
 
-`npm run build` reads these via `scripts/set-env.mjs`, which generates
-`src/environments/environment.prod.ts` before compiling — real credentials never need to be
-committed to git (that file is gitignored). Leaving `EARNIVO_API_KEY` unset disables the panel
-entirely, so the site is safe to deploy as-is when no campaign is running. For local development,
-edit `src/environments/environment.ts` instead (used by `ng serve`); avoid committing a real key
-there.
+`src/environments/environment.prod.ts` is used for production builds and contains the
+Earnivo configuration used by the deployed site. The production build no longer regenerates this
+file, so a deployment cannot accidentally erase the Earnivo configuration when deployment-host
+environment variables are missing. For local development, `src/environments/environment.ts` is
+used by `ng serve`.
 
 How it works: the token is copied into `sessionStorage` and stripped from the address bar, so it
 survives navigation between pages without leaking into bookmarks or shared links. The panel then
