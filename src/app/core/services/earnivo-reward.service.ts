@@ -81,6 +81,13 @@ export class EarnivoRewardService {
 
   readonly visible = computed(() => this.state() !== 'inactive');
 
+  // Dismiss button is hidden while the countdown timer is running (or verifying the session),
+  // and only becomes visible once the timer completes ('ready', 'claiming', 'claimed') or on 'error'.
+  readonly canDismiss = computed(() => {
+    const s = this.state();
+    return s !== 'waiting' && s !== 'loading' && s !== 'inactive';
+  });
+
   private readonly pageActive = signal(this.isPageActive());
   // True while a countdown exists but is stalled because the visitor has
   // switched to another app or tab — Earnivo only credits time the visitor
@@ -142,6 +149,7 @@ export class EarnivoRewardService {
   }
 
   dismiss(): void {
+    if (!this.canDismiss()) return;
     this.stopCountdown();
     this.state.set('inactive');
   }
