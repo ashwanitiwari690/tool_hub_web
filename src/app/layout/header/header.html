@@ -3,9 +3,11 @@
     <a routerLink="/" class="brand" (click)="closeMobileMenu()">{{ siteName }}</a>
 
     <nav class="nav-desktop" aria-label="Primary">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
       <a routerLink="/tools" routerLinkActive="active">Tools</a>
       <a routerLink="/guides" routerLinkActive="active">Guides</a>
       <a routerLink="/about" routerLinkActive="active">About</a>
+      <a routerLink="/contact" routerLinkActive="active">Contact</a>
     </nav>
 
     <div class="header-actions">
@@ -41,6 +43,7 @@
 
   @if (mobileMenuOpen()) {
     <nav class="nav-mobile" aria-label="Mobile">
+      <a routerLink="/" (click)="closeMobileMenu()">Home</a>
       <a routerLink="/tools" (click)="closeMobileMenu()">Tools</a>
       <a routerLink="/guides" (click)="closeMobileMenu()">Guides</a>
       <a routerLink="/about" (click)="closeMobileMenu()">About</a>

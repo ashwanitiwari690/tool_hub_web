@@ -1,33 +1,93 @@
 <div class="container static-page">
   <app-breadcrumb [items]="breadcrumbItems" />
   <h1>Disclaimer</h1>
-  <p class="updated">
-    Draft placeholder — intended for legal review before this site goes live. Last updated: 2026-08-29.
+  <p class="updated">Last updated: September 21, 2026</p>
+
+  <p>
+    The information, software tools, educational guides, and calculation utilities provided on {{ siteConfig.name }}
+    (accessible at <a [href]="siteConfig.websiteUrl">{{ siteConfig.websiteUrl }}</a>) are intended for general
+    informational, educational, and personal productivity purposes only. Please read this Disclaimer carefully before
+    relying upon any tool or output.
   </p>
 
-  <h2>General information only</h2>
+  <h2>1. General Information &amp; No Professional Advice</h2>
   <p>
-    Tools and content on {{ siteConfig.name }} are provided for general informational and
-    productivity purposes only. They are not a substitute for professional financial, legal,
-    medical, or tax advice.
+    Nothing published on {{ siteConfig.name }} should be construed as legal, financial, accounting, medical, tax,
+    or professional engineering advice. While our tools use established mathematical formulas, standard web standards,
+    and tested algorithms, results should never replace the advice of a licensed, qualified professional.
   </p>
 
-  <h2>Financial and health calculators</h2>
+  <h2>2. Specific Tool Disclaimers</h2>
+
+  <h3>Calculators (Percentage &amp; Age Calculators)</h3>
   <p>
-    Calculators such as the EMI, GST, Loan, and BMI calculators produce estimates based on the
-    numbers you enter. Actual results from a bank, lender, or medical professional may differ. Do
-    not make financial or health decisions based solely on these estimates.
+    Our calculators execute standard mathematical logic based strictly on the parameters you enter.
+    Percentage calculations, discounts, and date arithmetic are automated approximations. Do not make commercial,
+    legal, tax, or financial commitments based solely on automated calculations without independent verification.
   </p>
 
-  <h2>Accuracy of tools</h2>
+  <h3>Converters (Unit Converter)</h3>
   <p>
-    While we aim for accuracy in every tool, we do not guarantee that results are error-free.
-    Please verify important results independently before relying on them.
+    Unit conversions (such as length, mass, temperature, and digital storage) utilize international conversion standards
+    (e.g., standard metric and imperial ratios). However, rounding variations may occur in client-side floating-point
+    calculations. For precision engineering, commercial shipping, pharmaceutical measurement, or laboratory environments,
+    always cross-reference with calibrated instruments and verified standards.
   </p>
 
-  <h2>Contact</h2>
+  <h3>Developer Tools (JSON Formatter &amp; Validator)</h3>
   <p>
-    Questions about this disclaimer can be sent to
-    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a>.
+    JSON formatting and syntax validation are performed client-side adhering to the RFC 8259 JSON specification.
+    These tools help identify syntactic errors and beautify structures for human readability. They do not evaluate
+    data schemas, application-level semantic logic, or payload security. Ensure you review all code and sanitize
+    data before deploying to production environments.
+  </p>
+
+  <h3>Image Tools (Image Compressor &amp; Resizer)</h3>
+  <p>
+    Image compression and scaling occur within your browser using the HTML5 Canvas API. Compression involves lossy
+    quantization which alters image pixel data to reduce file weight. Always keep an original, uncompressed backup
+    of critical photos, creative works, or documents before processing. We are not responsible for unintended loss
+    of image quality, metadata (EXIF data), or transparency.
+  </p>
+
+  <h3>QR Code Generator</h3>
+  <p>
+    QR codes are generated using standard matrix barcode specifications. You are responsible for testing the readability
+    of generated codes across multiple physical scanners and camera applications before committing to commercial printing,
+    packaging, or signage.
+  </p>
+
+  <h3>Text Tools (Word Counter &amp; Case Converter)</h3>
+  <p>
+    Word, character, sentence, and paragraph counts are computed via standard whitespace and punctuation delimiter
+    algorithms. Text formatting handles standard Unicode transformations. Specific publishers, academic institutions,
+    and platforms may compute word or character counts differently (e.g., handling of hyphenated words or diacritics).
+  </p>
+
+  <h2>3. Accuracy &amp; "As Is" Warranty</h2>
+  <p>
+    {{ siteConfig.name }} makes reasonable efforts to maintain the accuracy and availability of all tools. However,
+    we make no representations or warranties of any kind, express or implied, regarding the completeness, accuracy,
+    reliability, suitability, or availability of the website or the tools contained herein. Any reliance you place
+    on such tools is strictly at your own risk.
+  </p>
+
+  <h2>4. External Links &amp; Advertisements</h2>
+  <p>
+    Our website may contain links to external third-party websites or advertisements provided by Google AdSense.
+    We do not control, inspect, or endorse the content, accuracy, or privacy policies of third-party websites.
+    Navigating external links is at your sole discretion.
+  </p>
+
+  <h2>5. Contact Us</h2>
+  <p>
+    If you discover any discrepancy or calculation error in any of our tools, or have questions regarding this Disclaimer,
+    please notify our technical team:
+  </p>
+  <p>
+    Email:
+    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a><br />
+    Website:
+    <a [href]="siteConfig.websiteUrl">{{ siteConfig.websiteUrl }}</a>
   </p>
 </div>

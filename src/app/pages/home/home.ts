@@ -21,25 +21,38 @@ export class Home implements OnInit {
   readonly siteConfig = SITE_CONFIG;
   readonly categories = CATEGORIES;
   readonly featuredTools = getFeaturedTools();
-  readonly guides = GUIDES.slice(0, 3);
+  readonly guides = GUIDES.slice(0, 4);
 
   readonly faqItems = [
     {
-      question: 'Is ToolNova really free?',
-      answer: 'Yes. Every tool on ToolNova is free to use, with no sign-up required.',
-    },
-    {
-      question: 'Do you store my files or data?',
+      question: 'Is ToolNova completely free to use?',
       answer:
-        'Most tools process your data directly in your browser and never upload it anywhere. Check each tool page for its specific privacy note.',
+        'Yes. Every tool on ToolNova is 100% free with no hidden charges, trial periods, or mandatory subscriptions.',
     },
     {
-      question: 'Do I need to create an account?',
-      answer: 'No account is needed. Favorites and recent tools are saved locally in your browser.',
+      question: 'Are my files, code, or images uploaded to a server?',
+      answer:
+        'No. ToolNova tools execute directly in your web browser using client-side JavaScript, the HTML5 Canvas API, and modern Web APIs. Your images, code, and text remain on your device and are never sent to our servers.',
     },
     {
-      question: 'Does ToolNova work on mobile?',
-      answer: 'Yes, every tool is designed to work comfortably on phones, tablets and desktops.',
+      question: 'Do I need to register or create an account?',
+      answer:
+        'No registration or sign-up is required. You can use any utility instantly, and your preferences (like dark theme and favorite tools) are saved locally on your device.',
+    },
+    {
+      question: 'Does ToolNova work on mobile devices?',
+      answer:
+        'Yes. All utilities, forms, sliders, and buttons are designed with a responsive layout optimized for smartphones, tablets, laptops, and wide desktop screens.',
+    },
+    {
+      question: 'What image formats can I compress or resize?',
+      answer:
+        'You can compress and resize standard web image formats including JPG/JPEG, PNG, and WebP directly within your browser.',
+    },
+    {
+      question: 'How do I report a problem or suggest a new tool?',
+      answer:
+        'You can contact our support team directly via email at admobility.in@gmail.com. We actively review all bug reports and feature requests.',
     },
   ];
 
@@ -48,8 +61,9 @@ export class Home implements OnInit {
 
   ngOnInit(): void {
     this.seo.update({
-      title: `${SITE_CONFIG.name} — ${SITE_CONFIG.tagline}`,
-      description: SITE_CONFIG.description,
+      title: `${SITE_CONFIG.name} — Free Online Tools for Everyday Tasks`,
+      description:
+        'Free, fast, and private online tools for text manipulation, developer debugging, image compression, QR code generation, calculations, and unit conversions.',
       path: '/',
     });
     this.seo.setStructuredData([buildWebsiteSchema(), buildFaqSchema(this.faqItems)]);

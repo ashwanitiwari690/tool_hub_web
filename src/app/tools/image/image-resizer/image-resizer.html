@@ -1,12 +1,12 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
-  title="Image Resizer"
-  description="Resize images to exact dimensions in your browser."
+  title="Image Resizer (Browser-Based)"
+  description="Resize pixel dimensions of JPG, PNG, and WebP images directly in your browser with aspect ratio protection."
 >
   @if (!originalUrl()) {
     <app-file-drop-zone
       accept="image/*"
-      hint="Drag & drop an image here, or click to browse"
+      hint="Drag & drop an image here, or click to browse (JPG, PNG, WebP)"
       (filesSelected)="onFilesSelected($event)"
     />
   }
@@ -14,16 +14,15 @@
   <app-error-message [message]="error()" />
 
   @if (processing()) {
-    <app-loading-state label="Processing image..." />
+    <app-loading-state label="Resizing image in browser memory..." />
   }
 
   @if (originalUrl() && !processing()) {
     <div class="controls card">
-      <p class="original-dims">Original: {{ originalWidth() }} × {{ originalHeight() }} px</p>
       <div class="control-row">
-        <label for="width">Width (px)</label>
+        <label for="targetWidth">Width (px)</label>
         <input
-          id="width"
+          id="targetWidth"
           type="number"
           min="1"
           [ngModel]="targetWidth()"
@@ -31,32 +30,47 @@
         />
       </div>
       <div class="control-row">
-        <label for="height">Height (px)</label>
+        <label for="targetHeight">Height (px)</label>
         <input
-          id="height"
+          id="targetHeight"
           type="number"
           min="1"
           [ngModel]="targetHeight()"
           (ngModelChange)="onHeightChange($event)"
         />
       </div>
-      <label class="checkbox-row">
-        <input type="checkbox" [ngModel]="lockAspectRatio()" (ngModelChange)="lockAspectRatio.set($event)" />
-        Lock aspect ratio
-      </label>
-      <button type="button" class="btn btn-primary" (click)="resize()">Resize</button>
+      <div class="control-row checkbox-row" style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+        <input
+          id="lockAspect"
+          type="checkbox"
+          [ngModel]="lockAspectRatio()"
+          (ngModelChange)="lockAspectRatio.set($event)"
+        />
+        <label for="lockAspect" style="cursor: pointer; font-size: 0.9375rem;"><strong>Lock aspect ratio</strong> (maintains original proportions)</label>
+      </div>
+      <div style="margin-top: 16px;">
+        <button type="button" class="btn btn-primary" (click)="resize()">Apply Resize</button>
+      </div>
     </div>
 
-    @if (resultUrl()) {
+    <div class="preview-grid">
       <div class="preview card">
-        <img [src]="resultUrl()" alt="Resized image preview" />
-        <p class="size">{{ targetWidth() }} × {{ targetHeight() }} px</p>
+        <h3>Original Image</h3>
+        <img [src]="originalUrl()" alt="Original image preview" />
+        <p class="size">{{ originalWidth() }} &times; {{ originalHeight() }} px</p>
       </div>
-    }
+      <div class="preview card">
+        <h3>Resized Preview</h3>
+        @if (resultUrl()) {
+          <img [src]="resultUrl()" alt="Resized image preview" />
+          <p class="size">{{ targetWidth() }} &times; {{ targetHeight() }} px</p>
+        }
+      </div>
+    </div>
 
     <div class="actions">
-      <button type="button" class="btn btn-secondary" (click)="download()" [disabled]="!resultUrl()">
-        Download
+      <button type="button" class="btn btn-primary" (click)="download()" [disabled]="!resultUrl()">
+        Download Resized Image
       </button>
       <app-reset-button (reset)="reset()" />
     </div>
@@ -64,19 +78,53 @@
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is Image Resizer?">
+  <app-info-section heading="What is Image Resizing?">
     <p>
-      Image Resizer changes the pixel dimensions of an image directly in your browser, which is
-      useful for meeting upload size limits or preparing images for a specific layout.
+      Image resizing alters the physical pixel dimensions (width and height) of a digital picture.
+      When photographs are taken on modern smartphones or digital cameras, they often measure 4,000 to 6,000 pixels wide.
+      Displaying such massive images inside a 400-pixel card on a website wastes user cellular bandwidth and harms site performance.
+      Resizing downscales the pixel matrix so the graphic loads quickly and renders crisply at its intended display dimensions.
     </p>
   </app-info-section>
 
-  <app-info-section heading="How to use Image Resizer">
-    <ol>
-      <li>Upload an image.</li>
-      <li>Enter a new width or height — the other dimension adjusts automatically if aspect ratio is locked.</li>
-      <li>Click Resize, then download the result.</li>
-    </ol>
+  <app-info-section heading="Aspect Ratio: Why It Matters">
+    <p>
+      An aspect ratio is the proportional relationship between an image's width and its height (e.g., 16:9 for widescreen video,
+      1:1 for square avatars). Keeping the <strong>"Lock aspect ratio"</strong> option checked ensures that when you adjust the width,
+      the height updates automatically in exact proportion. If the aspect ratio is unlocked and unequal dimensions are entered,
+      the image will appear squashed, stretched, or unnaturally distorted.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Standard Social Media &amp; Web Dimensions">
+    <p>Here are commonly requested digital dimension standards for online publishing:</p>
+    <ul>
+      <li><strong>Instagram Square Post:</strong> 1080 &times; 1080 px (1:1)</li>
+      <li><strong>Instagram Story / Reel:</strong> 1080 &times; 1920 px (9:16)</li>
+      <li><strong>YouTube Video Thumbnail:</strong> 1280 &times; 720 px (16:9)</li>
+      <li><strong>Facebook / LinkedIn Shared Link Preview:</strong> 1200 &times; 630 px (1.91:1)</li>
+      <li><strong>X (Twitter) Feed Image:</strong> 1200 &times; 675 px (16:9)</li>
+      <li><strong>Website Favicon:</strong> 32 &times; 32 px or 64 &times; 64 px</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Downscaling vs Upscaling">
+    <p>
+      <strong>Downscaling:</strong> Reducing an image from larger dimensions to smaller dimensions produces clean, razor-sharp results
+      because the browser interpolates rich existing color data into a tighter grid.
+    </p>
+    <p>
+      <strong>Upscaling:</strong> Stretching an image from smaller dimensions into larger dimensions cannot invent missing detail.
+      Upscaling will almost always introduce noticeable pixelation, blurriness, and fuzzy artifacts. For best results, always start
+      with a high-resolution source file.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Client-Side Privacy Guarantee">
+    <p>
+      ToolNova Image Resizer processes your images locally in your web browser memory using the HTML5 Canvas API.
+      Your files are never transmitted across the network, stored on a cloud database, or viewed by anyone else.
+    </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

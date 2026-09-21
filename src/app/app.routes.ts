@@ -35,8 +35,8 @@ export const routes: Routes = [
   },
   {
     path: 'tools/pdf',
-    loadComponent: () => import('./pages/tools/category-page/category-page').then((m) => m.CategoryPage),
-    data: { category: 'pdf' },
+    redirectTo: '/tools',
+    pathMatch: 'full',
   },
   {
     path: 'tools/qr',

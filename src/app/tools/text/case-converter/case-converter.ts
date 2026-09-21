@@ -53,12 +53,29 @@ export class CaseConverter implements OnInit {
 
   readonly faqItems = [
     {
-      question: 'Does this tool change my original text?',
-      answer: 'No, the original input stays untouched. The converted result appears separately so you can compare.',
+      question: 'Will converting case alter my original text?',
+      answer:
+        'No. Your input text remains intact in the editor area. The converted result is generated in a dedicated output panel with an instant one-click copy button.',
     },
     {
-      question: 'What is the difference between camelCase and snake_case?',
-      answer: 'camelCase joins words with no separator and capitalizes each word after the first, while snake_case joins words with underscores.',
+      question: 'What is the practical difference between camelCase and snake_case?',
+      answer:
+        'camelCase joins words with no delimiter and capitalizes each word after the first (commonly used for JavaScript/TypeScript variables). snake_case separates words with underscores in lowercase (common in Python, SQL column names, and database fields).',
+    },
+    {
+      question: 'How does Sentence Case determine where a new sentence begins?',
+      answer:
+        'Sentence case identifies the beginning of the text as well as characters immediately following sentence terminators (. ! ?) and capitalizes the first letter while downcasing the remaining words.',
+    },
+    {
+      question: 'Does Case Converter support accented and international characters?',
+      answer:
+        'Yes. Standard Unicode transformations are handled natively by your browser JavaScript engine, correctly transforming characters like é, ñ, ü, and accented letters.',
+    },
+    {
+      question: 'Is my text sent to an external server?',
+      answer:
+        'Never. Case conversion runs 100% locally in your browser memory without transmitting any content over the network.',
     },
   ];
 

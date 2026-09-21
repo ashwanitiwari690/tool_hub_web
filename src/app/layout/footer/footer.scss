@@ -25,7 +25,18 @@
 
 .brand-tagline {
   font-size: 0.875rem;
+  margin: 0 0 12px;
+}
+
+.brand-contact {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
   margin: 0;
+
+  a {
+    color: var(--primary);
+    font-weight: 500;
+  }
 }
 
 .footer-col {

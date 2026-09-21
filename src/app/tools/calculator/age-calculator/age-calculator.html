@@ -1,51 +1,93 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
   title="Age Calculator"
-  description="Calculate your exact age in years, months and days."
+  description="Calculate your exact age in years, months, days, and total days lived based on your date of birth."
 >
   <div class="workspace card">
-    <label for="dob">Date of birth</label>
-    <input
-      id="dob"
-      type="date"
-      [max]="today"
-      [ngModel]="birthDate()"
-      (ngModelChange)="birthDate.set($event)"
-    />
-    <div class="actions">
+    <div class="input-group">
+      <label for="birthDate"><strong>Select Your Date of Birth:</strong></label>
+      <input
+        id="birthDate"
+        type="date"
+        class="date-input"
+        [max]="today"
+        [ngModel]="birthDate()"
+        (ngModelChange)="birthDate.set($event)"
+      />
+    </div>
+
+    <app-error-message [message]="error()" />
+
+    <div class="actions" style="margin-top: 16px;">
       <app-reset-button (reset)="reset()" />
     </div>
+
+    @if (age(); as a) {
+      <div class="age-breakdown card" style="margin-top: 24px; padding: 24px; text-align: center; border-left: 4px solid var(--primary); background: var(--surface);">
+        <p class="age-headline" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px;">
+          You are <span style="color: var(--primary);">{{ a.years }}</span> years,
+          <span style="color: var(--primary);">{{ a.months }}</span> months, and
+          <span style="color: var(--primary);">{{ a.days }}</span> days old.
+        </p>
+
+        <div class="age-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+          <div class="card" style="padding: 16px;">
+            <span style="display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">{{ a.years }}</span>
+            <span style="font-size: 0.8125rem; color: var(--text-muted); text-transform: uppercase;">Years</span>
+          </div>
+          <div class="card" style="padding: 16px;">
+            <span style="display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">{{ a.months }}</span>
+            <span style="font-size: 0.8125rem; color: var(--text-muted); text-transform: uppercase;">Months</span>
+          </div>
+          <div class="card" style="padding: 16px;">
+            <span style="display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-primary);">{{ a.days }}</span>
+            <span style="font-size: 0.8125rem; color: var(--text-muted); text-transform: uppercase;">Days</span>
+          </div>
+          <div class="card" style="padding: 16px;">
+            <span style="display: block; font-size: 1.5rem; font-weight: 800; color: var(--primary);">{{ a.totalDays }}</span>
+            <span style="font-size: 0.8125rem; color: var(--text-muted); text-transform: uppercase;">Total Days Lived</span>
+          </div>
+        </div>
+      </div>
+    }
   </div>
-
-  <app-error-message [message]="error()" />
-
-  @if (age(); as result) {
-    <div class="result-grid">
-      <div class="stat card">
-        <span class="stat-value">{{ result.years }}</span>
-        <span class="stat-label">Years</span>
-      </div>
-      <div class="stat card">
-        <span class="stat-value">{{ result.months }}</span>
-        <span class="stat-label">Months</span>
-      </div>
-      <div class="stat card">
-        <span class="stat-value">{{ result.days }}</span>
-        <span class="stat-label">Days</span>
-      </div>
-      <div class="stat card">
-        <span class="stat-value">{{ result.totalDays }}</span>
-        <span class="stat-label">Total days lived</span>
-      </div>
-    </div>
-  }
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is Age Calculator?">
+  <app-info-section heading="What is Chronological Age?">
     <p>
-      Age Calculator finds the exact difference between your date of birth and today, expressed
-      in years, months and days, plus the total number of days you have been alive.
+      Chronological age represents the precise measure of time that has elapsed from an individual's birth to the present date.
+      Unlike simple approximations that merely subtract birth year from the current year, true chronological age computes the
+      exact combination of completed calendar years, completed months, and remaining days, accounting for leap years and irregular month lengths.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How the Age Calculation Works">
+    <p>
+      Calendar arithmetic is complex because months in the Gregorian calendar span 28, 29, 30, or 31 days, and leap years occur every four years
+      (with century exceptions). The ToolNova Age Calculator implements date subtraction that borrows days from the preceding month whenever
+      the current day is less than the birth day, guaranteeing mathematical and calendar accuracy.
+    </p>
+    <ol>
+      <li><strong>Select Birth Date:</strong> Pick your exact birth date using the calendar picker above.</li>
+      <li><strong>Instant Computation:</strong> The browser immediately calculates elapsed years, months, and days relative to today.</li>
+      <li><strong>Review Detailed Metrics:</strong> Inspect the full breakdown alongside total cumulative days lived on Earth.</li>
+    </ol>
+  </app-info-section>
+
+  <app-info-section heading="Common Use Cases">
+    <ul>
+      <li><strong>Official Documentation &amp; Admissions:</strong> Verifying exact age thresholds for school registration, university entrance exams, and sports leagues.</li>
+      <li><strong>Legal &amp; Government Applications:</strong> Checking eligibility for voting rights, driver's licensing, passport renewals, and legal retirement milestones.</li>
+      <li><strong>Milestone Celebrations:</strong> Finding out exactly when you or a loved one hits 10,000 days lived or landmark anniversaries.</li>
+      <li><strong>Employment &amp; Insurance:</strong> Accurately calculating age parameters for life insurance policies and pension eligibility.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Client-Side Privacy Guarantee">
+    <p>
+      Your date of birth is sensitive personal identification data. ToolNova evaluates your age entirely inside your browser JavaScript engine.
+      Your birth date is never sent to our servers, never stored in cookies, and never recorded in any database.
     </p>
   </app-info-section>
 

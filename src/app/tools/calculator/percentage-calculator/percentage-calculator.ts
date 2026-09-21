@@ -50,12 +50,29 @@ export class PercentageCalculator implements OnInit {
 
   readonly faqItems = [
     {
-      question: 'How do I calculate a percentage increase?',
-      answer: 'Use "Percentage change", enter the original value first and the new value second. A positive result is an increase, a negative result is a decrease.',
+      question: 'How do I calculate a percentage increase or decrease?',
+      answer:
+        'Select "Percentage Change", enter your original initial value in field A, and the updated new value in field B. A positive result indicates a percentage increase, while a negative percentage indicates a decrease.',
     },
     {
-      question: 'What does "X is what % of Y" mean?',
-      answer: 'It answers questions like "40 is what percent of 200?" by dividing the first number by the second and multiplying by 100.',
+      question: 'How do I calculate a retail discount on a product?',
+      answer:
+        'To find the discount amount, use "What is X% of Y" where X is the discount percentage (e.g., 20%) and Y is the original price. Subtract this answer from the original price to find your final checkout cost.',
+    },
+    {
+      question: 'Can percentages exceed 100%?',
+      answer:
+        'Yes. When the comparison value is greater than the base value, the percentage is above 100%. For example, 150 is 150% of 100.',
+    },
+    {
+      question: 'What is the difference between percentage points and percent change?',
+      answer:
+        'Percentage points measure the absolute arithmetic difference between two percentages (e.g., from 10% to 15% is +5 percentage points). Percent change measures the relative growth: (15 - 10) / 10 = +50% growth.',
+    },
+    {
+      question: 'Are my financial calculations saved or sent anywhere?',
+      answer:
+        'No. Every calculation executes in your browser memory via client-side JavaScript. None of your inputs, prices, or numbers are recorded or sent over the network.',
     },
   ];
 

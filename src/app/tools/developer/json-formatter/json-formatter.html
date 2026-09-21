@@ -1,19 +1,20 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
-  title="JSON Formatter"
-  description="Format and beautify JSON directly in your browser."
+  title="JSON Formatter &amp; Beautifier"
+  description="Format, prettify, minify, and validate JSON directly in your browser with instant error detection."
 >
   <div class="workspace card">
-    <h2>Input</h2>
+    <label for="jsonInput" class="workspace-label"><strong>Input JSON</strong></label>
     <textarea
+      id="jsonInput"
       class="code-input"
       rows="10"
-      placeholder='{"example": "Paste your JSON here"}'
+      placeholder='{"name": "ToolNova", "features": ["Fast", "Private"], "status": "active"}'
       [ngModel]="input()"
       (ngModelChange)="input.set($event)"
     ></textarea>
     <div class="actions">
-      <button type="button" class="btn btn-primary" (click)="format()">Format</button>
+      <button type="button" class="btn btn-primary" (click)="format()">Format (Pretty-Print)</button>
       <button type="button" class="btn btn-secondary" (click)="minify()">Minify</button>
       <button type="button" class="btn btn-secondary" (click)="validate()">Validate</button>
       <app-reset-button (reset)="reset()" />
@@ -23,7 +24,7 @@
   <app-error-message [message]="error()" />
 
   @if (output()) {
-    <app-result-panel heading="Result">
+    <app-result-panel heading="Formatted Result">
       <pre class="code-output">{{ output() }}</pre>
       <div actions>
         <app-copy-button [text]="output()" />
@@ -34,26 +35,72 @@
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is JSON Formatter?">
+  <app-info-section heading="What is JSON?">
     <p>
-      JSON Formatter takes minified or messy JSON and re-prints it with clean indentation, making
-      it easy to read and debug. It can also minify and validate JSON.
+      JavaScript Object Notation (JSON) is an open-standard, text-based file format used universally for data exchange
+      across modern web applications, REST APIs, databases, and configuration files. Designed to be lightweight and
+      language-independent, JSON represents structured data using two universal data structures:
+    </p>
+    <ul>
+      <li><strong>Objects:</strong> Collections of name/value pairs enclosed within curly braces <code>&#123;&#125;</code>.</li>
+      <li><strong>Arrays:</strong> Ordered lists of values enclosed within square brackets <code>[]</code>.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Why Format JSON?">
+    <p>
+      Production APIs and databases frequently minify JSON payloads into a single unbroken line to reduce bandwidth
+      and improve transmission speed. However, reading or debugging unformatted JSON is virtually impossible for developers.
+      Formatting (also called pretty-printing) adds consistent line breaks and hierarchical two-space indentation, allowing
+      engineers to quickly inspect payloads, verify nested objects, spot syntax errors, and debug API responses.
     </p>
   </app-info-section>
 
-  <app-info-section heading="How to use JSON Formatter">
+  <app-info-section heading="How to Use JSON Formatter">
     <ol>
-      <li>Paste your JSON into the input box.</li>
-      <li>Click Format to beautify, Minify to compress, or Validate to check syntax.</li>
-      <li>Copy or download the result.</li>
+      <li><strong>Paste JSON:</strong> Copy your raw or minified JSON text and paste it into the editor above.</li>
+      <li><strong>Choose Action:</strong>
+        <ul>
+          <li>Click <strong>Format (Pretty-Print)</strong> to expand the data with clean two-space indentation.</li>
+          <li>Click <strong>Minify</strong> to compress the JSON onto a single line without whitespace.</li>
+          <li>Click <strong>Validate</strong> to test if your payload complies strictly with the RFC 8259 specification.</li>
+        </ul>
+      </li>
+      <li><strong>Copy or Download:</strong> Use the Copy button to copy the output to your clipboard, or click Download to save a <code>.json</code> file.</li>
     </ol>
   </app-info-section>
 
-  <app-info-section heading="Example">
-    <p>Input:</p>
-    <pre>{{ '{"name":"ToolNova","free":true}' }}</pre>
-    <p>Formatted output:</p>
-    <pre>{{ '{\n  "name": "ToolNova",\n  "free": true\n}' }}</pre>
+  <app-info-section heading="Example: Before and After Formatting">
+    <p><strong>Minified Input:</strong></p>
+    <pre class="code-output" style="max-height: 100px;">{{"{\"project\":\"ToolNova\",\"category\":\"utilities\",\"free\":true,\"tags\":[\"fast\",\"private\"]}"}}</pre>
+
+    <p><strong>Formatted Output (Pretty-Printed):</strong></p>
+    <pre class="code-output" style="max-height: 180px;">{{'{\n  "project": "ToolNova",\n  "category": "utilities",\n  "free": true,\n  "tags": [\n    "fast",\n    "private"\n  ]\n}'}}</pre>
+  </app-info-section>
+
+  <app-info-section heading="Common JSON Syntax Errors &amp; How to Fix Them">
+    <ul>
+      <li>
+        <strong>Trailing Commas:</strong> Placing a comma after the final key in an object (e.g., <code>{{"{\"a\": 1, \"b\": 2,}"}}</code>) will crash the parser. Always remove commas following the last property.
+      </li>
+      <li>
+        <strong>Single Quotes:</strong> JSON strictly requires standard double quotes <code>"</code>. Replacing single quotes (<code>'key'</code>) with double quotes (<code>"key"</code>) resolves this immediately.
+      </li>
+      <li>
+        <strong>Unquoted Keys:</strong> While JavaScript allows unquoted object keys (<code>{{'{ title: "Hello" }'}}</code>), JSON requires all property names to be enclosed in double quotes (<code>{{"{ \"title\": \"Hello\" }"}}</code>).
+      </li>
+      <li>
+        <strong>Unescaped Quotes:</strong> Literal double quotes inside a string value must be escaped with a preceding backslash (e.g., <code>"He said \\"Hello\\""</code>).
+      </li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Security &amp; Client-Side Privacy">
+    <p>
+      Unlike other online formatters that transmit your data to remote cloud servers, ToolNova formats your JSON entirely
+      within your browser using native JavaScript execution. Your private API responses, authorization tokens, database dumps,
+      and user records never travel over the network or touch an external server.
+    </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

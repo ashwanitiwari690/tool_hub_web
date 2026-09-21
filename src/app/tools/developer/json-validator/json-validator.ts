@@ -30,12 +30,29 @@ export class JsonValidator implements OnInit {
 
   readonly faqItems = [
     {
-      question: 'What counts as valid JSON?',
-      answer: 'Valid JSON follows the strict JSON specification — double-quoted keys and strings, no trailing commas, and only JSON-supported value types.',
+      question: 'What standards does this validator check against?',
+      answer:
+        'This validator checks compliance against the official RFC 8259 standard, which governs valid JSON interchange across all modern languages and web systems.',
     },
     {
-      question: 'Is my data uploaded anywhere?',
-      answer: 'No. Validation runs entirely in your browser using the built-in JSON.parse function.',
+      question: 'Are JavaScript object literals accepted as valid JSON?',
+      answer:
+        'No. JavaScript allows unquoted property keys, single quotes, functions, and trailing commas. Standard JSON strictly prohibits all of these.',
+    },
+    {
+      question: 'Is my data transmitted to any external server during validation?',
+      answer:
+        'No. All validation executes entirely in your local browser sandbox via native JavaScript parsing engines. Your payloads never leave your computer.',
+    },
+    {
+      question: 'Can this validator identify the exact line where my JSON is broken?',
+      answer:
+        'Yes. When validation fails, the native parser provides the exact token and position where the syntax breakdown occurred.',
+    },
+    {
+      question: 'What types of values are supported in JSON?',
+      answer:
+        'JSON supports strings (enclosed in double quotes), numbers (integers and floating-point), booleans (true, false), arrays, objects, and null.',
     },
   ];
 

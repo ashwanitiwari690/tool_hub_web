@@ -46,20 +46,37 @@ export class WordCounter implements OnInit {
     return trimmed ? trimmed.split(/\n\s*\n/).filter((p) => p.trim().length > 0).length : 0;
   });
 
-  readonly readingTimeMinutes = computed(() => Math.max(1, Math.ceil(this.words() / 200)));
+  readonly readingTimeMinutes = computed(() => {
+    const count = this.words();
+    if (count === 0) return 0;
+    return Math.max(1, Math.ceil(count / 225));
+  });
 
   readonly faqItems = [
     {
-      question: 'How is the word count calculated?',
-      answer: 'Words are counted by splitting your text on whitespace, so hyphenated words count as one word.',
+      question: 'How does this tool calculate the total word count?',
+      answer:
+        'Words are calculated by tokenizing text on whitespace delimiters (spaces, tabs, and line breaks). Sequences of characters connected by hyphens (e.g., "state-of-the-art") are counted as a single word according to standard typographic conventions.',
     },
     {
-      question: 'Does this tool store my text?',
-      answer: 'No. All counting happens instantly in your browser — your text is never uploaded anywhere.',
+      question: 'What is the difference between total characters and characters without spaces?',
+      answer:
+        'Total characters include every single keystroke, including spaces, tabs, and newline characters. Characters without spaces strip all whitespace before counting, which is useful for publishers or academic portals that evaluate pure textual length.',
     },
     {
-      question: 'How is reading time estimated?',
-      answer: 'Reading time is estimated at an average of 200 words per minute.',
+      question: 'Is my text transmitted to a server or stored in a database?',
+      answer:
+        'No. ToolNova executes 100% of the counting logic client-side directly in your browser JavaScript runtime. Your writing never leaves your computer or phone.',
+    },
+    {
+      question: 'How is reading time calculated?',
+      answer:
+        'Reading time is calculated using the standard average adult reading speed of 225 words per minute. For technical or complex texts, actual comprehension time may be slightly longer.',
+    },
+    {
+      question: 'Can I check text written in other languages or alphabets?',
+      answer:
+        'Yes. The tool natively supports UTF-8 and Unicode characters, making it effective for English, Spanish, French, German, Hindi, Japanese, and any other language written in the browser.',
     },
   ];
 

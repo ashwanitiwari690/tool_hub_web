@@ -53,12 +53,29 @@ export class UnitConverter implements OnInit {
 
   readonly faqItems = [
     {
-      question: 'How accurate are these conversions?',
-      answer: 'Conversions use standard, widely accepted conversion factors and are accurate to several decimal places.',
+      question: 'How accurate are these unit conversions?',
+      answer:
+        'Conversions use standard international conversion factors (such as the exact 1 inch = 2.54 cm definition) and are rounded to six decimal places for clarity and precision.',
     },
     {
-      question: 'Can I convert temperature the same way as length or weight?',
-      answer: 'No — temperature scales have different zero points, so Celsius, Fahrenheit and Kelvin are converted using dedicated formulas rather than a simple multiplier.',
+      question: 'Why cannot temperature be converted with a simple multiplier?',
+      answer:
+        'Unlike length or mass, temperature scales have different zero reference points. For example, 0°C is 32°F, while 0 Kelvin is absolute zero (-273.15°C). Converting temperature requires affine equations: (°C &times; 9/5) + 32 = °F.',
+    },
+    {
+      question: 'What measurement standards are supported?',
+      answer:
+        'The converter supports the International System of Units (SI Metric), US Customary units, and British Imperial units across length, mass, temperature, and digital data storage.',
+    },
+    {
+      question: 'Can I swap the units with one click?',
+      answer:
+        'Yes. Click the "⇄ Swap" button to instantly reverse your source and target measurement units without retyping your number.',
+    },
+    {
+      question: 'Is any data transmitted when I convert units?',
+      answer:
+        'No. Every conversion calculation runs entirely client-side inside your web browser. No figures are recorded or sent to any server.',
     },
   ];
 

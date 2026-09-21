@@ -46,7 +46,7 @@ export class ImageCompressor implements OnInit, OnDestroy {
   readonly resultUrl = signal('');
   readonly originalSize = signal(0);
   readonly resultSize = signal(0);
-  readonly quality = signal(0.7);
+  readonly quality = signal(0.75);
   readonly format = signal<OutputFormat>('image/jpeg');
   readonly processing = signal(false);
   readonly error = signal('');
@@ -61,16 +61,29 @@ export class ImageCompressor implements OnInit, OnDestroy {
 
   readonly faqItems = [
     {
-      question: 'Is my image uploaded to a server?',
-      answer: 'No. Compression uses the Canvas API and runs entirely in your browser — the image never leaves your device.',
+      question: 'Are my uploaded images sent to an external server?',
+      answer:
+        'No. ToolNova performs 100% of the compression directly inside your web browser using HTML5 Canvas rendering. Your photos, private documents, and graphics never leave your local device.',
     },
     {
-      question: 'Why did the file size increase?',
-      answer: 'If the original image was already highly compressed, or you chose a high quality setting, the output can occasionally be larger.',
+      question: 'What is the difference between JPEG and WebP output formats?',
+      answer:
+        'JPEG is universally compatible with every legacy device and operating system. WebP is Google\'s modern web format, delivering 25% to 35% smaller file sizes than JPEG at identical visual quality.',
     },
     {
-      question: 'Can I compress PNG images?',
-      answer: 'You can upload a PNG, but the compressed output is produced as JPEG or WebP, which compress photographic images far more effectively.',
+      question: 'Why did the file size increase instead of decrease?',
+      answer:
+        'If your source image was already heavily compressed by another utility or camera setting, re-encoding it with a high quality slider value (above 0.90) may occasionally generate a larger file. Lower the quality slider to 0.70–0.80 to reduce file size.',
+    },
+    {
+      question: 'Can I compress PNG images with transparent backgrounds?',
+      answer:
+        'Yes. When compressing PNG images, select WebP as your target format to preserve transparent alpha backgrounds while dramatically lowering the byte weight.',
+    },
+    {
+      question: 'What is the optimal quality setting for websites and blogs?',
+      answer:
+        'A quality setting between 0.75 and 0.82 represents the optimal balance for the web — yielding 60% to 80% file size reductions while remaining visually indistinguishable from the raw photo.',
     },
   ];
 
@@ -84,7 +97,7 @@ export class ImageCompressor implements OnInit, OnDestroy {
     const file = files[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      this.error.set('Please select a valid image file.');
+      this.error.set('Please select a valid image file (JPG, PNG, or WebP).');
       return;
     }
 
@@ -98,7 +111,7 @@ export class ImageCompressor implements OnInit, OnDestroy {
       this.sourceImage = await createImageBitmap(file);
       await this.compress();
     } catch {
-      this.error.set('Something went wrong while processing your image. Please try another file.');
+      this.error.set('Something went wrong while reading your image. Please try another file.');
     } finally {
       this.processing.set(false);
     }

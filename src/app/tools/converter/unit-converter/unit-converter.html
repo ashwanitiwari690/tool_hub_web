@@ -1,55 +1,129 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
-  title="Unit Converter"
-  description="Convert length, weight, temperature, speed, time, data and more."
+  title="Unit Converter (Metric &amp; Imperial)"
+  description="Convert length, mass, temperature, and data storage units instantly in your browser with high precision."
 >
   <div class="workspace card">
-    <label for="category">Category</label>
-    <select id="category" [ngModel]="categoryId()" (ngModelChange)="onCategoryChange($event)">
-      @for (category of categories; track category.id) {
-        <option [value]="category.id">{{ category.label }}</option>
+    <div class="category-tabs">
+      @for (c of categories; track c.id) {
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="categoryId() === c.id"
+          (click)="onCategoryChange(c.id)"
+        >
+          {{ c.label }}
+        </button>
       }
-    </select>
+    </div>
 
-    <div class="convert-row">
+    <div class="converter-grid" style="margin-top: 20px;">
       <div class="field">
-        <label for="from-unit">From</label>
-        <select id="from-unit" [ngModel]="fromUnit()" (ngModelChange)="fromUnit.set($event)">
-          @for (unit of currentUnits(); track unit.id) {
-            <option [value]="unit.id">{{ unit.label }}</option>
-          }
-        </select>
+        <label for="inputValue">Amount to Convert</label>
         <input
+          id="inputValue"
           type="number"
+          class="num-input"
           [ngModel]="inputValue()"
           (ngModelChange)="inputValue.set($event)"
         />
       </div>
 
-      <button type="button" class="swap-btn" (click)="swap()" aria-label="Swap units">⇄</button>
-
       <div class="field">
-        <label for="to-unit">To</label>
-        <select id="to-unit" [ngModel]="toUnit()" (ngModelChange)="toUnit.set($event)">
-          @for (unit of currentUnits(); track unit.id) {
-            <option [value]="unit.id">{{ unit.label }}</option>
+        <label for="fromUnit">From</label>
+        <select
+          id="fromUnit"
+          class="unit-select"
+          [ngModel]="fromUnit()"
+          (ngModelChange)="fromUnit.set($event)"
+        >
+          @for (u of currentUnits(); track u.id) {
+            <option [value]="u.id">{{ u.label }}</option>
           }
         </select>
-        <input type="text" class="result-input" [value]="result() ?? ''" readonly />
+      </div>
+
+      <div class="swap-action" style="display: flex; align-items: flex-end; padding-bottom: 2px;">
+        <button type="button" class="btn btn-secondary" (click)="swap()" title="Swap units">⇄ Swap</button>
+      </div>
+
+      <div class="field">
+        <label for="toUnit">To</label>
+        <select
+          id="toUnit"
+          class="unit-select"
+          [ngModel]="toUnit()"
+          (ngModelChange)="toUnit.set($event)"
+        >
+          @for (u of currentUnits(); track u.id) {
+            <option [value]="u.id">{{ u.label }}</option>
+          }
+        </select>
       </div>
     </div>
 
-    <div class="actions">
+    @if (result() !== null) {
+      <div class="result-box card" style="margin-top: 24px; padding: 24px; text-align: center; border-left: 4px solid var(--primary); background: var(--surface);">
+        <span class="result-label" style="display: block; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 4px;">Converted Result</span>
+        <span class="result-value" style="font-size: 2rem; font-weight: 800; color: var(--primary);">{{ result() }}</span>
+      </div>
+    }
+
+    <div class="actions" style="margin-top: 20px;">
       <app-reset-button (reset)="reset()" />
     </div>
   </div>
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is Unit Converter?">
+  <app-info-section heading="What is Unit Conversion?">
     <p>
-      Unit Converter converts values across length, weight, temperature, speed, time, data
-      storage, area and volume — all calculated instantly in your browser.
+      Unit conversion is the process of translating a numerical measurement from one system of measurement to another
+      equivalent quantity in a different unit. Globally, two primary systems dominate: the <strong>International System of Units (SI / Metric)</strong>,
+      used by science, medicine, and most of the world (meters, kilograms, Celsius), and the <strong>US Customary / Imperial system</strong>,
+      used primarily in the United States and the United Kingdom (inches, feet, pounds, Fahrenheit).
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Quick Conversion Cheat Sheet">
+    <ul>
+      <li><strong>Length:</strong> 1 meter = 3.28084 feet &bull; 1 kilometer = 0.621371 miles &bull; 1 inch = 2.54 cm (exact)</li>
+      <li><strong>Mass / Weight:</strong> 1 kilogram = 2.20462 pounds &bull; 1 pound = 453.592 grams &bull; 1 ounce = 28.3495 grams</li>
+      <li><strong>Temperature:</strong> 0&deg;C = 32&deg;F (freezing) &bull; 100&deg;C = 212&deg;F (boiling) &bull; 20&deg;C = 68&deg;F (room temperature)</li>
+      <li><strong>Digital Data:</strong> 1 Megabyte (MB) = 1,000 Kilobytes (KB) &bull; 1 Gigabyte (GB) = 1,000 MB</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="How Temperature Conversion Differs">
+    <p>
+      Unlike distance or weight where zero in one unit equals zero in another (0 meters = 0 feet), temperature scales
+      do not share a common zero point. Celsius defines zero as the freezing point of water, Fahrenheit sets freezing at 32 degrees,
+      and Kelvin sets zero at absolute zero (-273.15&deg;C).
+    </p>
+    <p>
+      Converting temperature therefore requires affine equations rather than simple multiplication:
+    </p>
+    <ul>
+      <li><code>Celsius to Fahrenheit: &deg;F = (&deg;C &times; 9/5) + 32</code></li>
+      <li><code>Fahrenheit to Celsius: &deg;C = (&deg;F - 32) &times; 5/9</code></li>
+      <li><code>Celsius to Kelvin: K = &deg;C + 273.15</code></li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Common Use Cases">
+    <ul>
+      <li><strong>Culinary Arts &amp; Baking:</strong> Converting international recipes between grams, ounces, kilograms, and pounds.</li>
+      <li><strong>International Travel &amp; Navigation:</strong> Translating road distances and speed limits between kilometers and miles.</li>
+      <li><strong>Engineering &amp; Construction:</strong> Translating architectural measurements between centimeters/meters and inches/feet.</li>
+      <li><strong>Computing &amp; IT:</strong> Sizing database storage volumes and network bandwidth between KB, MB, and GB.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Accuracy &amp; Precision Limitations">
+    <p>
+      Calculations utilize high-precision international standards and are rounded to six decimal places for clarity.
+      While suitable for academic study, DIY projects, cooking, and everyday tasks, critical pharmaceutical preparation,
+      aerospace calculations, and legal commerce measurements should always be performed with certified instrumentation.
     </p>
   </app-info-section>
 

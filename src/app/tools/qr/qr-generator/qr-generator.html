@@ -1,67 +1,110 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
-  title="QR Code Generator"
-  description="Generate QR codes for links, text and Wi-Fi networks for free."
+  title="QR Code Generator (Free &amp; Permanent)"
+  description="Generate permanent, scannable QR codes for websites, plain text, and Wi-Fi credentials in your browser with zero tracking."
 >
   <div class="workspace card">
-    <div class="type-tabs">
-      <button type="button" class="tab" [class.active]="type() === 'url'" (click)="setType('url')">URL</button>
-      <button type="button" class="tab" [class.active]="type() === 'text'" (click)="setType('text')">Text</button>
-      <button type="button" class="tab" [class.active]="type() === 'wifi'" (click)="setType('wifi')">Wi-Fi</button>
+    <div class="tabs">
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="type() === 'url'"
+        (click)="setType('url')"
+      >
+        🔗 Link / URL
+      </button>
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="type() === 'text'"
+        (click)="setType('text')"
+      >
+        📝 Plain Text
+      </button>
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="type() === 'wifi'"
+        (click)="setType('wifi')"
+      >
+        📶 Wi-Fi Network
+      </button>
     </div>
 
-    @if (type() === 'url') {
-      <label for="url-input">Website URL</label>
-      <input
-        id="url-input"
-        type="text"
-        placeholder="https://example.com"
-        [ngModel]="urlValue()"
-        (ngModelChange)="urlValue.set($event)"
-      />
-    } @else if (type() === 'text') {
-      <label for="text-input">Text</label>
-      <textarea
-        id="text-input"
-        rows="4"
-        placeholder="Enter any text..."
-        [ngModel]="textValue()"
-        (ngModelChange)="textValue.set($event)"
-      ></textarea>
-    } @else {
-      <label for="ssid-input">Network name (SSID)</label>
-      <input
-        id="ssid-input"
-        type="text"
-        placeholder="My Wi-Fi"
-        [ngModel]="wifiSsid()"
-        (ngModelChange)="wifiSsid.set($event)"
-      />
-      <label for="encryption-select">Encryption</label>
-      <select
-        id="encryption-select"
-        [ngModel]="wifiEncryption()"
-        (ngModelChange)="wifiEncryption.set($event)"
-      >
-        <option value="WPA">WPA/WPA2</option>
-        <option value="WEP">WEP</option>
-        <option value="nopass">None</option>
-      </select>
-      @if (wifiEncryption() !== 'nopass') {
-        <label for="password-input">Password</label>
-        <input
-          id="password-input"
-          type="text"
-          placeholder="Wi-Fi password"
-          [ngModel]="wifiPassword()"
-          (ngModelChange)="wifiPassword.set($event)"
-        />
+    <div class="form-body" style="padding-top: 16px;">
+      @if (type() === 'url') {
+        <div class="form-group">
+          <label for="urlInput">Website Address (URL)</label>
+          <input
+            id="urlInput"
+            type="url"
+            class="text-input"
+            placeholder="https://yourwebsite.com"
+            [ngModel]="urlValue()"
+            (ngModelChange)="urlValue.set($event)"
+            (keyup.enter)="generate()"
+          />
+        </div>
       }
-    }
 
-    <div class="actions">
-      <button type="button" class="btn btn-primary" (click)="generate()">Generate QR Code</button>
-      <app-reset-button (reset)="reset()" />
+      @if (type() === 'text') {
+        <div class="form-group">
+          <label for="textInput">Plain Text Message</label>
+          <textarea
+            id="textInput"
+            class="text-input"
+            rows="4"
+            placeholder="Enter any text message, coupon code, or instructions..."
+            [ngModel]="textValue()"
+            (ngModelChange)="textValue.set($event)"
+          ></textarea>
+        </div>
+      }
+
+      @if (type() === 'wifi') {
+        <div class="form-group">
+          <label for="wifiSsid">Network Name (SSID)</label>
+          <input
+            id="wifiSsid"
+            type="text"
+            class="text-input"
+            placeholder="e.g. MyHomeNetwork"
+            [ngModel]="wifiSsid()"
+            (ngModelChange)="wifiSsid.set($event)"
+          />
+        </div>
+        <div class="form-group" style="margin-top: 12px;">
+          <label for="wifiEncryption">Security Type</label>
+          <select
+            id="wifiEncryption"
+            class="text-input"
+            [ngModel]="wifiEncryption()"
+            (ngModelChange)="wifiEncryption.set($event)"
+          >
+            <option value="WPA">WPA / WPA2 / WPA3 (Standard)</option>
+            <option value="WEP">WEP (Legacy)</option>
+            <option value="nopass">None (Open Network)</option>
+          </select>
+        </div>
+        @if (wifiEncryption() !== 'nopass') {
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="wifiPassword">Network Password</label>
+            <input
+              id="wifiPassword"
+              type="text"
+              class="text-input"
+              placeholder="Enter Wi-Fi password"
+              [ngModel]="wifiPassword()"
+              (ngModelChange)="wifiPassword.set($event)"
+            />
+          </div>
+        }
+      }
+
+      <div class="actions" style="margin-top: 16px;">
+        <button type="button" class="btn btn-primary" (click)="generate()">Generate QR Code</button>
+        <app-reset-button (reset)="reset()" />
+      </div>
     </div>
   </div>
 
@@ -72,27 +115,69 @@
   }
 
   @if (qrDataUrl() && !processing()) {
-    <div class="qr-result card">
-      <img [src]="qrDataUrl()" alt="Generated QR code" />
-      <button type="button" class="btn btn-secondary" (click)="download()">Download PNG</button>
+    <div class="qr-result card" style="padding: 24px; text-align: center; margin-block: 20px;">
+      <div style="background: white; padding: 16px; display: inline-block; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+        <img [src]="qrDataUrl()" alt="Generated QR code" style="width: 260px; height: 260px; margin: 0 auto;" />
+      </div>
+      <div style="margin-top: 20px;">
+        <button type="button" class="btn btn-primary" (click)="download()">Download High-Resolution PNG</button>
+      </div>
+      <p style="font-size: 0.8125rem; color: var(--text-muted); margin-top: 12px; margin-bottom: 0;">
+        Permanent static QR code &bull; No expiration &bull; No tracking redirect
+      </p>
     </div>
   }
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is QR Code Generator?">
+  <app-info-section heading="What is a QR Code?">
     <p>
-      QR Code Generator turns a link, a piece of text, or Wi-Fi credentials into a scannable QR
-      code image that anyone can scan with a phone camera.
+      A Quick Response (QR) code is a two-dimensional matrix barcode invented in 1994. Unlike traditional linear UPC barcodes
+      that store only a short sequence of numbers, a QR code can store hundreds of alphanumeric characters in a compact grid
+      of dark modules on a light background.
+    </p>
+    <p>
+      Equipped with built-in position markers and Reed-Solomon error correction algorithms, modern smartphones can scan and decode
+      a QR code from virtually any orientation, even if the code surface is partially scratched, soiled, or smudged.
     </p>
   </app-info-section>
 
-  <app-info-section heading="How to use QR Code Generator">
+  <app-info-section heading="Static vs Dynamic QR Codes: Why Static is Better">
+    <p>
+      Many online QR generators create "dynamic" QR codes that redirect scanners through a proprietary third-party tracking server.
+      After a 14-day free trial, those companies disable your QR code unless you pay an expensive monthly subscription fee.
+    </p>
+    <p>
+      <strong>ToolNova generates 100% static QR codes:</strong> Your URL, text, or Wi-Fi password is hardcoded directly into
+      the visual matrix itself. Our codes never expire, never stop working, never show third-party interstitial ads, and never
+      require payment.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="How to Generate and Use a QR Code">
     <ol>
-      <li>Choose URL, Text, or Wi-Fi.</li>
-      <li>Fill in the required field(s).</li>
-      <li>Click Generate QR Code, then download it as a PNG.</li>
+      <li><strong>Select Payload Type:</strong> Choose between a Website URL, a Plain Text note, or a guest Wi-Fi login.</li>
+      <li><strong>Enter Details:</strong> Provide the destination web link (e.g., <code>https://yourdomain.com</code>) or Wi-Fi credentials.</li>
+      <li><strong>Click Generate:</strong> The vector-precise barcode is constructed in your browser in milliseconds.</li>
+      <li><strong>Test With Your Phone:</strong> Open your smartphone camera and point it at the screen to verify it opens the expected content.</li>
+      <li><strong>Download PNG:</strong> Click the download button to save a high-resolution PNG for printing or digital distribution.</li>
     </ol>
+  </app-info-section>
+
+  <app-info-section heading="Best Practices for Printing QR Codes">
+    <ul>
+      <li><strong>Maintain Maximum Contrast:</strong> Black modules on a crisp white background provide the highest scan reliability across cheap phone cameras and dim lighting.</li>
+      <li><strong>Minimum Print Dimensions:</strong> For handheld business cards and restaurant menus, print codes at least 2 &times; 2 cm (0.8 &times; 0.8 inches). For posters and window decals, scale up to at least 8 &times; 8 cm.</li>
+      <li><strong>Leave a Quiet Zone:</strong> Keep a clear white border around all four edges of the barcode to prevent surrounding graphic elements from interfering with scanner edge detection.</li>
+      <li><strong>Keep Links Short:</strong> Shorter web URLs produce fewer modules (larger, less crowded dots), making the QR code much easier to scan at distance.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Client-Side Privacy Guarantee">
+    <p>
+      ToolNova generates QR codes entirely inside your browser memory using client-side JavaScript.
+      Your Wi-Fi passwords, private URLs, and text notes are never sent over the internet or logged in a database.
+    </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

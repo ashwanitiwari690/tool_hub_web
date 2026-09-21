@@ -3,36 +3,88 @@
   <h1>About {{ siteConfig.name }}</h1>
 
   <p>
-    {{ siteConfig.name }} is a free online tools hub. It brings together everyday utilities —
-    text tools, developer tools, image tools, calculators, PDF tools, QR tools and converters —
-    in one simple, fast website.
+    {{ siteConfig.name }} is a free, web-based utility platform designed to make routine digital tasks fast,
+    straightforward, and private. Whether you need to format a snippet of JSON, calculate percentages, inspect
+    word counts, resize an image for the web, or create a scannable QR code, {{ siteConfig.name }} provides
+    clean, focused tools that work directly in your browser.
   </p>
 
-  <h2>Why we built this</h2>
+  <h2>The Problem We Solve</h2>
   <p>
-    Many small tasks — formatting JSON, resizing an image, calculating a percentage — shouldn't
-    require installing software or digging through cluttered websites. {{ siteConfig.name }} exists
-    to make these everyday tasks quick and straightforward.
+    Everyday computer users, developers, students, and digital creators frequently encounter small technical tasks
+    that shouldn't require installing bulky desktop software, registering for accounts, or navigating bloated
+    websites covered in deceptive download buttons.
   </p>
-
-  <h2>How the tools work</h2>
   <p>
-    Wherever technically possible, tools run directly in your browser using standard web
-    technologies, rather than uploading your data to a server. Each tool page explains exactly how
-    that tool processes your data.
+    {{ siteConfig.name }} was built to solve this problem by providing a clean, accessible collection of single-purpose
+    utilities that load instantly, work without mandatory registration, and run client-side whenever possible.
   </p>
 
-  <h2>Our focus</h2>
+  <h2>What Types of Tools We Provide</h2>
+  <p>
+    Our platform offers practical utilities organized into focused categories:
+  </p>
   <ul>
-    <li>Useful, genuinely functional tools</li>
-    <li>A simple, uncluttered interface</li>
-    <li>Fast performance on desktop and mobile</li>
-    <li>No unnecessary accounts or sign-ups</li>
+    <li>
+      <strong>Text Tools:</strong> Real-time word, character, sentence, and paragraph counters, alongside casing converters
+      (UPPERCASE, lowercase, Title Case, camelCase, snake_case).
+    </li>
+    <li>
+      <strong>Developer Tools:</strong> Instant JSON formatters and syntax validators to beautify, minify, inspect, and debug data structures.
+    </li>
+    <li>
+      <strong>Image Tools:</strong> Client-side image compressors and dimension resizers that adjust file size and pixel dimensions
+      without uploading your photos to a remote server.
+    </li>
+    <li>
+      <strong>Calculators:</strong> Fast calculation utilities for percentages, increases, discounts, and chronological age.
+    </li>
+    <li>
+      <strong>QR Tools:</strong> Custom QR code generators for website links, plain text, and Wi-Fi network configurations.
+    </li>
+    <li>
+      <strong>Converters:</strong> Multi-unit conversion utilities spanning length, mass, temperature, and digital storage.
+    </li>
   </ul>
 
-  <h2>Get in touch</h2>
+  <h2>Who Uses {{ siteConfig.name }}?</h2>
   <p>
-    Have feedback or a tool suggestion? Visit our <a routerLink="/contact">Contact page</a> to
-    reach out.
+    Our tools are crafted for anyone who values time, efficiency, and clarity:
+  </p>
+  <ul>
+    <li><strong>Software Developers &amp; DevOps:</strong> For formatting API payloads and checking JSON syntax quickly.</li>
+    <li><strong>Writers, Editors &amp; Marketers:</strong> For adhering to article length limits and social media character counts.</li>
+    <li><strong>Students &amp; Researchers:</strong> For fast mathematical calculations and unit conversions.</li>
+    <li><strong>Small Business Owners &amp; Organizers:</strong> For generating QR codes and prepping images for web publication.</li>
+  </ul>
+
+  <h2>Our Privacy Approach: Browser-Based Execution</h2>
+  <p>
+    We believe that small utilities should respect your data. Whenever technically feasible, our tools run entirely
+    within your browser's execution environment using client-side JavaScript and the HTML5 Canvas API.
+  </p>
+  <p>
+    Your text, code, passwords, and photos are processed in your local device memory. They are not uploaded to our servers,
+    stored in a central database, or analyzed for advertising profiles. For detailed information on our privacy standards,
+    please review our <a routerLink="/privacy-policy">Privacy Policy</a>.
+  </p>
+
+  <h2>Our Commitment to Quality</h2>
+  <p>
+    We actively test and maintain every tool on {{ siteConfig.name }}. We do not build thin, non-functional tools or publish
+    deceptive interfaces. Every tool is paired with transparent step-by-step instructions, practical examples, technical
+    limitations, and troubleshooting guidance.
+  </p>
+
+  <h2>Reporting Issues &amp; Suggesting Tools</h2>
+  <p>
+    We welcome user feedback, bug reports, and suggestions for new utilities. If you encounter an error with any tool
+    or have an idea for a feature that would make your workflow easier, please reach out to us:
+  </p>
+  <p>
+    Email:
+    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a><br />
+    Support Page:
+    <a routerLink="/contact">Contact &amp; Support</a>
   </p>
 </div>
