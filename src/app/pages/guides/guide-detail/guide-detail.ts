@@ -12,10 +12,11 @@ import {
 import { Breadcrumb } from '../../../shared/components/breadcrumb/breadcrumb';
 import { FaqSection } from '../../../shared/components/faq-section/faq-section';
 import { RelatedTools } from '../../../shared/components/related-tools/related-tools';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-guide-detail',
-  imports: [Breadcrumb, FaqSection, RelatedTools],
+  imports: [Breadcrumb, FaqSection, RelatedTools, RouterLink],
   templateUrl: './guide-detail.html',
   styleUrl: './guide-detail.scss',
 })

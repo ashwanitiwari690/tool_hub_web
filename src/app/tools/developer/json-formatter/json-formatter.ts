@@ -46,16 +46,29 @@ export class JsonFormatter implements OnInit {
 
   readonly faqItems = [
     {
-      question: 'Is my JSON sent to a server?',
-      answer: 'No. Formatting and validation run entirely in your browser using JSON.parse and JSON.stringify.',
+      question: 'Is my JSON data uploaded or stored on any server?',
+      answer:
+        'No. ToolNova performs all parsing, indentation, and minification locally in your web browser using native JavaScript engines. Sensitive tokens, credentials, and API responses never leave your device.',
     },
     {
-      question: 'What does "Minify" do?',
-      answer: 'Minify removes all unnecessary whitespace to produce the smallest possible valid JSON output.',
+      question: 'What is the difference between Format and Minify?',
+      answer:
+        'Format (pretty-print) adds structural line breaks and two-space indentation to make JSON readable for developers. Minify removes all non-essential whitespace, line breaks, and indentation to produce the most compact representation for network transmission.',
     },
     {
-      question: 'Why does formatting fail?',
-      answer: 'Formatting fails when the input is not valid JSON — for example, missing quotes, trailing commas, or unbalanced brackets.',
+      question: 'Why does the tool show a syntax error on my JSON?',
+      answer:
+        'The JSON specification (RFC 8259) is strictly enforced. Common reasons include trailing commas after the last item, single quotes instead of double quotes, unquoted keys, or unescaped characters within strings.',
+    },
+    {
+      question: 'Can I download the formatted JSON to my computer?',
+      answer:
+        'Yes. Click the Download button in the result panel to save your formatted or minified output directly as a valid .json file.',
+    },
+    {
+      question: 'Can this tool format large JSON files?',
+      answer:
+        'Yes. Because processing runs client-side, the tool can handle multi-megabyte payloads limited only by your computer memory.',
     },
   ];
 
@@ -82,7 +95,7 @@ export class JsonFormatter implements OnInit {
     try {
       JSON.parse(this.input());
       this.error.set('');
-      this.output.set('Valid JSON ✓');
+      this.output.set('Valid JSON ✓ The syntax conforms strictly to RFC 8259 specifications.');
     } catch (e) {
       this.output.set('');
       this.error.set(`Invalid JSON — ${(e as Error).message}`);
@@ -99,9 +112,9 @@ export class JsonFormatter implements OnInit {
       const parsed = JSON.parse(this.input());
       this.output.set(fn(parsed));
       this.error.set('');
-    } catch {
+    } catch (e) {
       this.output.set('');
-      this.error.set('Invalid JSON. Please check the input and try again.');
+      this.error.set(`Invalid JSON syntax — ${(e as Error).message}`);
     }
   }
 

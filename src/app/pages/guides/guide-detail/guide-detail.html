@@ -1,25 +1,73 @@
 @if (guide) {
-  <article class="container page">
+  <article class="container page guide-article">
     <app-breadcrumb [items]="breadcrumbItems" />
-    <h1>{{ guide.title }}</h1>
-    <p class="updated">Updated {{ guide.updatedDate }}</p>
-    <p class="intro">{{ guide.introduction }}</p>
+    <header class="guide-header">
+      <h1>{{ guide.title }}</h1>
+      <p class="updated">Last updated: {{ guide.updatedDate }} &bull; Editorial Team</p>
+      <p class="intro">{{ guide.introduction }}</p>
+    </header>
 
-    <ol class="steps">
-      @for (step of guide.steps; track step.title) {
-        <li>
-          <h3>{{ step.title }}</h3>
-          <p>{{ step.detail }}</p>
-        </li>
-      }
-    </ol>
+    @if (guide.sections && guide.sections.length) {
+      <div class="guide-sections">
+        @for (section of guide.sections; track section.heading) {
+          <section class="guide-section">
+            <h2>{{ section.heading }}</h2>
+            <p>{{ section.content }}</p>
 
-    <app-faq-section [items]="guide.faq" />
-    <app-related-tools [tools]="relatedTools" />
+            @if (section.codeExample) {
+              <pre class="code-block"><code>{{ section.codeExample }}</code></pre>
+            }
+
+            @if (section.tips && section.tips.length) {
+              <div class="tips-box card">
+                <p class="tips-heading">💡 Practical Tips &amp; Best Practices:</p>
+                <ul>
+                  @for (tip of section.tips; track tip) {
+                    <li>{{ tip }}</li>
+                  }
+                </ul>
+              </div>
+            }
+          </section>
+        }
+      </div>
+    }
+
+    <section class="guide-steps-section">
+      <h2>Step-by-Step Instructions</h2>
+      <ol class="steps-list">
+        @for (step of guide.steps; track step.title) {
+          <li class="step-item card">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.detail }}</p>
+          </li>
+        }
+      </ol>
+    </section>
+
+    @if (guide.commonMistakes && guide.commonMistakes.length) {
+      <section class="guide-mistakes-section card">
+        <h2>⚠️ Common Mistakes to Avoid</h2>
+        <ul class="mistakes-list">
+          @for (mistake of guide.commonMistakes; track mistake) {
+            <li>{{ mistake }}</li>
+          }
+        </ul>
+      </section>
+    }
+
+    <section class="guide-faq-section">
+      <app-faq-section [items]="guide.faq" />
+    </section>
+
+    <footer class="guide-footer">
+      <app-related-tools [tools]="relatedTools" />
+    </footer>
   </article>
 } @else {
   <div class="container page">
     <h1>Guide not found</h1>
     <p>The guide you're looking for doesn't exist.</p>
+    <a routerLink="/guides" class="btn btn-primary">Back to All Guides</a>
   </div>
 }

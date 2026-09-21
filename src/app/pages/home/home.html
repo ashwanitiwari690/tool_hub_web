@@ -1,20 +1,25 @@
 <section class="hero">
   <div class="container hero-inner">
-    <h1>Free Online Tools</h1>
-    <p class="hero-sub">Simple. Fast. Useful.</p>
+    <h1>Free Online Tools for Everyday Tasks</h1>
+    <p class="hero-sub">Fast. Private. Browser-Based Utilities.</p>
     <p class="hero-desc">
-      Powerful browser-based tools for developers, students, creators and everyday tasks.
+      {{ siteConfig.name }} provides instant, client-side tools for developers, students, writers, and digital creators.
+      Format code, compress images, generate QR codes, count words, calculate percentages, and convert units without installing software.
     </p>
     <button type="button" class="search-trigger" (click)="openSearch()">
-      <span>🔍 Search for a tool...</span>
+      <span>🔍 Search tools (Ctrl+K)...</span>
       <kbd>Ctrl K</kbd>
     </button>
   </div>
 </section>
 
+<!-- Popular Tools -->
 <section class="section">
   <div class="container">
-    <h2>Popular Tools</h2>
+    <div class="section-header">
+      <h2>Popular Tools</h2>
+      <a routerLink="/tools" class="section-link">View all tools &rarr;</a>
+    </div>
     <div class="tool-grid">
       @for (tool of featuredTools; track tool.slug) {
         <app-tool-card [tool]="tool" />
@@ -23,9 +28,13 @@
   </div>
 </section>
 
+<!-- Tool Categories -->
 <section class="section section-alt">
   <div class="container">
-    <h2>Browse Tools</h2>
+    <div class="section-header">
+      <h2>Explore Tool Categories</h2>
+      <p class="section-sub">Browse our curated collection of utilities organized by purpose.</p>
+    </div>
     <div class="category-grid">
       @for (category of categories; track category.slug) {
         <app-category-card [category]="category" />
@@ -34,50 +43,129 @@
   </div>
 </section>
 
+<!-- Why Use ToolNova -->
 <section class="section">
   <div class="container">
-    <h2>Why {{ siteConfig.name }}?</h2>
+    <div class="section-header">
+      <h2>Why Use {{ siteConfig.name }}?</h2>
+      <p class="section-sub">Built with a focus on simplicity, speed, and genuine respect for user data.</p>
+    </div>
     <div class="benefits-grid">
       <div class="benefit card">
-        <h3>Free to use</h3>
-        <p>Every tool is free, with no hidden paywalls.</p>
+        <div class="benefit-icon">🔒</div>
+        <h3>100% Browser-Based Privacy</h3>
+        <p>Your data stays on your machine. Text, code, and images are processed locally in your browser memory and never uploaded to our servers.</p>
       </div>
       <div class="benefit card">
-        <h3>Fast, browser-based tools</h3>
-        <p>Most tools run instantly in your browser without waiting on a server.</p>
+        <div class="benefit-icon">⚡</div>
+        <h3>Instant Local Performance</h3>
+        <p>No waiting on server round-trips, slow cloud rendering, or file upload bars. Calculations and image edits happen immediately.</p>
       </div>
       <div class="benefit card">
-        <h3>No unnecessary account</h3>
-        <p>Use every tool without signing up or logging in.</p>
+        <div class="benefit-icon">✨</div>
+        <h3>No Sign-Up or Accounts</h3>
+        <p>Start using every tool instantly without giving away your email address, creating passwords, or downloading desktop apps.</p>
       </div>
       <div class="benefit card">
-        <h3>Privacy-conscious processing</h3>
-        <p>Client-side tools process your data locally rather than uploading it.</p>
+        <div class="benefit-icon">📱</div>
+        <h3>Fully Mobile Responsive</h3>
+        <p>Designed from the ground up for seamless operation across mobile smartphones, tablets, laptops, and ultra-wide desktop monitors.</p>
       </div>
       <div class="benefit card">
-        <h3>Mobile friendly</h3>
-        <p>Every tool is designed to work comfortably on phones and tablets.</p>
+        <div class="benefit-icon">🆓</div>
+        <h3>Completely Free Forever</h3>
+        <p>All utilities are free to use for personal, academic, and commercial tasks with no hidden paywalls or surprise limits.</p>
+      </div>
+      <div class="benefit card">
+        <div class="benefit-icon">🎯</div>
+        <h3>Clean, Focused Interface</h3>
+        <p>No bloated distractions, deceptive download links, or confusing menus. Just clear, purposeful tools that get work done quickly.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- How ToolNova Works -->
 <section class="section section-alt">
   <div class="container">
-    <h2>Latest Guides</h2>
+    <div class="section-header">
+      <h2>How {{ siteConfig.name }} Works</h2>
+      <p class="section-sub">Simple, transparent, four-step process for all our browser utilities.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step card">
+        <span class="step-badge">Step 1</span>
+        <h3>Choose Your Tool</h3>
+        <p>Select the tool you need from our categorized directory or find it immediately with quick search (Ctrl+K).</p>
+      </div>
+      <div class="how-step card">
+        <span class="step-badge">Step 2</span>
+        <h3>Input Your Data</h3>
+        <p>Paste your text, type your values, or drag and drop an image file directly into the tool interface.</p>
+      </div>
+      <div class="how-step card">
+        <span class="step-badge">Step 3</span>
+        <h3>Instant Local Processing</h3>
+        <p>Your browser executes the calculation, formatting, or image compression algorithm immediately on your device.</p>
+      </div>
+      <div class="how-step card">
+        <span class="step-badge">Step 4</span>
+        <h3>Copy or Download</h3>
+        <p>Copy formatted outputs to your clipboard with one click, or save processed images and files directly to your device.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Guides -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Practical Guides &amp; Tutorials</h2>
+      <a routerLink="/guides" class="section-link">View all guides &rarr;</a>
+    </div>
     <div class="guide-grid">
       @for (guide of guides; track guide.slug) {
         <a class="guide-card card" [routerLink]="['/guides', guide.slug]">
           <h3>{{ guide.title }}</h3>
           <p>{{ guide.description }}</p>
+          <span class="guide-read-more">Read guide &rarr;</span>
         </a>
       }
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- FAQ -->
+<section class="section section-alt">
   <div class="container">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+      <p class="section-sub">Everything you need to know about {{ siteConfig.name }} and how our tools operate.</p>
+    </div>
     <app-faq-section [items]="faqItems" />
+  </div>
+</section>
+
+<!-- About & Contact Previews -->
+<section class="section">
+  <div class="container about-contact-grid">
+    <div class="card preview-box">
+      <h3>About {{ siteConfig.name }}</h3>
+      <p>
+        {{ siteConfig.name }} was created to give everyone access to fast, uncluttered digital utilities that respect user privacy.
+        Learn about our architecture, privacy philosophy, and mission.
+      </p>
+      <a routerLink="/about" class="btn btn-secondary">Learn more about us &rarr;</a>
+    </div>
+
+    <div class="card preview-box">
+      <h3>Need Help or Found a Bug?</h3>
+      <p>
+        Our support team is always glad to help. If you notice a glitch, want to suggest a tool, or have a privacy question,
+        reach out to our official email directly.
+      </p>
+      <a routerLink="/contact" class="btn btn-primary">Contact Support &rarr;</a>
+    </div>
   </div>
 </section>

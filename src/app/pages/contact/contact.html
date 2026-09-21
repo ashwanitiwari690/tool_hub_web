@@ -1,11 +1,61 @@
 <div class="container static-page">
   <app-breadcrumb [items]="breadcrumbItems" />
-  <h1>Contact</h1>
+  <h1>Contact &amp; Support</h1>
+
   <p>
-    {{ siteConfig.name }} doesn't run a backend, so there's no contact form here. If you have a
-    question, found a bug, or want to suggest a tool, email us directly:
+    Welcome to the <strong>{{ siteConfig.name }}</strong> support center. We value your feedback and are
+    committed to keeping our tools reliable, fast, and accessible. If you experience an issue with any
+    of our tools, have a feature suggestion, or need assistance, we are here to help.
   </p>
+
+  <div class="card" style="padding: 24px; margin-block: 24px; border-left: 4px solid var(--primary);">
+    <h2 style="margin-top: 0;">{{ siteConfig.name }}</h2>
+    <p style="margin-bottom: 8px;"><strong>Online Tools Platform</strong></p>
+    <p style="margin-bottom: 16px;">Direct Contact / Support Email:</p>
+    <p>
+      <a class="btn btn-primary" [href]="'mailto:' + siteConfig.contactEmail">
+        ✉️ {{ siteConfig.contactEmail }}
+      </a>
+    </p>
+    <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0;">
+      Click the button above or email us directly at <code>{{ siteConfig.contactEmail }}</code>.
+    </p>
+  </div>
+
+  <h2>What You Can Contact Us For</h2>
+  <p>Feel free to reach out to us regarding any of the following:</p>
+  <ul>
+    <li>
+      <strong>Tool Problems &amp; Bug Reports:</strong> If a tool does not behave as expected, produces unexpected output,
+      or encounters an error on your device or browser. Please include the tool name, your browser/device type, and a short
+      description of what occurred.
+    </li>
+    <li>
+      <strong>Feature Requests &amp; Suggestions:</strong> If you have ideas for new utilities, extra options, or improvements
+      that would save you time.
+    </li>
+    <li>
+      <strong>Feedback &amp; Usability:</strong> If you notice layout issues, readability problems, or accessibility hurdles.
+    </li>
+    <li>
+      <strong>Privacy &amp; Data Questions:</strong> If you have questions about our client-side processing architecture,
+      cookies, or our <a routerLink="/privacy-policy">Privacy Policy</a>.
+    </li>
+    <li>
+      <strong>General Support &amp; Inquiries:</strong> Any general questions regarding our platform.
+    </li>
+  </ul>
+
+  <h2>Response Time</h2>
   <p>
-    <a class="btn btn-primary" [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a>
+    We strive to review and respond to legitimate inquiries within <strong>24 to 48 business hours</strong>.
+    For bug reports, providing the specific browser name (e.g., Chrome, Safari, Firefox) and operating system helps us
+    reproduce and resolve issues promptly.
+  </p>
+
+  <h2>Frequently Asked Questions</h2>
+  <p>
+    Before emailing, you might find answers in our educational <a routerLink="/guides">Guides</a> or directly on each tool's
+    dedicated FAQ section. All tools run directly in modern web browsers without requiring account creation.
   </p>
 </div>

@@ -1,7 +1,7 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
-  title="Image Compressor"
-  description="Compress images in your browser without uploading them anywhere."
+  title="Image Compressor (Browser-Based)"
+  description="Compress JPG, PNG, and WebP images directly in your browser without uploading your files to any server."
 >
   @if (!originalUrl()) {
     <app-file-drop-zone
@@ -14,13 +14,13 @@
   <app-error-message [message]="error()" />
 
   @if (processing()) {
-    <app-loading-state label="Processing image..." />
+    <app-loading-state label="Compressing image in browser memory..." />
   }
 
   @if (originalUrl() && !processing()) {
     <div class="controls card">
       <div class="control-row">
-        <label for="quality">Quality: {{ quality() | number: '1.0-2' }}</label>
+        <label for="quality">Compression Quality: <strong>{{ (quality() * 100) | number: '1.0-0' }}%</strong></label>
         <input
           id="quality"
           type="range"
@@ -32,28 +32,30 @@
         />
       </div>
       <div class="control-row">
-        <label for="format">Output format</label>
+        <label for="format">Output Format</label>
         <select id="format" [ngModel]="format()" (ngModelChange)="format.set($event); compress()">
-          <option value="image/jpeg">JPEG</option>
-          <option value="image/webp">WebP</option>
+          <option value="image/jpeg">JPEG (.jpg) — Universal Compatibility</option>
+          <option value="image/webp">WebP (.webp) — Maximum Web Compression</option>
         </select>
       </div>
     </div>
 
     <div class="preview-grid">
       <div class="preview card">
-        <h3>Original</h3>
+        <h3>Original Image</h3>
         <img [src]="originalUrl()" alt="Original image preview" />
         <p class="size">{{ (originalSize() / 1024) | number: '1.0-1' }} KB</p>
       </div>
       <div class="preview card">
-        <h3>Compressed</h3>
+        <h3>Compressed Preview</h3>
         @if (resultUrl()) {
           <img [src]="resultUrl()" alt="Compressed image preview" />
           <p class="size">
             {{ (resultSize() / 1024) | number: '1.0-1' }} KB
             @if (reductionPercent() > 0) {
-              <span class="badge">-{{ reductionPercent() }}%</span>
+              <span class="badge" style="background: var(--success); color: white; padding: 2px 8px; border-radius: 4px; font-weight: 700; margin-left: 8px;">
+                -{{ reductionPercent() }}%
+              </span>
             }
           </p>
         }
@@ -62,7 +64,7 @@
 
     <div class="actions">
       <button type="button" class="btn btn-primary" (click)="download()" [disabled]="!resultUrl()">
-        Download
+        Download Compressed Image
       </button>
       <app-reset-button (reset)="reset()" />
     </div>
@@ -70,21 +72,52 @@
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is Image Compressor?">
+  <app-info-section heading="What is Image Compression?">
     <p>
-      Image Compressor reduces the file size of your images directly in your browser using the
-      Canvas API, so you can share or upload smaller files without sending your original image to
-      a server.
+      Image compression reduces the byte size of graphics and photographic files while retaining acceptable visual fidelity.
+      Uncompressed photos captured by smartphones often weigh between 4 MB and 15 MB, making them far too heavy for smooth web loading,
+      email attachments, and fast mobile browsing. By eliminating redundant color data and optimizing pixel encoding, compression
+      can shrink file sizes by 60% to 80% without noticeable loss of quality on screens.
     </p>
   </app-info-section>
 
-  <app-info-section heading="How to use Image Compressor">
+  <app-info-section heading="Lossy vs Lossless Compression Explained">
+    <ul>
+      <li>
+        <strong>Lossy Compression (JPEG &amp; WebP):</strong> Discards imperceptible color variations and high-frequency visual details
+        that the human eye rarely notices at normal zoom levels. This yields the highest file size savings and is standard for photography
+        and web publishing.
+      </li>
+      <li>
+        <strong>Lossless Compression (PNG):</strong> Restructures image data without discarding any pixel information. Ideal for logos,
+        technical diagrams, screenshots, and artwork containing text, where every pixel must remain pristine.
+      </li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="JPG vs PNG vs WebP: Which Format Should You Choose?">
+    <ul>
+      <li><strong>JPEG (.jpg):</strong> The universal standard for photography across all hardware and legacy software. Recommended when you must email photos to users with older devices.</li>
+      <li><strong>WebP (.webp):</strong> The modern standard developed by Google. Supported by over 97% of modern browsers, WebP delivers files 25%–35% smaller than JPEG at equal visual quality, making it the superior choice for website publishing and SEO performance.</li>
+      <li><strong>PNG (.png):</strong> Use PNG when your graphic contains transparent cutout areas or sharp vector-like linework. Convert to WebP if you want transparency with a smaller file size.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="How to Compress an Image">
     <ol>
-      <li>Drag and drop an image, or click to browse.</li>
-      <li>Adjust the quality slider to balance file size and visual quality.</li>
-      <li>Choose JPEG or WebP as the output format.</li>
-      <li>Download the compressed image.</li>
+      <li><strong>Choose File:</strong> Drag and drop your image into the drop zone or click to select from your device storage.</li>
+      <li><strong>Select Output Format:</strong> Choose WebP for modern web delivery or JPEG for universal compatibility.</li>
+      <li><strong>Adjust Quality Slider:</strong> Slide the quality bar (typically between 70% and 85%) and observe the live reduction percentage and visual preview.</li>
+      <li><strong>Download:</strong> Click "Download Compressed Image" to save the optimized file directly to your computer or phone.</li>
     </ol>
+  </app-info-section>
+
+  <app-info-section heading="Zero-Server Privacy Guarantee">
+    <p>
+      Most free online image compressors upload your sensitive personal photos, ID cards, and business documents to remote cloud servers.
+      ToolNova takes an entirely different approach: your images are loaded into your browser local memory and re-encoded using
+      the native HTML5 Canvas API. Your pictures never leave your device and are never transmitted over the network.
+    </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

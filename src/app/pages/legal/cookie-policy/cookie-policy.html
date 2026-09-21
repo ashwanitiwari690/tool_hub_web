@@ -1,33 +1,94 @@
 <div class="container static-page">
   <app-breadcrumb [items]="breadcrumbItems" />
   <h1>Cookie Policy</h1>
-  <p class="updated">
-    Draft placeholder — intended for legal review before this site goes live. Last updated: 2026-08-29.
+  <p class="updated">Last updated: September 21, 2026</p>
+
+  <p>
+    This Cookie Policy explains how {{ siteConfig.name }} ("we", "us", or "our") uses cookies and related
+    web storage technologies when you visit our website (<a [href]="siteConfig.websiteUrl">{{ siteConfig.websiteUrl }}</a>).
+    It clarifies what these technologies are, why we use them, and your rights to manage or disable them.
   </p>
 
-  <h2>What we currently use</h2>
+  <h2>1. What Are Cookies and Local Storage?</h2>
   <p>
-    {{ siteConfig.name }} currently uses your browser's local storage — not cookies — to remember
-    your theme preference, favorite tools, and recently used tools. This data stays on your device.
+    <strong>Cookies</strong> are small text files placed on your computer or mobile device by websites that you visit.
+    They are widely used to make websites function efficiently, remember your preferences, and provide analytical or advertising data.
+  </p>
+  <p>
+    <strong>Local Storage</strong> is an HTML5 technology that allows websites to store key-value data directly in your
+    browser on your device without sending that data to the web server with every network request.
   </p>
 
-  <h2>Advertising cookies (future)</h2>
+  <h2>2. Technologies Used by {{ siteConfig.name }}</h2>
+
+  <h3>A. Essential Local Storage (First-Party)</h3>
   <p>
-    If Google AdSense or a similar advertising service is enabled in the future, it may set
-    cookies to serve and measure ads. This may include Google's use of advertising cookies to
-    serve ads based on a user's prior visits to this or other websites. This section will be
-    updated with specific details before any such service is enabled.
+    {{ siteConfig.name }} uses standard browser <code>localStorage</code> to store purely functional interface preferences.
+    This local data does not track you across other websites and is never transmitted to our servers:
+  </p>
+  <ul>
+    <li><code>toolnova:theme</code> — remembers your choice of dark, light, or system color theme.</li>
+    <li><code>toolnova:favorites</code> — records tools you have marked as favorites for quick access.</li>
+    <li><code>toolnova:recent-tools</code> — keeps a short list of your recently opened tools in the navigation search modal.</li>
+  </ul>
+
+  <h3>B. Advertising Cookies (Third-Party — Google AdSense)</h3>
+  <p>
+    To keep our utilities completely free for all visitors, we display or plan to display advertisements provided by Google AdSense.
+    Google and its advertising partners use third-party cookies (such as the DoubleClick cookie) to:
+  </p>
+  <ul>
+    <li>Serve ads based on your prior visits to this website or other sites across the internet.</li>
+    <li>Measure the effectiveness and impressions of advertisements.</li>
+    <li>Prevent the same advertisement from being shown to you repeatedly.</li>
+    <li>Detect and prevent ad fraud and invalid click traffic.</li>
+  </ul>
+
+  <h3>C. Hosting Infrastructure</h3>
+  <p>
+    Our cloud hosting provider (Vercel) may set essential technical cookies or security headers solely to maintain
+    network security, load balance web traffic, and defend against malicious automated attacks.
   </p>
 
-  <h2>Managing cookies and local storage</h2>
+  <h2>3. How You Can Control Cookies and Local Storage</h2>
   <p>
-    You can clear local storage or cookies at any time through your browser settings. Doing so
-    will reset your saved theme, favorites, and recent tools.
+    You have full control over the cookies and storage saved on your computer or device:
+  </p>
+  <ul>
+    <li>
+      <strong>Browser Settings:</strong> Most modern web browsers allow you to manage your cookie settings. You can configure
+      your browser to block all cookies, accept only first-party cookies, or prompt you before accepting a cookie. Consult your
+      browser's help section (Chrome, Firefox, Safari, Edge) for step-by-step instructions.
+    </li>
+    <li>
+      <strong>Clearing Local Storage:</strong> You can clear local storage at any time by clearing your browser's site data
+      or cookies for {{ siteConfig.websiteUrl }}. Doing so will reset your saved theme and favorite tools to default values.
+    </li>
+    <li>
+      <strong>Google Ad Personalization:</strong> You can opt out of personalized ads served by Google by visiting
+      <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google Ads Settings</a>.
+    </li>
+    <li>
+      <strong>Industry Opt-Out Programs:</strong> You can opt out of third-party targeted advertising from participating companies
+      via the Network Advertising Initiative (<a href="https://optout.networkadvertising.org" target="_blank" rel="noopener noreferrer">optout.networkadvertising.org</a>)
+      or the Digital Advertising Alliance (<a href="https://optout.aboutads.info" target="_blank" rel="noopener noreferrer">optout.aboutads.info</a>).
+    </li>
+  </ul>
+
+  <h2>4. Updates to This Cookie Policy</h2>
+  <p>
+    We may update this Cookie Policy from time to time to reflect changes in the cookies we use or for operational, legal,
+    or regulatory reasons. Please revisit this policy periodically to stay informed about our use of cookies and related technologies.
   </p>
 
-  <h2>Contact</h2>
+  <h2>5. Contact Information</h2>
   <p>
-    Questions about this policy can be sent to
-    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a>.
+    If you have any questions or concerns about our use of cookies or web storage, please feel free to contact us:
+  </p>
+  <p>
+    Email:
+    <a [href]="'mailto:' + siteConfig.contactEmail">{{ siteConfig.contactEmail }}</a><br />
+    Website:
+    <a [href]="siteConfig.websiteUrl">{{ siteConfig.websiteUrl }}</a>
   </p>
 </div>

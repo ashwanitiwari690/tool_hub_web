@@ -52,12 +52,29 @@ export class QrGenerator implements OnInit {
 
   readonly faqItems = [
     {
-      question: 'Is the QR code generated locally?',
-      answer: 'Yes. The QR code is generated entirely in your browser — the content you enter is never sent to a server.',
+      question: 'Do QR codes created on ToolNova ever expire?',
+      answer:
+        'No. These are clean static QR codes. The encoded data is directly represented in the black-and-white matrix dots, meaning they work indefinitely without depending on any redirect server or subscription.',
     },
     {
-      question: 'Do QR codes generated here expire?',
-      answer: 'No. The QR code simply encodes the text you provide and works for as long as that content is valid.',
+      question: 'Is my Wi-Fi password or private URL sent to a server?',
+      answer:
+        'Never. The QR code is generated 100% locally in your web browser using client-side JavaScript. Your Wi-Fi network credentials, passwords, and URLs never leave your device.',
+    },
+    {
+      question: 'How does a Wi-Fi QR code work when scanned by a phone?',
+      answer:
+        'Scanning a Wi-Fi QR code with a modern iOS or Android camera parses standard Wi-Fi protocol markers, prompting the user with a single-tap button to automatically join the network without typing passwords.',
+    },
+    {
+      question: 'What is the recommended minimum print size for a QR code?',
+      answer:
+        'For business cards and flyers scanned at arm\'s length, print QR codes at a minimum size of 2 &times; 2 cm (0.8 &times; 0.8 inches). For posters or billboards, scale the code proportionally to viewing distance.',
+    },
+    {
+      question: 'Can I use these QR codes for commercial products and marketing?',
+      answer:
+        'Yes. All QR codes generated here are 100% royalty-free and unrestricted for commercial packaging, restaurant menus, signage, and personal projects.',
     },
   ];
 
@@ -95,7 +112,7 @@ export class QrGenerator implements OnInit {
   async generate(): Promise<void> {
     const content = this.buildContent();
     if (!content) {
-      this.error.set('Please fill in the required fields first.');
+      this.error.set('Please enter the required information before generating.');
       return;
     }
 
@@ -103,10 +120,10 @@ export class QrGenerator implements OnInit {
     this.error.set('');
     try {
       const QRCode = await import('qrcode');
-      const dataUrl = await QRCode.toDataURL(content, { width: 320, margin: 2 });
+      const dataUrl = await QRCode.toDataURL(content, { width: 340, margin: 2 });
       this.qrDataUrl.set(dataUrl);
     } catch {
-      this.error.set('Something went wrong while generating the QR code. Please try again.');
+      this.error.set('Something went wrong while generating the QR code. Please check your input.');
     } finally {
       this.processing.set(false);
     }
@@ -116,7 +133,7 @@ export class QrGenerator implements OnInit {
     if (!this.qrDataUrl()) return;
     const link = document.createElement('a');
     link.href = this.qrDataUrl();
-    link.download = 'qr-code.png';
+    link.download = 'toolnova-qrcode.png';
     link.click();
   }
 

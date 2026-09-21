@@ -1,72 +1,161 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
   title="Percentage Calculator"
-  description="Calculate percentages, increases and decreases quickly."
+  description="Fast, free online percentage calculator for discounts, tips, tax, proportion, and percentage increase or decrease."
 >
   <div class="workspace card">
-    <div class="type-tabs">
-      <button type="button" class="tab" [class.active]="mode() === 'of'" (click)="setMode('of')">
-        % of a number
+    <div class="tabs">
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="mode() === 'of'"
+        (click)="setMode('of')"
+      >
+        What is X% of Y?
       </button>
       <button
         type="button"
-        class="tab"
+        class="tab-btn"
         [class.active]="mode() === 'isWhatPercent'"
         (click)="setMode('isWhatPercent')"
       >
-        X is what % of Y
+        X is what % of Y?
       </button>
-      <button type="button" class="tab" [class.active]="mode() === 'change'" (click)="setMode('change')">
-        Percentage change
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="mode() === 'change'"
+        (click)="setMode('change')"
+      >
+        Percentage Change (Increase/Decrease)
       </button>
     </div>
 
-    @if (mode() === 'of') {
-      <div class="input-row">
-        <input type="number" placeholder="Percentage" [ngModel]="a()" (ngModelChange)="a.set($event)" />
-        <span>% of</span>
-        <input type="number" placeholder="Number" [ngModel]="b()" (ngModelChange)="b.set($event)" />
-      </div>
-    } @else if (mode() === 'isWhatPercent') {
-      <div class="input-row">
-        <input type="number" placeholder="X" [ngModel]="a()" (ngModelChange)="a.set($event)" />
-        <span>is what % of</span>
-        <input type="number" placeholder="Y" [ngModel]="b()" (ngModelChange)="b.set($event)" />
-      </div>
-    } @else {
-      <div class="input-row">
-        <input type="number" placeholder="Original value" [ngModel]="a()" (ngModelChange)="a.set($event)" />
-        <span>→</span>
-        <input type="number" placeholder="New value" [ngModel]="b()" (ngModelChange)="b.set($event)" />
-      </div>
-    }
+    <div class="calc-inputs" style="padding-top: 20px;">
+      @if (mode() === 'of') {
+        <div class="calc-row">
+          <span>What is</span>
+          <input
+            type="number"
+            class="num-input"
+            placeholder="e.g. 15"
+            [ngModel]="a()"
+            (ngModelChange)="a.set($event)"
+          />
+          <span>% of</span>
+          <input
+            type="number"
+            class="num-input"
+            placeholder="e.g. 80"
+            [ngModel]="b()"
+            (ngModelChange)="b.set($event)"
+          />
+          <span>?</span>
+        </div>
+      }
 
-    <div class="actions">
+      @if (mode() === 'isWhatPercent') {
+        <div class="calc-row">
+          <input
+            type="number"
+            class="num-input"
+            placeholder="e.g. 25"
+            [ngModel]="a()"
+            (ngModelChange)="a.set($event)"
+          />
+          <span>is what percent of</span>
+          <input
+            type="number"
+            class="num-input"
+            placeholder="e.g. 200"
+            [ngModel]="b()"
+            (ngModelChange)="b.set($event)"
+          />
+          <span>?</span>
+        </div>
+      }
+
+      @if (mode() === 'change') {
+        <div class="calc-row">
+          <span>Change from</span>
+          <input
+            type="number"
+            class="num-input"
+            placeholder="e.g. 50 (Initial)"
+            [ngModel]="a()"
+            (ngModelChange)="a.set($event)"
+          />
+          <span>to</span>
+          <input
+            type="number"
+            class="num-input"
+            placeholder="e.g. 65 (New)"
+            [ngModel]="b()"
+            (ngModelChange)="b.set($event)"
+          />
+        </div>
+      }
+    </div>
+
+    <div class="actions" style="margin-top: 20px;">
       <app-reset-button (reset)="reset()" />
     </div>
-  </div>
 
-  @if (result() !== null) {
-    <div class="result card">
-      <span class="result-label">Result</span>
-      <span class="result-value">{{ result() }}</span>
-    </div>
-  }
+    @if (result() !== null) {
+      <div class="result-box card" style="margin-top: 20px; padding: 20px; text-align: center; border-left: 4px solid var(--primary); background: var(--surface);">
+        <span class="result-label" style="display: block; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 4px;">Result</span>
+        <span class="result-value" style="font-size: 2rem; font-weight: 800; color: var(--primary);">{{ result() }}</span>
+      </div>
+    }
+  </div>
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is Percentage Calculator?">
+  <app-info-section heading="What is a Percentage?">
     <p>
-      Percentage Calculator covers the three most common percentage questions: finding a
-      percentage of a number, finding what percentage one number is of another, and calculating
-      the percentage change between two values.
+      A percentage is a dimensionless mathematical ratio expressed as a fraction of 100, symbolized by the percent sign (<code>%</code>).
+      The term originates from the Latin <em>per centum</em>, meaning "by the hundred." Percentages provide a universal benchmark
+      to compare proportional quantities, relative price adjustments, interest rates, and statistical trends across disparate scales.
     </p>
   </app-info-section>
 
-  <app-info-section heading="Formula">
-    <p><strong>% of a number:</strong> (percentage ÷ 100) × number</p>
-    <p><strong>X is what % of Y:</strong> (X ÷ Y) × 100</p>
-    <p><strong>Percentage change:</strong> ((new − original) ÷ |original|) × 100</p>
+  <app-info-section heading="Mathematical Formulas &amp; Practical Examples">
+    <ul>
+      <li>
+        <strong>1. Finding X% of Y:</strong><br />
+        <code>Formula: Result = (X / 100) &times; Y</code><br />
+        <em>Example:</em> What is 20% of $85? &rarr; <code>(20 / 100) &times; 85 = 17</code>.
+      </li>
+      <li>
+        <strong>2. Finding What Percent X is of Y:</strong><br />
+        <code>Formula: Result = (X / Y) &times; 100</code><br />
+        <em>Example:</em> You scored 45 points out of 50 on an exam. What percentage is that? &rarr; <code>(45 / 50) &times; 100 = 90%</code>.
+      </li>
+      <li>
+        <strong>3. Calculating Percentage Change (Increase or Decrease):</strong><br />
+        <code>Formula: Result = ((New Value - Original Value) / |Original Value|) &times; 100</code><br />
+        <em>Example:</em> A stock price increases from $40 to $52. &rarr; <code>((52 - 40) / 40) &times; 100 = +30% increase</code>.<br />
+        <em>Example:</em> A gadget price drops from $100 to $75. &rarr; <code>((75 - 100) / 100) &times; 100 = -25% discount</code>.
+      </li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Common Everyday Applications">
+    <ul>
+      <li><strong>Shopping Discounts:</strong> Calculating seasonal markdowns (e.g., "Take an extra 30% off clearance items").</li>
+      <li><strong>Restaurant Tipping:</strong> Computing gratuity percentages (15%, 18%, 20%) on dining totals.</li>
+      <li><strong>Sales Tax &amp; GST:</strong> Calculating regional consumption tax additions before checkout.</li>
+      <li><strong>Business Finance:</strong> Measuring gross profit margins, annual revenue growth rates, and customer churn.</li>
+      <li><strong>Academic Grades:</strong> Converting assignment scores and weighted test results into overall course grade percentages.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Limitations &amp; Accuracy Advisory">
+    <p>
+      This calculator executes standard IEEE 754 floating-point arithmetic. While accurate for everyday retail, budgeting, and study tasks,
+      results are rounded to two decimal places. For high-stakes institutional finance, commercial taxation, or loan underwriting,
+      always cross-reference results with certified financial professionals.
+    </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

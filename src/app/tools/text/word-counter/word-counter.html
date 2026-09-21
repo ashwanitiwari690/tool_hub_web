@@ -1,13 +1,15 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
   title="Word Counter"
-  description="Count words, characters, sentences and paragraphs instantly in your browser."
+  description="Accurate, real-time word counter, character counter, and text analysis tool operating entirely in your browser."
 >
   <div class="workspace card">
+    <label for="wordCounterInput" class="visually-hidden">Text to analyze</label>
     <textarea
+      id="wordCounterInput"
       class="text-input"
       rows="10"
-      placeholder="Type or paste your text here..."
+      placeholder="Type or paste your text here to analyze words, characters, sentences, and reading time..."
       [ngModel]="text()"
       (ngModelChange)="text.set($event)"
     ></textarea>
@@ -23,7 +25,7 @@
     </div>
     <div class="stat card">
       <span class="stat-value">{{ characters() }}</span>
-      <span class="stat-label">Characters</span>
+      <span class="stat-label">Characters (all)</span>
     </div>
     <div class="stat card">
       <span class="stat-value">{{ charactersNoSpaces() }}</span>
@@ -47,17 +49,71 @@
 
   <app-info-section heading="What is Word Counter?">
     <p>
-      Word Counter analyzes your text in real time and reports the number of words, characters,
-      sentences and paragraphs — useful for essays, social posts, meta descriptions and more.
+      Word Counter is a free, instant text analysis utility that measures the length and structure of your writing in real time.
+      As you type or paste content into the editor, the tool calculates total words, total characters, characters excluding spaces,
+      sentence counts, paragraph divisions, and estimated silent reading duration.
+    </p>
+    <p>
+      Unlike traditional text tools that send your documents to a cloud server for parsing, ToolNova processes every character
+      directly inside your web browser. This means your private notes, academic drafts, confidential business communications,
+      and creative writing remain strictly confidential on your personal device.
     </p>
   </app-info-section>
 
-  <app-info-section heading="How to use Word Counter">
+  <app-info-section heading="How to Use Word Counter">
     <ol>
-      <li>Type or paste your text into the box above.</li>
-      <li>Counts update automatically as you type.</li>
-      <li>Use Reset to clear the text and start over.</li>
+      <li><strong>Paste or Type Content:</strong> Place your cursor inside the text area above and begin typing or paste text using <code>Ctrl+V</code> (or <code>Cmd+V</code> on macOS).</li>
+      <li><strong>Inspect Real-Time Metrics:</strong> Observe the metrics update instantaneously with every keystroke. No buttons to click or pages to reload.</li>
+      <li><strong>Refine Your Phrasing:</strong> Edit, trim, or expand your content until you hit your exact publication or assignment target.</li>
+      <li><strong>Reset Anytime:</strong> Click the "Clear Text" button to wipe the workspace and start analyzing a new document.</li>
     </ol>
+  </app-info-section>
+
+  <app-info-section heading="Word Count vs Character Count: Key Differences">
+    <p>
+      Understanding how different platforms evaluate text length is crucial for writers, marketers, and researchers:
+    </p>
+    <ul>
+      <li>
+        <strong>Word Count:</strong> Evaluates complete semantic words bounded by whitespace. Essential for academic essays (e.g., 500-word college admissions essays), blog posts (1,500–2,500 words for comprehensive guides), and book chapters.
+      </li>
+      <li>
+        <strong>Characters with Spaces:</strong> Includes every single keystroke. This is the primary metric enforced by social media platforms such as X (formerly Twitter) with its 280-character boundary, and SMS messaging standards (160 characters per segment).
+      </li>
+      <li>
+        <strong>Characters without Spaces:</strong> Strips whitespace characters before counting. Often requested by freelance editors, translation agencies, and European academic publishers who price or evaluate copy based on net character density.
+      </li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Common Use Cases &amp; Character Limits">
+    <p>
+      Here are the standard word and character limits enforced by major online platforms and publishing standards:
+    </p>
+    <ul>
+      <li><strong>Google Search Meta Titles:</strong> 50 to 60 characters (approximately 600 pixels width). Longer titles are truncated with ellipses.</li>
+      <li><strong>Google Search Meta Descriptions:</strong> 150 to 160 characters. Descriptions exceeding this length are typically clipped on mobile or desktop search results.</li>
+      <li><strong>X (Twitter) Posts:</strong> 280 characters for standard accounts.</li>
+      <li><strong>LinkedIn Status Updates:</strong> 3,000 characters maximum, with the first 210 characters appearing before the "see more" cutoff.</li>
+      <li><strong>Instagram Captions:</strong> 2,200 characters maximum, with the first 125 characters shown in the primary feed view.</li>
+      <li><strong>Academic Theses &amp; Articles:</strong> Typically defined in word limits (e.g., 8,000–10,000 words for journal submissions).</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Privacy &amp; Data Security">
+    <p>
+      At ToolNova, user privacy is paramount. Your text is never transmitted across the network, logged on a server,
+      or stored in a cloud database. The analysis is calculated by standard client-side JavaScript functions running
+      in your browser memory. You can even disconnect your internet connection, and the counter will continue to function flawlessly.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Common Problems &amp; Troubleshooting">
+    <ul>
+      <li><strong>Copying from Rich Text / PDF:</strong> When pasting text from PDF files or word processors, hidden control characters or inconsistent line breaks may artificially increase paragraph counts. Clear any redundant blank lines in the editor.</li>
+      <li><strong>Hyphenated &amp; Compound Words:</strong> Terms like "well-known" or "state-of-the-art" are treated as single words since they are joined without spaces.</li>
+      <li><strong>Numbers &amp; Symbols:</strong> Standalone numbers (e.g., "2026") and currency figures (e.g., "$100") are counted as separate words when surrounded by spaces.</li>
+    </ul>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

@@ -30,13 +30,6 @@ export const CATEGORIES: CategoryDefinition[] = [
     route: '/tools/calculator',
   },
   {
-    slug: 'pdf',
-    name: 'PDF Tools',
-    description: 'Merge, split and convert PDF files locally.',
-    icon: 'pdf',
-    route: '/tools/pdf',
-  },
-  {
     slug: 'qr',
     name: 'QR Tools',
     description: 'Generate QR codes for links, text and Wi-Fi.',

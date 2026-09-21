@@ -1,44 +1,83 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
   title="JSON Validator"
-  description="Validate JSON syntax and find errors instantly in your browser."
+  description="Validate JSON syntax against RFC 8259 standards instantly in your browser with real-time error detection."
 >
   <div class="workspace card">
+    <label for="jsonValidatorInput" class="workspace-label"><strong>Input JSON</strong></label>
     <textarea
+      id="jsonValidatorInput"
       class="code-input"
       rows="10"
-      placeholder='{"example": "Paste your JSON here"}'
+      placeholder='{"name": "ToolNova", "valid": true}'
       [ngModel]="input()"
-      (ngModelChange)="input.set($event)"
+      (ngModelChange)="input.set($event); validate()"
     ></textarea>
     <div class="actions">
-      <button type="button" class="btn btn-primary" (click)="validate()">Validate</button>
+      <button type="button" class="btn btn-primary" (click)="validate()">Validate Syntax</button>
       <app-reset-button (reset)="reset()" />
     </div>
   </div>
 
   @if (status() === 'valid') {
-    <p class="status status-valid">✓ Valid JSON</p>
-  } @else if (status() === 'invalid') {
-    <p class="status status-invalid">✗ Invalid JSON — {{ errorMessage() }}</p>
+    <div class="status-banner valid card" style="padding: 16px; margin-block: 16px; border-left: 4px solid var(--success); background: var(--surface);">
+      <h3 style="color: var(--success); margin: 0 0 4px;">✓ Valid JSON</h3>
+      <p style="margin: 0; font-size: 0.9375rem;">Your JSON payload conforms strictly to RFC 8259 syntax specifications.</p>
+    </div>
+  }
+
+  @if (status() === 'invalid') {
+    <div class="status-banner invalid card" style="padding: 16px; margin-block: 16px; border-left: 4px solid var(--danger); background: var(--surface);">
+      <h3 style="color: var(--danger); margin: 0 0 4px;">✗ Invalid JSON Syntax</h3>
+      <p style="margin: 0; font-size: 0.9375rem; font-family: var(--font-mono);">{{ errorMessage() }}</p>
+    </div>
   }
 
   <app-ad-slot size="banner" />
 
-  <app-info-section heading="What is JSON Validator?">
+  <app-info-section heading="What is JSON Validation?">
     <p>
-      JSON Validator checks whether a block of text is syntactically valid JSON and reports the
-      specific error when it isn't, so you can fix malformed API responses or config files quickly.
+      JSON validation is the process of verifying that a text string adheres strictly to the structural and grammatical
+      rules outlined in the official JSON specification (RFC 8259). When web servers, microservices, or mobile apps receive
+      malformed JSON, parsing operations throw unhandled exceptions, breaking API communication pipelines.
+    </p>
+    <p>
+      The ToolNova JSON Validator inspects your payload instantly and highlights syntax failures so you can resolve issues
+      before deploying configuration files or sending HTTP requests.
     </p>
   </app-info-section>
 
-  <app-info-section heading="Common JSON errors">
+  <app-info-section heading="How to Validate JSON">
+    <ol>
+      <li><strong>Input Your Code:</strong> Paste your JSON payload directly into the editor area above.</li>
+      <li><strong>Automatic Inspection:</strong> The validator automatically analyzes syntax as you type, or you can click "Validate Syntax" to trigger manual re-evaluation.</li>
+      <li><strong>Review the Diagnostic:</strong> A green banner confirms compliance. If the syntax is broken, review the error message indicating the character position where the parser stalled.</li>
+      <li><strong>Correct and Verify:</strong> Fix the flagged syntax error and confirm that the validation indicator turns green.</li>
+    </ol>
+  </app-info-section>
+
+  <app-info-section heading="Standard JSON Validation Rules">
     <ul>
-      <li>Trailing commas after the last item in an object or array</li>
-      <li>Using single quotes instead of double quotes for strings and keys</li>
-      <li>Unquoted object keys</li>
-      <li>Unescaped special characters inside strings</li>
+      <li><strong>Double Quotes Mandatory:</strong> Keys and string values must be enclosed in standard ASCII double quotes (<code>"key": "value"</code>). Single quotes (<code>'</code>) or smart quotes are rejected.</li>
+      <li><strong>No Trailing Commas:</strong> Commas must only appear <em>between</em> elements, never after the final property in an object or array.</li>
+      <li><strong>Strict Primitive Types:</strong> Values are restricted to strings, numbers, booleans (<code>true</code>, <code>false</code>), arrays, objects, and <code>null</code>. Values like <code>undefined</code>, <code>NaN</code>, or functions are invalid.</li>
+      <li><strong>No Code Comments:</strong> JSON does not permit single-line (<code>//</code>) or multi-line (<code>/* */</code>) comments.</li>
     </ul>
+  </app-info-section>
+
+  <app-info-section heading="Example: Invalid vs Corrected JSON">
+    <p><strong>Commonly Broken Snippet (Trailing Comma &amp; Single Quotes):</strong></p>
+    <pre class="code-output" style="max-height: 120px;">{{'{\n  \'title\': \'ToolNova\',\n  \'fast\': true,\n}'}}</pre>
+
+    <p><strong>Corrected Valid JSON:</strong></p>
+    <pre class="code-output" style="max-height: 120px;">{{'{\n  "title": "ToolNova",\n  "fast": true\n}'}}</pre>
+  </app-info-section>
+
+  <app-info-section heading="Client-Side Privacy Guarantee">
+    <p>
+      ToolNova runs validation 100% in your browser using the native JavaScript <code>JSON.parse</code> engine.
+      No sensitive payload, configuration secret, API key, or customer record is ever sent over the internet or logged on a server.
+    </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

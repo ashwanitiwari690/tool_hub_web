@@ -1,13 +1,15 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
   title="Case Converter"
-  description="Convert text to uppercase, lowercase, title case, camelCase and more."
+  description="Instantly convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case in your browser."
 >
   <div class="workspace card">
+    <label for="caseConverterInput" class="visually-hidden">Text to convert</label>
     <textarea
+      id="caseConverterInput"
       class="text-input"
       rows="8"
-      placeholder="Type or paste your text here..."
+      placeholder="Type or paste your text here to convert between casing formats..."
       [ngModel]="text()"
       (ngModelChange)="text.set($event)"
     ></textarea>
@@ -19,28 +21,60 @@
     </div>
   </div>
 
-  <app-result-panel heading="Result">
-    <p class="result-text">{{ result() || 'Your converted text will appear here.' }}</p>
-    <div actions>
-      <app-copy-button [text]="result()" />
-    </div>
-  </app-result-panel>
+  @if (result()) {
+    <app-result-panel heading="Converted Output">
+      <p class="result-text" style="word-break: break-word; white-space: pre-wrap;">{{ result() }}</p>
+      <div actions>
+        <app-copy-button [text]="result()" />
+      </div>
+    </app-result-panel>
+  }
 
   <app-ad-slot size="banner" />
 
   <app-info-section heading="What is Case Converter?">
     <p>
-      Case Converter transforms text between common casing styles — useful for writing headlines,
-      formatting variable names, or cleaning up pasted text.
+      Case Converter is a free text transformation tool that modifies the capitalization patterns of words, sentences,
+      and variable names. Whether you accidentally typed a long email with the Caps Lock key engaged, need to format
+      article headlines into professional Title Case, or need to transform database identifiers into programming conventions,
+      this tool handles conversions instantly in your browser.
     </p>
   </app-info-section>
 
-  <app-info-section heading="How to use Case Converter">
+  <app-info-section heading="Supported Casing Formats &amp; Examples">
+    <ul>
+      <li><strong>UPPERCASE:</strong> Capitalizes every alphabetical character. Useful for emphasis, acronyms, and legal notices.<br /><em>Example:</em> <code>FREE ONLINE TOOLS FOR EVERYDAY TASKS</code></li>
+      <li><strong>lowercase:</strong> Sets all letters to small letters. Ideal for cleaning up inconsistently formatted text or normalizing search terms.<br /><em>Example:</em> <code>free online tools for everyday tasks</code></li>
+      <li><strong>Title Case:</strong> Capitalizes the initial letter of every principal word. Standard format for blog titles, headlines, and book chapters.<br /><em>Example:</em> <code>Free Online Tools For Everyday Tasks</code></li>
+      <li><strong>Sentence case:</strong> Capitalizes the first character of each sentence and lowers the rest. Perfect for restoring text typed with Caps Lock.<br /><em>Example:</em> <code>Free online tools for everyday tasks. They work in your browser.</code></li>
+      <li><strong>camelCase:</strong> Joins words with no spaces, capitalizing each word after the first. Standard convention for JavaScript, TypeScript, Java, and C# variables.<br /><em>Example:</em> <code>freeOnlineToolsForEverydayTasks</code></li>
+      <li><strong>snake_case:</strong> Replaces spaces with underscores in lowercase. Standard naming convention for Python variables, SQL database columns, and filenames.<br /><em>Example:</em> <code>free_online_tools_for_everyday_tasks</code></li>
+      <li><strong>kebab-case:</strong> Connects lowercase words with hyphens. Standard convention for URL slugs, CSS class names, and Git branch names.<br /><em>Example:</em> <code>free-online-tools-for-everyday-tasks</code></li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="How to Use Case Converter">
     <ol>
-      <li>Paste or type your text into the box above.</li>
-      <li>Click the casing style you want.</li>
-      <li>Copy the converted result.</li>
+      <li><strong>Enter Text:</strong> Paste or type your content into the input workspace.</li>
+      <li><strong>Choose Format:</strong> Click the button corresponding to your target case (e.g., Title Case, camelCase, UPPERCASE).</li>
+      <li><strong>Copy Result:</strong> Click the Copy button in the result panel to place the converted string directly onto your clipboard.</li>
     </ol>
+  </app-info-section>
+
+  <app-info-section heading="Common Use Cases">
+    <ul>
+      <li><strong>Software Developers:</strong> Converting database column names (<code>user_first_name</code>) into code variables (<code>userFirstName</code>) or URL routes (<code>user-first-name</code>).</li>
+      <li><strong>Bloggers &amp; Content Writers:</strong> Ensuring headlines and email subject lines adhere to Title Case or Sentence Case guidelines.</li>
+      <li><strong>Accidental Caps Lock:</strong> Fixing accidental all-caps paragraphs without having to retype the entire message from scratch.</li>
+      <li><strong>Data Clean-Up:</strong> Normalizing messy CSV lists, names, or addresses imported from spreadsheets.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Client-Side Privacy Guarantee">
+    <p>
+      ToolNova Case Converter executes entirely inside your browser sandbox. Your input text is never uploaded to any remote
+      server, never saved in a database, and never shared with third parties.
+    </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />

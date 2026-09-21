@@ -54,12 +54,29 @@ export class ImageResizer implements OnInit, OnDestroy {
 
   readonly faqItems = [
     {
-      question: 'Is my image uploaded anywhere?',
-      answer: 'No. Resizing happens locally in your browser using the Canvas API.',
+      question: 'Is my picture uploaded to any remote server?',
+      answer:
+        'No. Resizing executes 100% locally inside your browser via the HTML5 Canvas API. Your pictures, graphics, and personal photos never leave your device.',
     },
     {
-      question: 'Will resizing reduce image quality?',
-      answer: 'Reducing dimensions can lose fine detail, but the Canvas API produces a smooth, high-quality resize.',
+      question: 'Why does keeping "Lock Aspect Ratio" checked matter?',
+      answer:
+        'Locking the aspect ratio automatically scales height when width changes (or vice versa), preventing your photo from appearing stretched, squashed, or unnaturally distorted.',
+    },
+    {
+      question: 'What happens if I upscale an image to larger dimensions?',
+      answer:
+        'Downscaling images retains crisp clarity while shrinking file weight. Upscaling a small image into large dimensions stretches existing pixel data, which inevitably results in blurriness or pixelation.',
+    },
+    {
+      question: 'Can I resize images on mobile devices?',
+      answer:
+        'Yes. ToolNova is fully responsive and leverages the device hardware acceleration in Chrome, Safari, and Firefox on iOS and Android.',
+    },
+    {
+      question: 'What file format is the resized image exported in?',
+      answer:
+        'The resized image is exported as a clean, high-resolution PNG file, preserving transparency and visual clarity.',
     },
   ];
 
@@ -99,14 +116,14 @@ export class ImageResizer implements OnInit, OnDestroy {
 
   onWidthChange(value: number): void {
     this.targetWidth.set(value);
-    if (this.lockAspectRatio()) {
+    if (this.lockAspectRatio() && this.aspectRatio > 0) {
       this.targetHeight.set(Math.round(value / this.aspectRatio));
     }
   }
 
   onHeightChange(value: number): void {
     this.targetHeight.set(value);
-    if (this.lockAspectRatio()) {
+    if (this.lockAspectRatio() && this.aspectRatio > 0) {
       this.targetWidth.set(Math.round(value * this.aspectRatio));
     }
   }

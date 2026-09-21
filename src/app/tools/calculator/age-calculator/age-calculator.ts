@@ -38,7 +38,7 @@ export class AgeCalculator implements OnInit {
   readonly error = computed(() => {
     if (!this.birthDate()) return '';
     const date = new Date(this.birthDate());
-    if (Number.isNaN(date.getTime())) return 'Please enter a valid date.';
+    if (Number.isNaN(date.getTime())) return 'Please select a valid calendar date.';
     if (date.getTime() > Date.now()) return 'Date of birth cannot be in the future.';
     return '';
   });
@@ -70,12 +70,29 @@ export class AgeCalculator implements OnInit {
 
   readonly faqItems = [
     {
-      question: 'How is age calculated here?',
-      answer: 'The tool calculates the exact number of years, months and days between your date of birth and today, accounting for varying month lengths.',
+      question: 'How does the calculator account for leap years and varying month lengths?',
+      answer:
+        'The calculator uses JavaScript date primitives that adhere to the standard Gregorian calendar, accurately factoring in leap years (366 days) and the differing month lengths (28, 29, 30, or 31 days) across the elapsed timeline.',
     },
     {
-      question: 'Is my date of birth stored anywhere?',
-      answer: 'No. The calculation happens entirely in your browser and is not saved or sent anywhere.',
+      question: 'Is my date of birth saved or stored on any server?',
+      answer:
+        'No. Your birth date is processed strictly inside your web browser. Nothing is sent to a backend server, logged, or stored in cookies.',
+    },
+    {
+      question: 'Why does my age in days differ slightly from a simple (years &times; 365) formula?',
+      answer:
+        'A simple multiplication by 365 ignores leap years (which add an extra leap day every four years) and the exact distribution of calendar days in partial months. Our tool calculates the precise chronological difference between the two dates.',
+    },
+    {
+      question: 'Can I calculate the age of a past historical event or contract?',
+      answer:
+        'Yes. You can select any historical date from past centuries to calculate the exact chronological elapsed time to today.',
+    },
+    {
+      question: 'Does time zone affect the calculated age?',
+      answer:
+        'Calculations use your device\'s local system clock and calendar. Entering a date calculates the elapsed span relative to today\'s date in your current time zone.',
     },
   ];
 
