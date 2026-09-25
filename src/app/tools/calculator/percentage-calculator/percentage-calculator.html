@@ -119,45 +119,80 @@
     </p>
   </app-info-section>
 
-  <app-info-section heading="Mathematical Formulas &amp; Practical Examples">
-    <ul>
-      <li>
-        <strong>1. Finding X% of Y:</strong><br />
-        <code>Formula: Result = (X / 100) &times; Y</code><br />
-        <em>Example:</em> What is 20% of $85? &rarr; <code>(20 / 100) &times; 85 = 17</code>.
-      </li>
-      <li>
-        <strong>2. Finding What Percent X is of Y:</strong><br />
-        <code>Formula: Result = (X / Y) &times; 100</code><br />
-        <em>Example:</em> You scored 45 points out of 50 on an exam. What percentage is that? &rarr; <code>(45 / 50) &times; 100 = 90%</code>.
-      </li>
-      <li>
-        <strong>3. Calculating Percentage Change (Increase or Decrease):</strong><br />
-        <code>Formula: Result = ((New Value - Original Value) / |Original Value|) &times; 100</code><br />
-        <em>Example:</em> A stock price increases from $40 to $52. &rarr; <code>((52 - 40) / 40) &times; 100 = +30% increase</code>.<br />
-        <em>Example:</em> A gadget price drops from $100 to $75. &rarr; <code>((75 - 100) / 100) &times; 100 = -25% discount</code>.
-      </li>
-    </ul>
-  </app-info-section>
-
-  <app-info-section heading="Common Everyday Applications">
-    <ul>
-      <li><strong>Shopping Discounts:</strong> Calculating seasonal markdowns (e.g., "Take an extra 30% off clearance items").</li>
-      <li><strong>Restaurant Tipping:</strong> Computing gratuity percentages (15%, 18%, 20%) on dining totals.</li>
-      <li><strong>Sales Tax &amp; GST:</strong> Calculating regional consumption tax additions before checkout.</li>
-      <li><strong>Business Finance:</strong> Measuring gross profit margins, annual revenue growth rates, and customer churn.</li>
-      <li><strong>Academic Grades:</strong> Converting assignment scores and weighted test results into overall course grade percentages.</li>
-    </ul>
-  </app-info-section>
-
-  <app-info-section heading="Limitations &amp; Accuracy Advisory">
+  <app-info-section heading="How the Percentage Calculator Works">
     <p>
-      This calculator executes standard IEEE 754 floating-point arithmetic. While accurate for everyday retail, budgeting, and study tasks,
-      results are rounded to two decimal places. For high-stakes institutional finance, commercial taxation, or loan underwriting,
-      always cross-reference results with certified financial professionals.
+      This calculator executes verified mathematical formulas instantaneously as you type:
+    </p>
+    <ul>
+      <li><strong>Mode 1 (Percentage of a Number):</strong> <code>(X / 100) &times; Y</code> &mdash; Divides the percentage rate by 100 to find the decimal multiplier, then multiplies by the base value.</li>
+      <li><strong>Mode 2 (What Percentage is X of Y):</strong> <code>(X / Y) &times; 100</code> &mdash; Calculates the ratio of the part to the whole and multiplies by 100 to return the percentage.</li>
+      <li><strong>Mode 3 (Percentage Change):</strong> <code>((New - Initial) / |Initial|) &times; 100</code> &mdash; Evaluates the difference relative to the starting baseline. Positive values represent an increase; negative values represent a decrease.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="How to Use This Calculator">
+    <ol>
+      <li><strong>Select Calculation Mode:</strong> Click the tab representing your mathematical question.</li>
+      <li><strong>Enter Values:</strong> Fill in the two input fields (decimals and integers supported).</li>
+      <li><strong>Instant Evaluation:</strong> The result updates automatically without requiring a submit button.</li>
+      <li><strong>Reset:</strong> Click <em>Reset</em> to clear the fields and start a new calculation.</li>
+    </ol>
+  </app-info-section>
+
+  <app-info-section heading="Practical Use Cases">
+    <ul>
+      <li><strong>Retail Sales &amp; Discounts:</strong> Calculate final sale prices during holiday promotions and clearance events.</li>
+      <li><strong>Restaurant Tipping:</strong> Compute fair gratuity (15%, 18%, 20%) on dining checks quickly.</li>
+      <li><strong>Sales Tax &amp; GST:</strong> Determine exact tax amounts before purchasing goods and services.</li>
+      <li><strong>Academic Course Grades:</strong> Convert assignment test scores into percentage grades and evaluate weighting.</li>
+      <li><strong>Business Growth Metrics:</strong> Track month-over-month revenue growth, margin percentages, and subscriber changes.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Features">
+    <ul>
+      <li><strong>3 Dedicated Calculation Modes:</strong> Covers all standard percentage arithmetic queries.</li>
+      <li><strong>Instant Real-Time Results:</strong> Immediate calculation on every keystroke.</li>
+      <li><strong>Clean Numerical Formatting:</strong> Clean formatting rounded to two decimal places for readable results.</li>
+      <li><strong>100% In-Browser Privacy:</strong> Your financial and personal figures are never logged or transmitted.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Step-by-Step Calculation Examples">
+    <ul>
+      <li><strong>Example 1 (Discount):</strong> What is 25% off an $80 jacket? &rarr; <code>(25 / 100) &times; 80 = $20 discount</code>. Final price is <code>$80 - $20 = $60</code>.</li>
+      <li><strong>Example 2 (Test Score):</strong> What percentage is 42 out of 50? &rarr; <code>(42 / 50) &times; 100 = 84%</code>.</li>
+      <li><strong>Example 3 (Price Increase):</strong> A rent price increases from $1,200 to $1,320. &rarr; <code>((1,320 - 1,200) / 1,200) &times; 100 = +10% increase</code>.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Common Percentage Mistakes to Avoid">
+    <ul>
+      <li><strong>Reversing the Baseline in Percentage Change:</strong> Always divide by the <em>original starting value</em>, not the final value. Changing from 100 to 125 is a +25% increase, but going from 125 down to 100 is a -20% decrease.</li>
+      <li><strong>Confusing Percentages with Percentage Points:</strong> An increase from 10% to 15% is a 5 percentage point gain, but a 50% relative increase.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Limitations &amp; Important Notes">
+    <p>
+      Calculations use standard 64-bit IEEE 754 floating-point arithmetic. While accurate for everyday retail, budgeting, and study tasks, results are rounded to two decimal places. For high-stakes institutional accounting, commercial tax filing, or mortgage underwriting, always cross-reference results with certified financial software.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Troubleshooting">
+    <ul>
+      <li><strong>Division by Zero:</strong> When using the "is what % of Y" mode, field B cannot be 0, as division by zero is mathematically undefined.</li>
+      <li><strong>Negative Baseline:</strong> When calculating percentage change with a starting value of 0, the percentage change is mathematically indeterminate.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Privacy &amp; Data Security">
+    <p>
+      All numerical inputs and calculated results are processed locally inside your web browser. No personal financial values, salary figures, or commercial metrics are ever transmitted across the internet or stored on ToolNova servers.
     </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />
   <app-related-tools [tools]="relatedTools" />
+  <app-related-guides [guides]="relevantGuides" />
 </app-tool-page-layout>

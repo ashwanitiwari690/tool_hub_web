@@ -37,49 +37,88 @@
 
   <app-info-section heading="What is JSON Validation?">
     <p>
-      JSON validation is the process of verifying that a text string adheres strictly to the structural and grammatical
-      rules outlined in the official JSON specification (RFC 8259). When web servers, microservices, or mobile apps receive
-      malformed JSON, parsing operations throw unhandled exceptions, breaking API communication pipelines.
+      JSON validation is the verification process that ensures a text payload conforms strictly to the grammar, tokens, and structural rules defined by RFC 8259. When backend services, REST APIs, or frontend state management systems encounter invalid JSON syntax, their parsing routines throw fatal exceptions, causing network request failures or application crashes.
     </p>
     <p>
-      The ToolNova JSON Validator inspects your payload instantly and highlights syntax failures so you can resolve issues
-      before deploying configuration files or sending HTTP requests.
+      ToolNova JSON Validator inspects your string structure in real time, detecting misplaced commas, unclosed brackets, single-quoted attributes, or non-standard characters before you deploy configs or transmit web requests.
     </p>
+  </app-info-section>
+
+  <app-info-section heading="How the Validator Works">
+    <p>
+      The validation engine operates client-side through the browser's high-performance native JavaScript parsing engine:
+    </p>
+    <ul>
+      <li><strong>Token Stream Inspection:</strong> The string is processed through standard lexical analysis to verify balanced opening and closing delimiters (<code>&#123;&#125;</code> and <code>[]</code>).</li>
+      <li><strong>RFC 8259 Rule Enforcement:</strong> Verifies that all object keys and string values are enclosed in double quotes, that commas separate items without trailing tokens, and that primitive types conform to standard numbers, booleans, or null.</li>
+      <li><strong>Error Pinpointing:</strong> When syntax is broken, the parser catches the exact token index and describes the problem (e.g., <em>Unexpected token ',' at position 42</em>), enabling rapid troubleshooting.</li>
+    </ul>
   </app-info-section>
 
   <app-info-section heading="How to Validate JSON">
     <ol>
-      <li><strong>Input Your Code:</strong> Paste your JSON payload directly into the editor area above.</li>
-      <li><strong>Automatic Inspection:</strong> The validator automatically analyzes syntax as you type, or you can click "Validate Syntax" to trigger manual re-evaluation.</li>
-      <li><strong>Review the Diagnostic:</strong> A green banner confirms compliance. If the syntax is broken, review the error message indicating the character position where the parser stalled.</li>
-      <li><strong>Correct and Verify:</strong> Fix the flagged syntax error and confirm that the validation indicator turns green.</li>
+      <li><strong>Paste or Type Code:</strong> Place your JSON string into the editor above.</li>
+      <li><strong>Live Dynamic Evaluation:</strong> As you type or paste, the validator tests your input immediately. You can also click the <strong>Validate Syntax</strong> button to trigger re-evaluation.</li>
+      <li><strong>Review Diagnostic:</strong> A green banner indicates the payload is valid. If errors exist, a red banner displays the exact diagnostic explanation.</li>
+      <li><strong>Fix and Re-check:</strong> Modify the flagged syntax and verify that the status returns to valid.</li>
     </ol>
   </app-info-section>
 
-  <app-info-section heading="Standard JSON Validation Rules">
+  <app-info-section heading="Practical Developer Use Cases">
     <ul>
-      <li><strong>Double Quotes Mandatory:</strong> Keys and string values must be enclosed in standard ASCII double quotes (<code>"key": "value"</code>). Single quotes (<code>'</code>) or smart quotes are rejected.</li>
-      <li><strong>No Trailing Commas:</strong> Commas must only appear <em>between</em> elements, never after the final property in an object or array.</li>
-      <li><strong>Strict Primitive Types:</strong> Values are restricted to strings, numbers, booleans (<code>true</code>, <code>false</code>), arrays, objects, and <code>null</code>. Values like <code>undefined</code>, <code>NaN</code>, or functions are invalid.</li>
-      <li><strong>No Code Comments:</strong> JSON does not permit single-line (<code>//</code>) or multi-line (<code>/* */</code>) comments.</li>
+      <li><strong>API Webhook Debugging:</strong> Validate third-party webhook payloads before writing serverless ingestion logic.</li>
+      <li><strong>CI/CD &amp; Infrastructure Configs:</strong> Verify JSON-based configuration templates (such as AWS CloudFormation or Kubernetes task definitions) prior to deployment.</li>
+      <li><strong>Database Import Pre-checks:</strong> Ensure bulk JSON export files are properly structured before running NoSQL database imports.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Features">
+    <ul>
+      <li><strong>Instant Real-Time Checking:</strong> Automatically evaluates syntax on every keystroke.</li>
+      <li><strong>Clear Visual Status:</strong> High-contrast green and red visual indicators for fast feedback.</li>
+      <li><strong>Detailed Error Messages:</strong> Specific parsing error descriptions with token positions.</li>
+      <li><strong>100% Client-Side Sandbox:</strong> Your proprietary API tokens and database records never leave your device.</li>
     </ul>
   </app-info-section>
 
   <app-info-section heading="Example: Invalid vs Corrected JSON">
-    <p><strong>Commonly Broken Snippet (Trailing Comma &amp; Single Quotes):</strong></p>
-    <pre class="code-output" style="max-height: 120px;">{{'{\n  \'title\': \'ToolNova\',\n  \'fast\': true,\n}'}}</pre>
+    <p><strong>Broken JSON (Single Quotes, Unquoted Key, &amp; Trailing Comma):</strong></p>
+    <pre class="code-output" style="max-height: 120px;">{{'{\n  \'title\': \'ToolNova\',\n  fast: true,\n}'}}</pre>
 
     <p><strong>Corrected Valid JSON:</strong></p>
     <pre class="code-output" style="max-height: 120px;">{{'{\n  "title": "ToolNova",\n  "fast": true\n}'}}</pre>
   </app-info-section>
 
+  <app-info-section heading="Common Syntax Errors &amp; How to Fix Them">
+    <ul>
+      <li><strong>1. Trailing Commas:</strong> Adding a comma after the final property in an object or array (e.g., <code>{{"{\"a\": 1,}"}}</code>) violates standard JSON. Remove trailing commas.</li>
+      <li><strong>2. Single Quotes:</strong> JSON mandates standard double quotes (<code>"</code>). Replace single quotes (<code>'</code>) with double quotes.</li>
+      <li><strong>3. Unquoted Property Names:</strong> In JavaScript, <code>{{'{ id: 1 }'}}</code> is valid, but JSON requires <code>{{"{ \"id\": 1 }"}}</code>.</li>
+      <li><strong>4. Unescaped Characters:</strong> Double quotes inside string values must be escaped with a backslash (<code>\"</code>).</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Limitations &amp; Important Notes">
+    <ul>
+      <li><strong>Syntax vs. Schema Validation:</strong> This tool validates JSON <em>syntax</em> according to RFC 8259. It does not validate against a custom JSON Schema (e.g., validating required fields or minimum integer values).</li>
+      <li><strong>JSON5 / Non-Standard Features:</strong> Features permitted in JSON5 (such as trailing commas, hexadecimal numbers, and comments) are intentionally flagged as invalid because standard JSON parsers will reject them.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Troubleshooting">
+    <ul>
+      <li><strong>Pasting Smart Quotes:</strong> Text copied from word processors or email clients often uses typographic "curly quotes" (“ ”). These must be replaced with straight ASCII double quotes (<code>"</code>).</li>
+      <li><strong>Unmatched Brackets or Braces:</strong> If the error indicates an unexpected end of input, inspect your document to ensure every opening brace <code>&#123;</code> and bracket <code>[</code> has a corresponding closing partner.</li>
+    </ul>
+  </app-info-section>
+
   <app-info-section heading="Client-Side Privacy Guarantee">
     <p>
-      ToolNova runs validation 100% in your browser using the native JavaScript <code>JSON.parse</code> engine.
-      No sensitive payload, configuration secret, API key, or customer record is ever sent over the internet or logged on a server.
+      ToolNova runs validation 100% in your browser using the native JavaScript <code>JSON.parse</code> engine. No sensitive payload, configuration secret, API key, or customer record is ever sent over the internet or logged on a server.
     </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />
   <app-related-tools [tools]="relatedTools" />
+  <app-related-guides [guides]="relevantGuides" />
 </app-tool-page-layout>

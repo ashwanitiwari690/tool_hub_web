@@ -1,11 +1,13 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { getToolBySlug, getRelatedTools } from '../../../core/data/tools.data';
+import { getGuidesByToolSlug } from '../../../core/data/guides.data';
 import { ToolPageSeoService } from '../../../core/services/tool-page-seo.service';
 import { ToolPageLayout } from '../../../shared/components/tool-page-layout/tool-page-layout';
 import { InfoSection } from '../../../shared/components/info-section/info-section';
 import { FaqSection } from '../../../shared/components/faq-section/faq-section';
 import { RelatedTools } from '../../../shared/components/related-tools/related-tools';
+import { RelatedGuides } from '../../../shared/components/related-guides/related-guides';
 import { AdSlot } from '../../../shared/components/ad-slot/ad-slot';
 import { ResetButton } from '../../../shared/components/reset-button/reset-button';
 import { ErrorMessage } from '../../../shared/components/error-message/error-message';
@@ -19,13 +21,24 @@ interface AgeResult {
 
 @Component({
   selector: 'app-age-calculator',
-  imports: [FormsModule, ToolPageLayout, InfoSection, FaqSection, RelatedTools, AdSlot, ResetButton, ErrorMessage],
+  imports: [
+    FormsModule,
+    ToolPageLayout,
+    InfoSection,
+    FaqSection,
+    RelatedTools,
+    RelatedGuides,
+    AdSlot,
+    ResetButton,
+    ErrorMessage,
+  ],
   templateUrl: './age-calculator.html',
   styleUrl: './age-calculator.scss',
 })
 export class AgeCalculator implements OnInit {
   private readonly tool = getToolBySlug('age-calculator')!;
   readonly relatedTools = getRelatedTools(this.tool);
+  readonly relevantGuides = getGuidesByToolSlug('age-calculator');
   readonly breadcrumbItems = [
     { label: 'Home', route: '/' },
     { label: 'Calculators', route: '/tools/calculator' },

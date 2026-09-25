@@ -34,49 +34,103 @@
 
   <app-info-section heading="What is Case Converter?">
     <p>
-      Case Converter is a free text transformation tool that modifies the capitalization patterns of words, sentences,
-      and variable names. Whether you accidentally typed a long email with the Caps Lock key engaged, need to format
-      article headlines into professional Title Case, or need to transform database identifiers into programming conventions,
-      this tool handles conversions instantly in your browser.
+      ToolNova Case Converter is a free, instant text utility that transforms the capitalization, spacing, and delimiter conventions of words, sentences, and identifiers. Whether you accidentally typed an important document with Caps Lock enabled, need to format article headlines according to editorial style guides, or need to transform database schema keys into camelCase code variables, this utility executes conversions in milliseconds.
     </p>
   </app-info-section>
 
-  <app-info-section heading="Supported Casing Formats &amp; Examples">
+  <app-info-section heading="How Case Conversion Works">
+    <p>
+      Text casing transformations rely on specific character-boundary tokenization and Unicode string mapping:
+    </p>
     <ul>
-      <li><strong>UPPERCASE:</strong> Capitalizes every alphabetical character. Useful for emphasis, acronyms, and legal notices.<br /><em>Example:</em> <code>FREE ONLINE TOOLS FOR EVERYDAY TASKS</code></li>
-      <li><strong>lowercase:</strong> Sets all letters to small letters. Ideal for cleaning up inconsistently formatted text or normalizing search terms.<br /><em>Example:</em> <code>free online tools for everyday tasks</code></li>
-      <li><strong>Title Case:</strong> Capitalizes the initial letter of every principal word. Standard format for blog titles, headlines, and book chapters.<br /><em>Example:</em> <code>Free Online Tools For Everyday Tasks</code></li>
-      <li><strong>Sentence case:</strong> Capitalizes the first character of each sentence and lowers the rest. Perfect for restoring text typed with Caps Lock.<br /><em>Example:</em> <code>Free online tools for everyday tasks. They work in your browser.</code></li>
-      <li><strong>camelCase:</strong> Joins words with no spaces, capitalizing each word after the first. Standard convention for JavaScript, TypeScript, Java, and C# variables.<br /><em>Example:</em> <code>freeOnlineToolsForEverydayTasks</code></li>
-      <li><strong>snake_case:</strong> Replaces spaces with underscores in lowercase. Standard naming convention for Python variables, SQL database columns, and filenames.<br /><em>Example:</em> <code>free_online_tools_for_everyday_tasks</code></li>
-      <li><strong>kebab-case:</strong> Connects lowercase words with hyphens. Standard convention for URL slugs, CSS class names, and Git branch names.<br /><em>Example:</em> <code>free-online-tools-for-everyday-tasks</code></li>
+      <li><strong>Character Mapping (UPPERCASE &amp; lowercase):</strong> Operates via standard Unicode case mapping tables, ensuring accent marks and international characters (e.g., <code>&eacute;</code> &rarr; <code>&Eacute;</code>) convert properly without data loss.</li>
+      <li><strong>Word Tokenization (Title Case &amp; Sentence case):</strong> Splits text along whitespace and sentence-terminating punctuation marks (<code>.</code>, <code>!</code>, <code>?</code>), capitalizing initial word letters while normalizing internal characters.</li>
+      <li><strong>Identifier Transformation (camelCase, snake_case, kebab-case):</strong> Strips extraneous punctuation, isolates alphanumeric word tokens, and joins them using camel-cased uppercase transitions, underscores (<code>_</code>), or hyphens (<code>-</code>).</li>
     </ul>
   </app-info-section>
 
   <app-info-section heading="How to Use Case Converter">
     <ol>
-      <li><strong>Enter Text:</strong> Paste or type your content into the input workspace.</li>
-      <li><strong>Choose Format:</strong> Click the button corresponding to your target case (e.g., Title Case, camelCase, UPPERCASE).</li>
-      <li><strong>Copy Result:</strong> Click the Copy button in the result panel to place the converted string directly onto your clipboard.</li>
+      <li><strong>Paste or Type Text:</strong> Place your raw text into the input box above.</li>
+      <li><strong>Select Target Case:</strong> Click the button matching the desired format (such as <em>Title Case</em>, <em>camelCase</em>, or <em>snake_case</em>).</li>
+      <li><strong>Inspect &amp; Copy:</strong> The converted result appears in the dedicated output panel below. Click the <em>Copy</em> button to save it directly to your clipboard.</li>
+      <li><strong>Try Alternate Formats:</strong> You can click any other casing button to instantly reformat the original input without having to re-paste your text.</li>
     </ol>
   </app-info-section>
 
-  <app-info-section heading="Common Use Cases">
+  <app-info-section heading="Supported Casing Formats &amp; Examples">
     <ul>
-      <li><strong>Software Developers:</strong> Converting database column names (<code>user_first_name</code>) into code variables (<code>userFirstName</code>) or URL routes (<code>user-first-name</code>).</li>
-      <li><strong>Bloggers &amp; Content Writers:</strong> Ensuring headlines and email subject lines adhere to Title Case or Sentence Case guidelines.</li>
-      <li><strong>Accidental Caps Lock:</strong> Fixing accidental all-caps paragraphs without having to retype the entire message from scratch.</li>
-      <li><strong>Data Clean-Up:</strong> Normalizing messy CSV lists, names, or addresses imported from spreadsheets.</li>
+      <li><strong>UPPERCASE:</strong> Capitalizes every single alphabetical letter.<br />
+        <em>Best for:</em> Acronyms, legal disclaimers, urgent alert banners, and SQL keywords (<code>SELECT * FROM USERS</code>).<br />
+        <em>Example:</em> <code>FREE ONLINE TOOLS FOR EVERYDAY TASKS</code>
+      </li>
+      <li><strong>lowercase:</strong> Converts all characters to small letters.<br />
+        <em>Best for:</em> Normalizing email addresses, cleaning up erratic text, and preparing database searches.<br />
+        <em>Example:</em> <code>free online tools for everyday tasks</code>
+      </li>
+      <li><strong>Title Case:</strong> Capitalizes the initial letter of every principal word.<br />
+        <em>Best for:</em> Blog article titles, book chapter headings, newsletter subject lines, and presentation slide titles.<br />
+        <em>Example:</em> <code>Free Online Tools For Everyday Tasks</code>
+      </li>
+      <li><strong>Sentence case:</strong> Capitalizes only the first letter of each sentence, keeping subsequent words lowercase.<br />
+        <em>Best for:</em> Standard prose, email bodies, articles, and instantly fixing accidental Caps Lock typing.<br />
+        <em>Example:</em> <code>Free online tools for everyday tasks. They run in your browser.</code>
+      </li>
+      <li><strong>camelCase:</strong> Concatenates words with no spaces, capitalizing each word after the initial word.<br />
+        <em>Best for:</em> JavaScript, TypeScript, Java, Swift, and C# variable and function names.<br />
+        <em>Example:</em> <code>freeOnlineToolsForEverydayTasks</code>
+      </li>
+      <li><strong>snake_case:</strong> Connects lowercase words with underscores.<br />
+        <em>Best for:</em> Python variable and function naming (PEP 8), SQL database column names, and environment variable identifiers.<br />
+        <em>Example:</em> <code>free_online_tools_for_everyday_tasks</code>
+      </li>
+      <li><strong>kebab-case:</strong> Connects lowercase words with hyphens.<br />
+        <em>Best for:</em> Website URL slugs, CSS class selectors, REST API endpoints, and Git branch names.<br />
+        <em>Example:</em> <code>free-online-tools-for-everyday-tasks</code>
+      </li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Programming Conventions vs. Editorial Conventions">
+    <p>
+      Choosing the right casing format depends heavily on context:
+    </p>
+    <ul>
+      <li><strong>Software Engineering:</strong> Clean code conventions mandate strict naming rules to maintain readability. For example, Python teams enforce <code>snake_case</code>, while web teams writing TypeScript default to <code>camelCase</code> for variables and <code>kebab-case</code> for URL slugs and CSS class definitions.</li>
+      <li><strong>Publishing &amp; Journalism:</strong> Editorial publications follow stylebooks (such as Chicago Manual of Style or AP Style) requiring <code>Title Case</code> for headlines and subheadings to command reader attention, while body paragraphs strictly adhere to <code>Sentence case</code>.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Features">
+    <ul>
+      <li><strong>7 Distinct Casing Modes:</strong> Cover all major programming and publishing standards in one interface.</li>
+      <li><strong>Preserved Input:</strong> Your original text remains unaltered in the editor, allowing multiple conversions.</li>
+      <li><strong>One-Click Clipboard Export:</strong> Copy results directly to your operating system clipboard.</li>
+      <li><strong>Local Execution:</strong> Instantaneous processing with no server latency or data leakage.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Limitations &amp; Important Notes">
+    <ul>
+      <li><strong>Acronym Handling in Title Case:</strong> Converting text containing recognized acronyms (such as "NASA" or "API") into Title Case or Sentence case may downcase the trailing letters (e.g., "Nasa" or "Api"). Always double-check specialized domain acronyms after conversion.</li>
+      <li><strong>Punctuation in Identifier Cases:</strong> When converting to <code>camelCase</code>, <code>snake_case</code>, or <code>kebab-case</code>, punctuation marks (such as commas, quotes, and brackets) are stripped so the output functions as a valid programming identifier.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Troubleshooting">
+    <ul>
+      <li><strong>Numbers at the Start of Identifiers:</strong> In most programming languages, identifiers cannot begin with a number. If your input starts with a digit (e.g., "3 quick steps"), prefix it with a letter when using the result in code.</li>
+      <li><strong>Accidental Double Spaces:</strong> Redundant spaces between words are automatically collapsed during identifier conversions to avoid consecutive underscores (<code>__</code>) or hyphens (<code>--</code>).</li>
     </ul>
   </app-info-section>
 
   <app-info-section heading="Client-Side Privacy Guarantee">
     <p>
-      ToolNova Case Converter executes entirely inside your browser sandbox. Your input text is never uploaded to any remote
-      server, never saved in a database, and never shared with third parties.
+      ToolNova Case Converter executes entirely inside your browser sandbox. Your input text is never uploaded to any remote server, never saved in a database, and never shared with third parties. All conversions happen locally in device memory.
     </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />
   <app-related-tools [tools]="relatedTools" />
+  <app-related-guides [guides]="relevantGuides" />
 </app-tool-page-layout>

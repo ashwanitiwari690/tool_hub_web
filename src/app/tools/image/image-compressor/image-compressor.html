@@ -74,52 +74,79 @@
 
   <app-info-section heading="What is Image Compression?">
     <p>
-      Image compression reduces the byte size of graphics and photographic files while retaining acceptable visual fidelity.
-      Uncompressed photos captured by smartphones often weigh between 4 MB and 15 MB, making them far too heavy for smooth web loading,
-      email attachments, and fast mobile browsing. By eliminating redundant color data and optimizing pixel encoding, compression
-      can shrink file sizes by 60% to 80% without noticeable loss of quality on screens.
+      Image compression is the process of reducing the file weight (byte size) of digital graphics and photographs while maintaining acceptable visual sharpness. Uncompressed photos shot on modern smartphone cameras regularly exceed 5 MB to 15 MB in size. When uploaded directly to websites or attached to emails, these massive files consume bandwidth, increase server hosting costs, and significantly slow down webpage loading times.
+    </p>
+    <p>
+      ToolNova Image Compressor reduces redundant pixel data and optimizes encoding tables directly in your browser, shrinking images by up to 70%–85% with minimal perceptible difference to the human eye.
     </p>
   </app-info-section>
 
-  <app-info-section heading="Lossy vs Lossless Compression Explained">
+  <app-info-section heading="How Browser-Based Compression Works">
+    <p>
+      Unlike traditional image compression web services that require uploading your photos to remote cloud servers, ToolNova uses modern browser technologies:
+    </p>
     <ul>
-      <li>
-        <strong>Lossy Compression (JPEG &amp; WebP):</strong> Discards imperceptible color variations and high-frequency visual details
-        that the human eye rarely notices at normal zoom levels. This yields the highest file size savings and is standard for photography
-        and web publishing.
-      </li>
-      <li>
-        <strong>Lossless Compression (PNG):</strong> Restructures image data without discarding any pixel information. Ideal for logos,
-        technical diagrams, screenshots, and artwork containing text, where every pixel must remain pristine.
-      </li>
+      <li><strong>File Loading:</strong> When you select a photo, the browser's <code>FileReader</code> API loads the file into temporary local RAM.</li>
+      <li><strong>Hardware-Accelerated Rendering:</strong> The image bitmap is drawn onto an off-screen HTML5 <code>&lt;canvas&gt;</code> element using your device's GPU/CPU.</li>
+      <li><strong>Quantization &amp; Re-Encoding:</strong> The browser's native <code>canvas.toBlob(callback, mimeType, quality)</code> method re-encodes the image at the selected quality setting, writing the output directly to a memory blob ready for instant download.</li>
     </ul>
   </app-info-section>
 
-  <app-info-section heading="JPG vs PNG vs WebP: Which Format Should You Choose?">
-    <ul>
-      <li><strong>JPEG (.jpg):</strong> The universal standard for photography across all hardware and legacy software. Recommended when you must email photos to users with older devices.</li>
-      <li><strong>WebP (.webp):</strong> The modern standard developed by Google. Supported by over 97% of modern browsers, WebP delivers files 25%–35% smaller than JPEG at equal visual quality, making it the superior choice for website publishing and SEO performance.</li>
-      <li><strong>PNG (.png):</strong> Use PNG when your graphic contains transparent cutout areas or sharp vector-like linework. Convert to WebP if you want transparency with a smaller file size.</li>
-    </ul>
-  </app-info-section>
-
-  <app-info-section heading="How to Compress an Image">
+  <app-info-section heading="How to Use Image Compressor">
     <ol>
-      <li><strong>Choose File:</strong> Drag and drop your image into the drop zone or click to select from your device storage.</li>
-      <li><strong>Select Output Format:</strong> Choose WebP for modern web delivery or JPEG for universal compatibility.</li>
-      <li><strong>Adjust Quality Slider:</strong> Slide the quality bar (typically between 70% and 85%) and observe the live reduction percentage and visual preview.</li>
-      <li><strong>Download:</strong> Click "Download Compressed Image" to save the optimized file directly to your computer or phone.</li>
+      <li><strong>Select Image:</strong> Drag and drop your JPG, PNG, or WebP photo into the upload box, or click to choose from your file explorer.</li>
+      <li><strong>Adjust Quality:</strong> Drag the quality slider to find your desired balance between file size savings and visual clarity (70%–80% is ideal for web use).</li>
+      <li><strong>Choose Output Format:</strong> Select JPEG for universal compatibility or WebP for maximum compression efficiency.</li>
+      <li><strong>Inspect &amp; Download:</strong> Compare the side-by-side previews and file size savings, then click <em>Download Compressed Image</em> to save the file.</li>
     </ol>
   </app-info-section>
 
-  <app-info-section heading="Zero-Server Privacy Guarantee">
+  <app-info-section heading="Practical Use Cases">
+    <ul>
+      <li><strong>Web Performance &amp; Core Web Vitals:</strong> Heavy hero banners and product images directly penalize Largest Contentful Paint (LCP) scores. Compressing images accelerates page rendering and boosts SEO rankings.</li>
+      <li><strong>Email Attachment Compliance:</strong> Email service providers typically cap file attachments at 10 MB or 25 MB. Compressing photos allows you to attach multiple images in a single message.</li>
+      <li><strong>E-Commerce Catalog Optimization:</strong> Online storefronts featuring hundreds of product thumbnails require lightweight graphics to maintain responsive mobile navigation.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Recommended Quality Presets">
+    <ul>
+      <li><strong>Web Publishing &amp; Blogs (70% - 80%):</strong> Delivers substantial 60%–75% file weight reduction while retaining sharp visual fidelity on retina screens.</li>
+      <li><strong>High-Resolution Portfolios (80% - 90%):</strong> Recommended for photography showcases, graphic design portfolios, and fine art prints.</li>
+      <li><strong>Email &amp; Messaging (50% - 65%):</strong> Maximum compression for fast transmission over cellular data networks.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Features">
+    <ul>
+      <li><strong>100% In-Browser Compression:</strong> Zero file uploads to remote servers; complete privacy for personal and corporate imagery.</li>
+      <li><strong>Interactive Quality Slider:</strong> Fine-tune compression levels from 10% to 100% with real-time recalculation.</li>
+      <li><strong>Format Conversion:</strong> Easily convert heavy PNG or JPEG assets into lightweight modern WebP format.</li>
+      <li><strong>Side-by-Side Comparison:</strong> Instantly inspect original vs compressed visual quality and percentage size reduction.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Limitations &amp; Important Notes">
+    <ul>
+      <li><strong>PNG Transparency to JPEG:</strong> The JPEG specification does not support alpha transparency. If you compress a transparent PNG and export as JPEG, transparent areas will render on a solid white or black background. Select <strong>WebP</strong> to preserve transparency.</li>
+      <li><strong>Extremely Large Images:</strong> Processing panoramic images exceeding 40 megapixels may take several seconds on mobile phones due to device RAM constraints.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Troubleshooting">
+    <ul>
+      <li><strong>Banding in Gradients:</strong> Setting the quality slider below 50% on images with smooth sky or color gradients may introduce visible color banding. Increase quality to 75% or higher to smooth gradient transitions.</li>
+      <li><strong>Blurry Small Text:</strong> For screenshots or technical diagrams containing fine typography, WebP or PNG formats retain sharper line edges than aggressive JPEG compression.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Privacy Guarantee">
     <p>
-      Most free online image compressors upload your sensitive personal photos, ID cards, and business documents to remote cloud servers.
-      ToolNova takes an entirely different approach: your images are loaded into your browser local memory and re-encoded using
-      the native HTML5 Canvas API. Your pictures never leave your device and are never transmitted over the network.
+      ToolNova Image Compressor executes entirely within your browser memory. Your personal photographs, sensitive corporate documents, and private screenshots are never uploaded, stored, or transmitted to any remote cloud infrastructure.
     </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />
   <app-related-tools [tools]="relatedTools" />
+  <app-related-guides [guides]="relevantGuides" />
 </app-tool-page-layout>

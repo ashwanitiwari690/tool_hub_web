@@ -1,10 +1,9 @@
 <section class="hero">
   <div class="container hero-inner">
-    <h1>Free Online Tools for Everyday Tasks</h1>
+    <h1>Free Online Tools for Everyday Digital Tasks</h1>
     <p class="hero-sub">Fast. Private. Browser-Based Utilities.</p>
     <p class="hero-desc">
-      {{ siteConfig.name }} provides instant, client-side tools for developers, students, writers, and digital creators.
-      Format code, compress images, generate QR codes, count words, calculate percentages, and convert units without installing software.
+      {{ siteConfig.name }} is a curated suite of free digital utilities built to solve everyday text formatting, data validation, image preparation, mathematical calculation, and unit conversion challenges. Whether you are a software developer inspecting JSON schemas, a student computing academic percentages, or a writer tracking article word counts, our tools provide instant results with zero installation.
     </p>
     <button type="button" class="search-trigger" (click)="openSearch()">
       <span>🔍 Search tools (Ctrl+K)...</span>
@@ -17,8 +16,11 @@
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <h2>Popular Tools</h2>
-      <a routerLink="/tools" class="section-link">View all tools &rarr;</a>
+      <div>
+        <h2>Popular Tools</h2>
+        <p class="section-sub">Frequently used utilities ready for immediate use in your browser.</p>
+      </div>
+      <a routerLink="/tools" class="section-link">View all 10 tools &rarr;</a>
     </div>
     <div class="tool-grid">
       @for (tool of featuredTools; track tool.slug) {
@@ -28,100 +30,275 @@
   </div>
 </section>
 
-<!-- Tool Categories -->
+<!-- What Can You Do With ToolNova? -->
 <section class="section section-alt">
   <div class="container">
     <div class="section-header">
-      <h2>Explore Tool Categories</h2>
-      <p class="section-sub">Browse our curated collection of utilities organized by purpose.</p>
+      <div>
+        <h2>What Can You Do With ToolNova?</h2>
+        <p class="section-sub">Practical solutions organized across our core digital utility categories.</p>
+      </div>
+      <a routerLink="/tools" class="section-link">Explore all categories &rarr;</a>
     </div>
-    <div class="category-grid">
-      @for (category of categories; track category.slug) {
-        <app-category-card [category]="category" />
-      }
+    <div class="category-showcase-grid">
+      <!-- Text Tools -->
+      <div class="category-showcase-card card">
+        <div class="category-showcase-header">
+          <span class="cat-icon">✍️</span>
+          <h3>Text Tools</h3>
+        </div>
+        <p class="cat-desc">
+          Analyze, format, and transform text content for publishing, editorial guidelines, social media platforms, and programming variables.
+        </p>
+        <div class="cat-use-cases">
+          <h4>Practical Use Cases</h4>
+          <ul>
+            <li>Count words, characters, and estimated reading time with the Word Counter.</li>
+            <li>Convert text between UPPERCASE, lowercase, Title Case, camelCase, and snake_case.</li>
+            <li>Enforce character limits for meta descriptions, blog excerpts, and social posts.</li>
+          </ul>
+        </div>
+        <a routerLink="/tools/text" class="cat-link">Browse Text Tools &rarr;</a>
+      </div>
+
+      <!-- Developer Tools -->
+      <div class="category-showcase-card card">
+        <div class="category-showcase-header">
+          <span class="cat-icon">💻</span>
+          <h3>Developer Tools</h3>
+        </div>
+        <p class="cat-desc">
+          Debug, format, inspect, and validate structured JSON payloads directly within client-side memory without exposing sensitive configuration strings.
+        </p>
+        <div class="cat-use-cases">
+          <h4>Practical Use Cases</h4>
+          <ul>
+            <li>Pretty-print minified JSON strings with configurable 2-space or 4-space indentation.</li>
+            <li>Pinpoint syntax errors, misplaced commas, and unquoted keys with line-number precision.</li>
+            <li>Sanitize API test payloads before pasting them into client applications or documentation.</li>
+          </ul>
+        </div>
+        <a routerLink="/tools/developer" class="cat-link">Browse Developer Tools &rarr;</a>
+      </div>
+
+      <!-- Image Tools -->
+      <div class="category-showcase-card card">
+        <div class="category-showcase-header">
+          <span class="cat-icon">🖼️</span>
+          <h3>Image Tools</h3>
+        </div>
+        <p class="cat-desc">
+          Optimize, compress, and resize digital graphics for web publishing, email attachments, and profile pictures without uploading files to remote servers.
+        </p>
+        <div class="cat-use-cases">
+          <h4>Practical Use Cases</h4>
+          <ul>
+            <li>Compress JPEG, PNG, and WebP files to reduce page load times and save bandwidth.</li>
+            <li>Resize banner images to exact pixel dimensions while maintaining original aspect ratios.</li>
+            <li>Prepare lightweight image attachments that comply with strict email size restrictions.</li>
+          </ul>
+        </div>
+        <a routerLink="/tools/image" class="cat-link">Browse Image Tools &rarr;</a>
+      </div>
+
+      <!-- Calculators -->
+      <div class="category-showcase-card card">
+        <div class="category-showcase-header">
+          <span class="cat-icon">🧮</span>
+          <h3>Calculators</h3>
+        </div>
+        <p class="cat-desc">
+          Compute financial percentages, markups, discounts, and chronological time intervals with verified mathematical accuracy.
+        </p>
+        <div class="cat-use-cases">
+          <h4>Practical Use Cases</h4>
+          <ul>
+            <li>Calculate percentage increases, sales tax additions, and discount reductions instantly.</li>
+            <li>Determine exact chronological age in years, months, and days with leap-year precision.</li>
+            <li>Verify academic grade percentages and financial margins with transparent formulas.</li>
+          </ul>
+        </div>
+        <a routerLink="/tools/calculator" class="cat-link">Browse Calculators &rarr;</a>
+      </div>
+
+      <!-- QR Tools -->
+      <div class="category-showcase-card card">
+        <div class="category-showcase-header">
+          <span class="cat-icon">📱</span>
+          <h3>QR Code Tools</h3>
+        </div>
+        <p class="cat-desc">
+          Generate clean, high-resolution static QR codes for website URLs, contact cards, plain text notes, and WiFi credentials.
+        </p>
+        <div class="cat-use-cases">
+          <h4>Practical Use Cases</h4>
+          <ul>
+            <li>Create scannable QR codes for print flyers, restaurant menus, and product packaging.</li>
+            <li>Generate permanent static QR codes that do not expire or depend on third-party redirects.</li>
+            <li>Download high-definition PNG QR images ready for graphic design and print workflows.</li>
+          </ul>
+        </div>
+        <a routerLink="/tools/qr" class="cat-link">Browse QR Tools &rarr;</a>
+      </div>
+
+      <!-- Converters -->
+      <div class="category-showcase-card card">
+        <div class="category-showcase-header">
+          <span class="cat-icon">🔄</span>
+          <h3>Unit Converters</h3>
+        </div>
+        <p class="cat-desc">
+          Translate measurements seamlessly between metric and imperial standards across length, mass, temperature, and volume.
+        </p>
+        <div class="cat-use-cases">
+          <h4>Practical Use Cases</h4>
+          <ul>
+            <li>Convert recipes between Celsius and Fahrenheit or milliliters and fluid ounces.</li>
+            <li>Switch engineering and DIY measurements between meters, feet, inches, and centimeters.</li>
+            <li>Convert travel weights between kilograms and pounds with high-precision arithmetic.</li>
+          </ul>
+        </div>
+        <a routerLink="/tools/converter" class="cat-link">Browse Converters &rarr;</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Why Use ToolNova -->
+<!-- How Our Browser-Based Tools Work -->
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <h2>Why Use {{ siteConfig.name }}?</h2>
-      <p class="section-sub">Built with a focus on simplicity, speed, and genuine respect for user data.</p>
-    </div>
-    <div class="benefits-grid">
-      <div class="benefit card">
-        <div class="benefit-icon">🔒</div>
-        <h3>100% Browser-Based Privacy</h3>
-        <p>Your data stays on your machine. Text, code, and images are processed locally in your browser memory and never uploaded to our servers.</p>
+      <div>
+        <h2>How Our Browser-Based Tools Work</h2>
+        <p class="section-sub">Understanding the client-side technology that powers {{ siteConfig.name }}.</p>
       </div>
-      <div class="benefit card">
-        <div class="benefit-icon">⚡</div>
-        <h3>Instant Local Performance</h3>
-        <p>No waiting on server round-trips, slow cloud rendering, or file upload bars. Calculations and image edits happen immediately.</p>
-      </div>
-      <div class="benefit card">
-        <div class="benefit-icon">✨</div>
-        <h3>No Sign-Up or Accounts</h3>
-        <p>Start using every tool instantly without giving away your email address, creating passwords, or downloading desktop apps.</p>
-      </div>
-      <div class="benefit card">
-        <div class="benefit-icon">📱</div>
-        <h3>Fully Mobile Responsive</h3>
-        <p>Designed from the ground up for seamless operation across mobile smartphones, tablets, laptops, and ultra-wide desktop monitors.</p>
-      </div>
-      <div class="benefit card">
-        <div class="benefit-icon">🆓</div>
-        <h3>Completely Free Forever</h3>
-        <p>All utilities are free to use for personal, academic, and commercial tasks with no hidden paywalls or surprise limits.</p>
-      </div>
-      <div class="benefit card">
-        <div class="benefit-icon">🎯</div>
-        <h3>Clean, Focused Interface</h3>
-        <p>No bloated distractions, deceptive download links, or confusing menus. Just clear, purposeful tools that get work done quickly.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- How ToolNova Works -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-header">
-      <h2>How {{ siteConfig.name }} Works</h2>
-      <p class="section-sub">Simple, transparent, four-step process for all our browser utilities.</p>
     </div>
     <div class="how-grid">
       <div class="how-step card">
         <span class="step-badge">Step 1</span>
-        <h3>Choose Your Tool</h3>
-        <p>Select the tool you need from our categorized directory or find it immediately with quick search (Ctrl+K).</p>
+        <h3>Client-Side Execution</h3>
+        <p>When you open a tool, the necessary JavaScript and HTML logic loads into your browser once. All processing runs on your device's CPU rather than a remote cloud server.</p>
       </div>
       <div class="how-step card">
         <span class="step-badge">Step 2</span>
-        <h3>Input Your Data</h3>
-        <p>Paste your text, type your values, or drag and drop an image file directly into the tool interface.</p>
+        <h3>In-Memory Processing</h3>
+        <p>When you paste text or upload an image, modern Web APIs (such as FileReader and the HTML5 Canvas API) read the data locally into your device's volatile memory (RAM).</p>
       </div>
       <div class="how-step card">
         <span class="step-badge">Step 3</span>
-        <h3>Instant Local Processing</h3>
-        <p>Your browser executes the calculation, formatting, or image compression algorithm immediately on your device.</p>
+        <h3>Local Algorithms</h3>
+        <p>Calculations, string conversions, QR encoding, and pixel compression algorithms execute directly in your browser tab. Your raw inputs are never sent across the network.</p>
       </div>
       <div class="how-step card">
         <span class="step-badge">Step 4</span>
-        <h3>Copy or Download</h3>
-        <p>Copy formatted outputs to your clipboard with one click, or save processed images and files directly to your device.</p>
+        <h3>Instant Export</h3>
+        <p>Copy formatted code or text directly to your clipboard, or save compressed images straight to your local disk. Once the tab closes, temporary memory is cleared.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Featured Guides -->
+<!-- Who Uses ToolNova? -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>Who Uses {{ siteConfig.name }}?</h2>
+        <p class="section-sub">Real-world applications across academic, professional, and personal workflows.</p>
+      </div>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card card">
+        <span class="audience-role">👩‍💻</span>
+        <h3>Software Developers</h3>
+        <p>Developers format and validate messy JSON responses, test payload parsing, and convert variable names between camelCase, snake_case, and kebab-case without installing dedicated IDE plugins.</p>
+      </div>
+      <div class="audience-card card">
+        <span class="audience-role">🎓</span>
+        <h3>Students &amp; Researchers</h3>
+        <p>Students calculate course grade percentages, verify unit conversions across science assignments, and ensure academic essay drafts comply with strict minimum and maximum word count requirements.</p>
+      </div>
+      <div class="audience-card card">
+        <span class="audience-role">✍️</span>
+        <h3>Content Writers &amp; Bloggers</h3>
+        <p>Writers track paragraph structures, character densities, and reading durations to balance article pacing and optimize introductory snippets for search engine visibility.</p>
+      </div>
+      <div class="audience-card card">
+        <span class="audience-role">📰</span>
+        <h3>Copy Editors &amp; Proofreaders</h3>
+        <p>Editorial teams enforce consistent Title Case headline formatting, clean up irregular casing, and verify character counts across social media snippets and marketing headlines.</p>
+      </div>
+      <div class="audience-card card">
+        <span class="audience-role">🎨</span>
+        <h3>Digital Creators &amp; Designers</h3>
+        <p>Designers quickly generate clean, permanent QR codes for portfolio promotion and resize image dimensions to match standard social media thumbnail specifications.</p>
+      </div>
+      <div class="audience-card card">
+        <span class="audience-role">🏪</span>
+        <h3>Small Business Owners</h3>
+        <p>Store owners calculate product markups and sales discounts, compress product photography to improve e-commerce load speeds, and generate QR codes for storefront signage.</p>
+      </div>
+      <div class="audience-card card">
+        <span class="audience-role">🌐</span>
+        <h3>General Internet Users</h3>
+        <p>Anyone needing quick answers can calculate an exact chronological age, convert cooking recipe temperatures, or compress a photo attachment without registering for an account.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose ToolNova? -->
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <h2>Practical Guides &amp; Tutorials</h2>
+      <div>
+        <h2>Why Choose {{ siteConfig.name }}?</h2>
+        <p class="section-sub">Built with a focus on simplicity, speed, and genuine respect for user data.</p>
+      </div>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit card">
+        <div class="benefit-icon">🚫</div>
+        <h3>No Mandatory Account</h3>
+        <p>Every utility is immediately accessible. We never gate tools behind registration forms, social logins, or email verification requests.</p>
+      </div>
+      <div class="benefit card">
+        <div class="benefit-icon">⚡</div>
+        <h3>Simple, Focused Interface</h3>
+        <p>Clean, uncluttered layouts ensure you get your task done immediately without wading through confusing menus, popups, or multi-step screens.</p>
+      </div>
+      <div class="benefit card">
+        <div class="benefit-icon">🔒</div>
+        <h3>Browser-Based Processing</h3>
+        <p>All core operations run locally in your web browser. Your confidential JSON payloads, text drafts, and photos remain on your personal device.</p>
+      </div>
+      <div class="benefit card">
+        <div class="benefit-icon">📱</div>
+        <h3>Mobile-Friendly Experience</h3>
+        <p>Our responsive design adapts smoothly across mobile phones, tablets, laptops, and ultra-wide desktop monitors for effortless on-the-go utility.</p>
+      </div>
+      <div class="benefit card">
+        <div class="benefit-icon">🆓</div>
+        <h3>Free &amp; Unrestricted Access</h3>
+        <p>All utilities are free to use for personal, academic, and professional projects without daily conversion caps or hidden paywalls.</p>
+      </div>
+      <div class="benefit card">
+        <div class="benefit-icon">📖</div>
+        <h3>Clear Instructions &amp; Examples</h3>
+        <p>Each tool page includes in-depth explanations, step-by-step instructions, practical examples, FAQs, and links to educational guides.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ToolNova Guides -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2>ToolNova Guides &amp; Tutorials</h2>
+        <p class="section-sub">Educational articles explaining practical techniques, formulas, and digital formatting standards.</p>
+      </div>
       <a routerLink="/guides" class="section-link">View all guides &rarr;</a>
     </div>
     <div class="guide-grid">
@@ -136,25 +313,27 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section section-alt">
+<!-- Frequently Asked Questions -->
+<section class="section">
   <div class="container">
     <div class="section-header">
-      <h2>Frequently Asked Questions</h2>
-      <p class="section-sub">Everything you need to know about {{ siteConfig.name }} and how our tools operate.</p>
+      <div>
+        <h2>Frequently Asked Questions</h2>
+        <p class="section-sub">Everything you need to know about {{ siteConfig.name }} and how our tools operate.</p>
+      </div>
     </div>
     <app-faq-section [items]="faqItems" />
   </div>
 </section>
 
 <!-- About & Contact Previews -->
-<section class="section">
+<section class="section section-alt">
   <div class="container about-contact-grid">
     <div class="card preview-box">
       <h3>About {{ siteConfig.name }}</h3>
       <p>
         {{ siteConfig.name }} was created to give everyone access to fast, uncluttered digital utilities that respect user privacy.
-        Learn about our architecture, privacy philosophy, and mission.
+        Learn about our client-side architecture, privacy philosophy, and mission.
       </p>
       <a routerLink="/about" class="btn btn-secondary">Learn more about us &rarr;</a>
     </div>
@@ -162,10 +341,11 @@
     <div class="card preview-box">
       <h3>Need Help or Found a Bug?</h3>
       <p>
-        Our support team is always glad to help. If you notice a glitch, want to suggest a tool, or have a privacy question,
-        reach out to our official email directly.
+        Our support team is always glad to help. If you notice a glitch, want to suggest a new tool, or have a question,
+        reach out to our official email directly at admobility.in@gmail.com.
       </p>
       <a routerLink="/contact" class="btn btn-primary">Contact Support &rarr;</a>
     </div>
   </div>
 </section>
+

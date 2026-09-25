@@ -1,23 +1,28 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CategoryDefinition, ToolCategory } from '../../../core/models/tool.model';
 import { CATEGORIES } from '../../../core/data/categories.data';
 import { getToolsByCategory } from '../../../core/data/tools.data';
+import { getGuidesByCategory } from '../../../core/data/guides.data';
+import { GuideDefinition } from '../../../core/models/guide.model';
 import { SeoService } from '../../../core/services/seo.service';
-import { buildBreadcrumbSchema } from '../../../core/services/structured-data.util';
+import { buildBreadcrumbSchema, buildFaqSchema } from '../../../core/services/structured-data.util';
 import { ToolCard } from '../../../shared/components/tool-card/tool-card';
 import { Breadcrumb } from '../../../shared/components/breadcrumb/breadcrumb';
 import { EmptyState } from '../../../shared/components/empty-state/empty-state';
+import { FaqSection } from '../../../shared/components/faq-section/faq-section';
+import { RelatedGuides } from '../../../shared/components/related-guides/related-guides';
 
 @Component({
   selector: 'app-category-page',
-  imports: [ToolCard, Breadcrumb, EmptyState],
+  imports: [RouterLink, ToolCard, Breadcrumb, EmptyState, FaqSection, RelatedGuides],
   templateUrl: './category-page.html',
   styleUrl: './category-page.scss',
 })
 export class CategoryPage implements OnInit {
   category!: CategoryDefinition;
   tools: ReturnType<typeof getToolsByCategory> = [];
+  guides: GuideDefinition[] = [];
   breadcrumbItems: { label: string; route?: string }[] = [];
 
   private readonly route = inject(ActivatedRoute);
@@ -27,6 +32,8 @@ export class CategoryPage implements OnInit {
     const slug = this.route.snapshot.data['category'] as ToolCategory;
     this.category = CATEGORIES.find((c) => c.slug === slug)!;
     this.tools = getToolsByCategory(slug);
+    this.guides = getGuidesByCategory(slug);
+
     this.breadcrumbItems = [
       { label: 'Home', route: '/' },
       { label: 'Tools', route: '/tools' },
@@ -34,10 +41,15 @@ export class CategoryPage implements OnInit {
     ];
 
     this.seo.update({
-      title: this.category.name,
+      title: `${this.category.name} — Free Online Utilities | ToolNova`,
       description: this.category.description,
       path: this.category.route,
     });
-    this.seo.setStructuredData([buildBreadcrumbSchema(this.breadcrumbItems)]);
+
+    const schemas: (Record<string, unknown> | null)[] = [buildBreadcrumbSchema(this.breadcrumbItems)];
+    if (this.category.faqs && this.category.faqs.length > 0) {
+      schemas.push(buildFaqSchema(this.category.faqs));
+    }
+    this.seo.setStructuredData(schemas);
   }
 }

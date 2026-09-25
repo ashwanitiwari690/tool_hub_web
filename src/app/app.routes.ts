@@ -34,6 +34,11 @@ export const routes: Routes = [
     data: { category: 'calculator' },
   },
   {
+    path: 'tools/calculators',
+    redirectTo: '/tools/calculator',
+    pathMatch: 'full',
+  },
+  {
     path: 'tools/pdf',
     redirectTo: '/tools',
     pathMatch: 'full',
@@ -47,6 +52,11 @@ export const routes: Routes = [
     path: 'tools/converter',
     loadComponent: () => import('./pages/tools/category-page/category-page').then((m) => m.CategoryPage),
     data: { category: 'converter' },
+  },
+  {
+    path: 'tools/converters',
+    redirectTo: '/tools/converter',
+    pathMatch: 'full',
   },
 
   // Individual tools (Phase 2)
