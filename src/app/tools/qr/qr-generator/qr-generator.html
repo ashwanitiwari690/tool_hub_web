@@ -1,21 +1,21 @@
 <app-tool-page-layout
   [breadcrumbItems]="breadcrumbItems"
   title="QR Code Generator (Free &amp; Permanent)"
-  description="Generate permanent, scannable QR codes for websites, plain text, and Wi-Fi credentials in your browser with zero tracking."
+  description="Generate high-resolution static QR codes for website URLs, plain text, and Wi-Fi networks in your browser."
 >
   <div class="workspace card">
-    <div class="tabs">
+    <div class="type-selector">
       <button
         type="button"
-        class="tab-btn"
+        class="type-tab"
         [class.active]="type() === 'url'"
         (click)="setType('url')"
       >
-        🔗 Link / URL
+        🔗 Website URL
       </button>
       <button
         type="button"
-        class="tab-btn"
+        class="type-tab"
         [class.active]="type() === 'text'"
         (click)="setType('text')"
       >
@@ -23,7 +23,7 @@
       </button>
       <button
         type="button"
-        class="tab-btn"
+        class="type-tab"
         [class.active]="type() === 'wifi'"
         (click)="setType('wifi')"
       >
@@ -31,30 +31,29 @@
       </button>
     </div>
 
-    <div class="form-body" style="padding-top: 16px;">
+    <div class="form-container" style="margin-top: 20px;">
       @if (type() === 'url') {
         <div class="form-group">
-          <label for="urlInput">Website Address (URL)</label>
+          <label for="urlInput">Destination Web Address (URL)</label>
           <input
             id="urlInput"
             type="url"
             class="text-input"
-            placeholder="https://yourwebsite.com"
+            placeholder="https://example.com"
             [ngModel]="urlValue()"
             (ngModelChange)="urlValue.set($event)"
-            (keyup.enter)="generate()"
           />
         </div>
       }
 
       @if (type() === 'text') {
         <div class="form-group">
-          <label for="textInput">Plain Text Message</label>
+          <label for="textInput">Plain Text Content</label>
           <textarea
             id="textInput"
             class="text-input"
             rows="4"
-            placeholder="Enter any text message, coupon code, or instructions..."
+            placeholder="Type any message, note, or contact snippet..."
             [ngModel]="textValue()"
             (ngModelChange)="textValue.set($event)"
           ></textarea>
@@ -63,7 +62,7 @@
 
       @if (type() === 'wifi') {
         <div class="form-group">
-          <label for="wifiSsid">Network Name (SSID)</label>
+          <label for="wifiSsid">Wi-Fi Network Name (SSID)</label>
           <input
             id="wifiSsid"
             type="text"
@@ -132,25 +131,27 @@
 
   <app-info-section heading="What is a QR Code?">
     <p>
-      A Quick Response (QR) code is a two-dimensional matrix barcode invented in 1994. Unlike traditional linear UPC barcodes
-      that store only a short sequence of numbers, a QR code can store hundreds of alphanumeric characters in a compact grid
-      of dark modules on a light background.
+      A Quick Response (QR) code is a two-dimensional matrix barcode invented in 1994 by Denso Wave. Unlike traditional linear barcodes that encode numbers horizontally, QR codes encode binary information both horizontally and vertically across a grid of black squares on a white background. This allows QR codes to store hundreds of alphanumeric characters in a compact, scannable format.
     </p>
+  </app-info-section>
+
+  <app-info-section heading="How QR Codes Work">
     <p>
-      Equipped with built-in position markers and Reed-Solomon error correction algorithms, modern smartphones can scan and decode
-      a QR code from virtually any orientation, even if the code surface is partially scratched, soiled, or smudged.
+      QR codes utilize a robust combination of geometric positioning and mathematical error correction:
     </p>
+    <ul>
+      <li><strong>Position Detection Patterns:</strong> The three distinctive square markers located at the upper-left, upper-right, and lower-left corners allow optical camera sensors to detect the orientation, angle, and tilt of the code instantly.</li>
+      <li><strong>Data Matrix:</strong> The internal grid represents binary data (0s and 1s) arranged using standardized character encodings (Numeric, Alphanumeric, Byte, or Kanji).</li>
+      <li><strong>Reed-Solomon Error Correction:</strong> Embeds mathematical redundancy into the matrix, enabling smartphones to successfully decode the payload even if up to 30% of the graphic is damaged, scratched, or obscured.</li>
+    </ul>
   </app-info-section>
 
   <app-info-section heading="Static vs Dynamic QR Codes: Why Static is Better">
     <p>
-      Many online QR generators create "dynamic" QR codes that redirect scanners through a proprietary third-party tracking server.
-      After a 14-day free trial, those companies disable your QR code unless you pay an expensive monthly subscription fee.
+      Many commercial online QR generators create "dynamic" QR codes that route scanners through a proprietary third-party tracking server. After a 14-day free trial, those companies disable your QR code unless you pay an ongoing monthly subscription fee.
     </p>
     <p>
-      <strong>ToolNova generates 100% static QR codes:</strong> Your URL, text, or Wi-Fi password is hardcoded directly into
-      the visual matrix itself. Our codes never expire, never stop working, never show third-party interstitial ads, and never
-      require payment.
+      <strong>ToolNova generates 100% permanent static QR codes:</strong> Your URL, text, or Wi-Fi password is hardcoded directly into the visual matrix itself. Our codes never expire, never stop working, never show third-party interstitial ads, and never require payment.
     </p>
   </app-info-section>
 
@@ -164,6 +165,24 @@
     </ol>
   </app-info-section>
 
+  <app-info-section heading="Practical Use Cases">
+    <ul>
+      <li><strong>Restaurant Menus &amp; Table Ordering:</strong> Direct patrons directly to digital contactless menus on their smartphones without physical touchpoints.</li>
+      <li><strong>Print Marketing &amp; Event Flyers:</strong> Print QR codes on flyers, posters, and banners to bridge physical foot traffic directly to registration pages or promotional offers.</li>
+      <li><strong>Instant Guest Wi-Fi Access:</strong> Print a Wi-Fi QR code for reception desks or living rooms so guests connect immediately without typing complex security keys.</li>
+      <li><strong>Resumes &amp; Business Cards:</strong> Place a neat QR code on printed business cards to link directly to your LinkedIn profile, GitHub repository, or digital portfolio.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Features">
+    <ul>
+      <li><strong>Permanent &amp; Static:</strong> Never expires, no subscriptions, no middleman tracking servers.</li>
+      <li><strong>3 Dedicated Payload Modes:</strong> Full support for web URLs, plain text notes, and Wi-Fi networks (WPA/WEP/Open).</li>
+      <li><strong>High-Resolution PNG Download:</strong> Crisp vector-rendered raster graphics ready for printing.</li>
+      <li><strong>100% In-Browser Privacy:</strong> Passwords and links are encoded locally in your browser memory.</li>
+    </ul>
+  </app-info-section>
+
   <app-info-section heading="Best Practices for Printing QR Codes">
     <ul>
       <li><strong>Maintain Maximum Contrast:</strong> Black modules on a crisp white background provide the highest scan reliability across cheap phone cameras and dim lighting.</li>
@@ -173,13 +192,27 @@
     </ul>
   </app-info-section>
 
+  <app-info-section heading="Limitations &amp; Important Notes">
+    <ul>
+      <li><strong>Permanence of Static Codes:</strong> Because the data is etched directly into the visual pixel pattern, static QR codes cannot be edited after printing. Always test scan the code before sending collateral to a print shop.</li>
+      <li><strong>Dense Payloads:</strong> Encoding large amounts of text (e.g., hundreds of words) creates a very dense matrix with tiny modules that require larger print sizes to scan reliably.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Troubleshooting">
+    <ul>
+      <li><strong>Phone Camera Does Not Detect:</strong> Ensure adequate lighting, avoid glossy laminate glare, and check that the camera lens is clean.</li>
+      <li><strong>Link Won't Open:</strong> Verify you included the full URL protocol prefix (e.g., <code>https://</code>) rather than just the domain name.</li>
+    </ul>
+  </app-info-section>
+
   <app-info-section heading="Client-Side Privacy Guarantee">
     <p>
-      ToolNova generates QR codes entirely inside your browser memory using client-side JavaScript.
-      Your Wi-Fi passwords, private URLs, and text notes are never sent over the internet or logged in a database.
+      ToolNova generates QR codes entirely inside your browser memory using client-side JavaScript. Your Wi-Fi passwords, private URLs, and text notes are never sent over the internet or logged in a database.
     </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />
   <app-related-tools [tools]="relatedTools" />
+  <app-related-guides [guides]="relevantGuides" />
 </app-tool-page-layout>

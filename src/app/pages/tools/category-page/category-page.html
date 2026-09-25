@@ -1,17 +1,84 @@
 @if (category) {
   <div class="container page">
     <app-breadcrumb [items]="breadcrumbItems" />
-    <h1>{{ category.name }}</h1>
-    <p class="page-desc">{{ category.description }}</p>
 
-    @if (tools.length) {
-      <div class="tool-grid">
-        @for (tool of tools; track tool.slug) {
-          <app-tool-card [tool]="tool" />
+    <header class="category-hero">
+      <h1>{{ category.name }}</h1>
+      <p class="page-desc">{{ category.description }}</p>
+    </header>
+
+    @if (category.intro || category.whyUseful) {
+      <div class="category-overview-card">
+        @if (category.intro) {
+          <p class="overview-text">{{ category.intro }}</p>
+        }
+        @if (category.whyUseful) {
+          <h2 class="why-useful-heading">💡 Why Use Browser-Based {{ category.name }}?</h2>
+          <p class="why-useful-text">{{ category.whyUseful }}</p>
         }
       </div>
-    } @else {
-      <app-empty-state title="No tools available" message="No tools are currently listed in this category. Browse our full directory of tools on the Tools page." />
     }
+
+    <!-- Available Tools -->
+    <section class="category-section">
+      <h2 class="section-title">Available {{ category.name }}</h2>
+      <p class="section-desc">Select a utility below to use it immediately in your browser with zero installation.</p>
+      @if (tools.length) {
+        <div class="tool-grid">
+          @for (tool of tools; track tool.slug) {
+            <app-tool-card [tool]="tool" />
+          }
+        </div>
+      } @else {
+        <app-empty-state
+          title="No tools available"
+          message="No tools are currently listed in this category. Browse our full directory of tools on the Tools page."
+        />
+      }
+    </section>
+
+    <!-- Practical Use Cases -->
+    @if (category.useCases && category.useCases.length > 0) {
+      <section class="category-section">
+        <h2 class="section-title">Practical Use Cases</h2>
+        <p class="section-desc">Common everyday scenarios where our {{ category.name }} save time and effort.</p>
+        <div class="use-cases-grid">
+          @for (useCase of category.useCases; track useCase.title) {
+            <div class="use-case-card card">
+              <h3>{{ useCase.title }}</h3>
+              <p>{{ useCase.description }}</p>
+            </div>
+          }
+        </div>
+      </section>
+    }
+
+    <!-- Relevant Guides -->
+    @if (guides.length > 0) {
+      <section class="category-section">
+        <app-related-guides [guides]="guides" [title]="category.name + ' Guides & Tutorials'" />
+      </section>
+    }
+
+    <!-- Category FAQs -->
+    @if (category.faqs && category.faqs.length > 0) {
+      <section class="category-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Common questions regarding {{ category.name }} and client-side processing.</p>
+        <app-faq-section [items]="category.faqs" />
+      </section>
+    }
+
+    <!-- Navigation Box -->
+    <div class="category-nav-box">
+      <div>
+        <h3>Explore More Tools</h3>
+        <p>Looking for a different utility? Explore our full collection of free browser-based tools.</p>
+      </div>
+      <div class="nav-buttons">
+        <a routerLink="/tools" class="btn btn-secondary">All Tools Directory</a>
+        <a routerLink="/" class="btn btn-primary">ToolNova Home</a>
+      </div>
+    </div>
   </div>
 }

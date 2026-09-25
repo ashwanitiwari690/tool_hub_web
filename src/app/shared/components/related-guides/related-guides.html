@@ -1,0 +1,15 @@
+@if (guides().length) {
+  <section class="related-guides">
+    <h2>{{ heading() }}</h2>
+    <div class="guide-grid">
+      @for (guide of guides(); track guide.slug) {
+        <a class="guide-card card" [routerLink]="['/guides', guide.slug]">
+          <span class="guide-tag">Guide</span>
+          <h3>{{ guide.title }}</h3>
+          <p>{{ guide.description }}</p>
+          <span class="read-link">Read tutorial &rarr;</span>
+        </a>
+      }
+    </div>
+  </section>
+}

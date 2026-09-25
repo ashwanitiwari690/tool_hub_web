@@ -7,12 +7,26 @@ export type ToolCategory =
   | 'qr'
   | 'converter';
 
+export interface CategoryFaq {
+  question: string;
+  answer: string;
+}
+
+export interface CategoryUseCase {
+  title: string;
+  description: string;
+}
+
 export interface CategoryDefinition {
   slug: ToolCategory;
   name: string;
   description: string;
   icon: string;
   route: string;
+  intro?: string;
+  whyUseful?: string;
+  useCases?: CategoryUseCase[];
+  faqs?: CategoryFaq[];
 }
 
 export interface ToolDefinition {

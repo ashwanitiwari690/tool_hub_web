@@ -711,8 +711,281 @@ export const GUIDES: GuideDefinition[] = [
     ],
     relatedToolSlugs: ['json-formatter', 'image-compressor', 'qr-generator'],
   },
+  {
+    slug: 'how-to-convert-text-case',
+    title: 'How to Convert Text Case: From camelCase to snake_case and Title Case',
+    description:
+      'Learn the rules of common capitalization formats, when to use each, and how to convert text instantly.',
+    updatedDate: '2026-09-25',
+    introduction:
+      'Capitalization styles serve different roles across software development, digital publishing, copywriting, and data normalization. Understanding standard conventions like camelCase, snake_case, Title Case, and Sentence case prevents bugs and ensures clean typographic consistency.',
+    sections: [
+      {
+        heading: 'Programming Casing Conventions',
+        content:
+          'Software programming languages enforce strict naming conventions to keep code readable. For instance, JavaScript and TypeScript conventionally use camelCase for variables and functions (e.g., calculateTotalAmount), while Python and SQL prefer snake_case (e.g., calculate_total_amount). Web URLs and CSS classes rely on kebab-case (e.g., total-amount-display) to avoid issues with space encoding.',
+        codeExample:
+          '// camelCase (JavaScript, TypeScript, Java)\nconst userAccountStatus = "active";\n\n// snake_case (Python, Ruby, SQL)\nuser_account_status = "active"\n\n// kebab-case (URLs, CSS, HTML)\n.user-account-status { color: green; }',
+      },
+      {
+        heading: 'Editorial and Publishing Casing',
+        content:
+          'In editorial work, Title Case is standard for book titles, article headlines, and email subject lines, capitalizing major words while keeping minor words (like "and", "in", "of") lowercase. Sentence case capitalizes only the first word of a sentence and proper nouns, which is commonly used for modern web user interfaces and technical documentation.',
+        tips: [
+          'Use Title Case for main website page headers and blog post titles.',
+          'Use Sentence case for buttons, tooltips, and form input labels.',
+          'Use UPPERCASE sparingly for acronyms (JSON, API, URL) or short legal notices.',
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: 'Input Your Text',
+        detail:
+          'Type or paste your text snippet into the Case Converter editor.',
+      },
+      {
+        title: 'Select Desired Style',
+        detail:
+          'Click the button corresponding to your target format (such as camelCase, Title Case, or snake_case).',
+      },
+      {
+        title: 'Copy Converted Result',
+        detail:
+          'The transformed text appears instantly in the result box ready for copying with a single click.',
+      },
+    ],
+    commonMistakes: [
+      'Pasting rich text that contains smart punctuation (curly quotes) into programming identifiers.',
+      'Assuming acronyms stay uppercase in camelCase (e.g., parseJson vs parseJSON).',
+      'Over-capitalizing prepositions and conjunctions in Title Case headlines.',
+    ],
+    faq: [
+      {
+        question: 'Does converting case alter punctuation or numbers?',
+        answer:
+          'Punctuation is preserved in natural writing styles (Sentence case, Title Case) and normalized into word boundaries when generating code identifiers (camelCase, snake_case).',
+      },
+      {
+        question: 'Can Case Converter handle international accented letters?',
+        answer:
+          'Yes. Unicode characters such as é, ñ, and ü are transformed correctly according to standard language casing rules.',
+      },
+    ],
+    relatedToolSlugs: ['case-converter', 'word-counter'],
+  },
+  {
+    slug: 'static-vs-dynamic-qr-codes',
+    title: 'Static vs Dynamic QR Codes: Differences, Lifespans, and Scannability',
+    description:
+      'Understand the key differences between static and dynamic QR codes, expiration risks, and testing guidelines.',
+    updatedDate: '2026-09-25',
+    introduction:
+      'QR codes are used everywhere from product packaging and menus to trade show badges and Wi-Fi access cards. However, many users do not realize there is a critical distinction between static QR codes and dynamic QR codes.',
+    sections: [
+      {
+        heading: 'What is a Static QR Code?',
+        content:
+          'A static QR code encodes your data directly into the matrix of black-and-white modules. When a smartphone scans a static QR code, the camera reads the payload directly from the pattern itself without routing through an intermediary server. Because there is no middleman, static QR codes never expire, cannot be remotely shut down, and carry no monthly subscription fees.',
+      },
+      {
+        heading: 'What is a Dynamic QR Code?',
+        content:
+          'A dynamic QR code encodes a short tracking URL that redirects the user to the final destination. This allows the creator to edit the destination link later or collect scan analytics. However, if the service hosting that redirect shuts down, charges a fee, or experiences downtime, the printed QR code permanently stops working.',
+        tips: [
+          'For permanent printing (business cards, signs, packaging), static QR codes are the most reliable option.',
+          'Always verify that the destination URL in a static QR code is correct and uses HTTPS before mass-printing.',
+          'A static QR code itself never expires, but remember that the website it points to must remain hosted and active.',
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: 'Choose Your Data Type',
+        detail:
+          'Select whether to encode a web link, text message, or Wi-Fi login credentials in ToolNova QR Generator.',
+      },
+      {
+        title: 'Verify the Content',
+        detail:
+          'Double-check URLs for typos and test that Wi-Fi passwords match your router settings.',
+      },
+      {
+        title: 'Test With Multiple Devices',
+        detail:
+          'Scan the on-screen preview with both iPhone and Android cameras before downloading.',
+      },
+      {
+        title: 'Print With Adequate Margin',
+        detail:
+          'Ensure printed codes have a minimum 2x2 cm size and a clear "quiet zone" border around all sides.',
+      },
+    ],
+    commonMistakes: [
+      'Inverting colors (white modules on black background), which many hardware scanners fail to detect.',
+      'Placing QR codes in high-glare surfaces or folds on printed packaging.',
+      'Encoding overly long URLs with dozens of tracking parameters, creating a dense pattern that is difficult to scan.',
+    ],
+    faq: [
+      {
+        question: 'Will a static QR code stop working if ToolNova changes in the future?',
+        answer:
+          'No. The QR code contains only your data and does not redirect through ToolNova. As long as the destination URL or Wi-Fi password remains valid, the QR code functions indefinitely.',
+      },
+      {
+        question: 'Can I edit the destination of a static QR code after printing?',
+        answer:
+          'No. Because the data is permanently encoded into the physical pattern, you must generate and print a new QR code to change the content.',
+      },
+    ],
+    relatedToolSlugs: ['qr-generator'],
+  },
+  {
+    slug: 'how-to-calculate-age-from-date',
+    title: 'How to Calculate Exact Age From Date of Birth: Calendar Math Explained',
+    description:
+      'Explore the mathematics of chronological age, Gregorian calendar adjustments, leap years, and milestone dates.',
+    updatedDate: '2026-09-25',
+    introduction:
+      'Determining someone\'s exact chronological age seems simple at first glance, but calendar mathematics is surprisingly nuanced. Because months have different lengths and leap years introduce an extra day every four years, exact date arithmetic requires structured calculation.',
+    sections: [
+      {
+        heading: 'Chronological Age vs Simple Year Subtraction',
+        content:
+          'Subtracting the birth year from the current calendar year only tells you the age a person will reach in the current year, not their actual age today. Until the exact birth date arrives, the person is still one year younger. True chronological age measures completed years, months, and days.',
+      },
+      {
+        heading: 'How Date Borrowing Works',
+        content:
+          'When subtracting birth dates where the current day of the month is smaller than the birth day, days must be borrowed from the preceding month. Because different months span 28, 29, 30, or 31 days, the number of borrowed days varies depending on the specific calendar month.',
+        codeExample:
+          '// Example:\n// Today: September 25, 2026\n// Born: November 30, 2000\n// Years: 25 years (since Nov 30 has not occurred yet in 2026)\n// Months: 9 months\n// Days: 26 days',
+      },
+    ],
+    steps: [
+      {
+        title: 'Select Birth Date',
+        detail:
+          'Open the ToolNova Age Calculator and pick your exact date of birth.',
+      },
+      {
+        title: 'Review Breakdown',
+        detail:
+          'The tool automatically computes completed years, months, days, and total days lived.',
+      },
+      {
+        title: 'Check Milestone Milestones',
+        detail:
+          'See cumulative statistics useful for school admissions, legal verification, or anniversary planning.',
+      },
+    ],
+    commonMistakes: [
+      'Multiplying age in years by 365, which ignores leap days accumulated over decades.',
+      'Assuming all months have 30 days when calculating partial-month differences.',
+      'Failing to account for time zones when calculating age across international boundaries.',
+    ],
+    faq: [
+      {
+        question: 'How are leap years handled for February 29 birthdays?',
+        answer:
+          'In non-leap years, people born on February 29 commonly celebrate their birthday on either February 28 or March 1 depending on legal jurisdiction.',
+      },
+      {
+        question: 'Can this tool calculate elapsed time for contracts or historical events?',
+        answer:
+          'Yes. You can enter any past date to find the exact elapsed time in years, months, and days up to today.',
+      },
+    ],
+    relatedToolSlugs: ['age-calculator', 'percentage-calculator'],
+  },
+  {
+    slug: 'metric-vs-imperial-units',
+    title: 'Metric vs Imperial Units: How Measurement Conversions Work',
+    description:
+      'A comprehensive guide to international measurement systems, standard conversion factors, and affine temperature conversions.',
+    updatedDate: '2026-09-25',
+    introduction:
+      'Navigating between the Metric system (SI) and the Imperial / US Customary system is an essential everyday skill for cooking, traveling, construction, and engineering. Understanding standard conversion constants and temperature zero offsets ensures accurate results.',
+    sections: [
+      {
+        heading: 'The Metric System (SI): Decimal Simplicity',
+        content:
+          'The International System of Units (SI) is based on decimal powers of 10. Prefixes like kilo- (1,000), centi- (1/100), and milli- (1/1,000) make scaling between units intuitive. 1,000 meters equal 1 kilometer, and 1,000 grams equal 1 kilogram.',
+      },
+      {
+        heading: 'Imperial and US Customary Units',
+        content:
+          'The Imperial and US Customary systems evolved historically from trade and human-scale references (e.g., a foot was originally based on human foot length). Relationships are non-decimal: 12 inches per foot, 3 feet per yard, 1,760 yards per mile, and 16 ounces per pound.',
+      },
+      {
+        heading: 'Key Conversion Benchmarks',
+        content:
+          'The following international constants define modern conversions:',
+        tips: [
+          'Length: 1 inch is defined internationally as exactly 2.54 centimeters.',
+          'Distance: 1 mile is approximately 1.60934 kilometers; 1 kilometer is ~0.621371 miles.',
+          'Weight: 1 kilogram is approximately 2.20462 pounds; 1 pound is ~453.592 grams.',
+          'Temperature: 0°C is 32°F; 100°C is 212°F; the formula is °F = (°C × 9/5) + 32.',
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: 'Choose Measurement Category',
+        detail:
+          'Select Length, Weight, Temperature, or Digital Data in ToolNova Unit Converter.',
+      },
+      {
+        title: 'Set Source and Target Units',
+        detail:
+          'Pick your current unit in "From" and desired output in "To".',
+      },
+      {
+        title: 'Enter Amount',
+        detail:
+          'Type the numeric value to see the converted result update in real time.',
+      },
+    ],
+    commonMistakes: [
+      'Applying linear multipliers to temperature conversions instead of affine formulas with zero-point offsets.',
+      'Confusing fluid ounces (volume) with dry weight ounces (mass).',
+      'Confusing decimal data units (MB = 1,000 KB) with binary units (MiB = 1,024 KiB).',
+    ],
+    faq: [
+      {
+        question: 'Why do Celsius and Fahrenheit have different formulas?',
+        answer:
+          'Celsius and Fahrenheit have different zero points and degree step sizes. Celsius sets zero at the freezing point of water, while Fahrenheit sets zero at the freezing point of a brine solution.',
+      },
+      {
+        question: 'Are conversion results rounded?',
+        answer:
+          'ToolNova displays results up to six decimal places, providing high accuracy for everyday, academic, and practical tasks.',
+      },
+    ],
+    relatedToolSlugs: ['unit-converter'],
+  },
 ];
 
 export function getGuideBySlug(slug: string): GuideDefinition | undefined {
   return GUIDES.find((guide) => guide.slug === slug);
+}
+
+export function getGuidesByToolSlug(toolSlug: string, limit = 3): GuideDefinition[] {
+  return GUIDES.filter((guide) => guide.relatedToolSlugs.includes(toolSlug)).slice(0, limit);
+}
+
+export function getGuidesByCategory(category: string, limit = 4): GuideDefinition[] {
+  const categoryMap: Record<string, string[]> = {
+    text: ['word-counter', 'case-converter'],
+    developer: ['json-formatter', 'json-validator'],
+    image: ['image-compressor', 'image-resizer'],
+    calculator: ['percentage-calculator', 'age-calculator'],
+    qr: ['qr-generator'],
+    converter: ['unit-converter'],
+  };
+  const tools = categoryMap[category] ?? [];
+  return GUIDES.filter((guide) =>
+    guide.relatedToolSlugs.some((t) => tools.includes(t))
+  ).slice(0, limit);
 }

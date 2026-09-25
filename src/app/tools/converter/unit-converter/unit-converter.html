@@ -78,11 +78,33 @@
 
   <app-info-section heading="What is Unit Conversion?">
     <p>
-      Unit conversion is the process of translating a numerical measurement from one system of measurement to another
-      equivalent quantity in a different unit. Globally, two primary systems dominate: the <strong>International System of Units (SI / Metric)</strong>,
-      used by science, medicine, and most of the world (meters, kilograms, Celsius), and the <strong>US Customary / Imperial system</strong>,
-      used primarily in the United States and the United Kingdom (inches, feet, pounds, Fahrenheit).
+      Unit conversion translates a numerical quantity from one system of measurement to its exact mathematical equivalent in another. Globally, two primary frameworks coexist: the <strong>International System of Units (SI / Metric)</strong>, employed by modern science, medicine, and the vast majority of nations (meters, grams, Celsius), and the <strong>US Customary / Imperial system</strong>, commonly used in the United States and the United Kingdom (feet, pounds, Fahrenheit, fluid ounces).
     </p>
+  </app-info-section>
+
+  <app-info-section heading="How the Unit Converter Works">
+    <p>
+      Our converter uses standardized base-unit normalization:
+    </p>
+    <ul>
+      <li><strong>Linear Normalization:</strong> For length, mass, and digital storage, the input value is multiplied by a standardized <code>toBase</code> constant to convert it to the primary SI base unit (e.g., meters or grams). It is then divided by the destination unit's <code>toBase</code> multiplier. This guarantees precision and avoids compounding rounding errors across multi-step conversions.</li>
+      <li><strong>Temperature Formulas:</strong> Temperature relies on affine equations because Celsius and Fahrenheit have differing zeroes:
+        <ul>
+          <li><code>&deg;F = (&deg;C &times; 9/5) + 32</code></li>
+          <li><code>&deg;C = (&deg;F - 32) &times; 5/9</code></li>
+          <li><code>K = &deg;C + 273.15</code></li>
+        </ul>
+      </li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="How to Use This Converter">
+    <ol>
+      <li><strong>Select Category:</strong> Click on Length, Mass / Weight, Temperature, or Digital Data.</li>
+      <li><strong>Enter Amount:</strong> Type the numerical value you wish to convert into the input box.</li>
+      <li><strong>Pick Units:</strong> Select your source unit in the <em>From</em> dropdown and your target unit in the <em>To</em> dropdown.</li>
+      <li><strong>Swap or Reset:</strong> Click the <strong>⇄ Swap</strong> button to invert the conversion direction instantly, or click <strong>Reset</strong> to restore default values.</li>
+    </ol>
   </app-info-section>
 
   <app-info-section heading="Quick Conversion Cheat Sheet">
@@ -94,39 +116,50 @@
     </ul>
   </app-info-section>
 
-  <app-info-section heading="How Temperature Conversion Differs">
-    <p>
-      Unlike distance or weight where zero in one unit equals zero in another (0 meters = 0 feet), temperature scales
-      do not share a common zero point. Celsius defines zero as the freezing point of water, Fahrenheit sets freezing at 32 degrees,
-      and Kelvin sets zero at absolute zero (-273.15&deg;C).
-    </p>
-    <p>
-      Converting temperature therefore requires affine equations rather than simple multiplication:
-    </p>
+  <app-info-section heading="Practical Use Cases">
     <ul>
-      <li><code>Celsius to Fahrenheit: &deg;F = (&deg;C &times; 9/5) + 32</code></li>
-      <li><code>Fahrenheit to Celsius: &deg;C = (&deg;F - 32) &times; 5/9</code></li>
-      <li><code>Celsius to Kelvin: K = &deg;C + 273.15</code></li>
+      <li><strong>Culinary Arts &amp; Baking:</strong> Converting international recipes between grams, ounces, milliliters, and cups.</li>
+      <li><strong>International Travel:</strong> Translating road signs from kilometers to miles or verifying airline baggage limits in kilograms and pounds.</li>
+      <li><strong>Construction &amp; Home Improvement:</strong> Converting lumber blueprints and room dimensions between metric centimeters and imperial inches and feet.</li>
+      <li><strong>Scientific Education:</strong> Translating temperatures between laboratory Celsius/Kelvin and everyday Fahrenheit scales.</li>
     </ul>
   </app-info-section>
 
-  <app-info-section heading="Common Use Cases">
+  <app-info-section heading="Features">
     <ul>
-      <li><strong>Culinary Arts &amp; Baking:</strong> Converting international recipes between grams, ounces, kilograms, and pounds.</li>
-      <li><strong>International Travel &amp; Navigation:</strong> Translating road distances and speed limits between kilometers and miles.</li>
-      <li><strong>Engineering &amp; Construction:</strong> Translating architectural measurements between centimeters/meters and inches/feet.</li>
-      <li><strong>Computing &amp; IT:</strong> Sizing database storage volumes and network bandwidth between KB, MB, and GB.</li>
+      <li><strong>4 Comprehensive Categories:</strong> Covers length, mass/weight, temperature, and digital data.</li>
+      <li><strong>Instant Bidirectional Conversion:</strong> Immediate results as you type with one-click unit swapping.</li>
+      <li><strong>Standardized SI Constants:</strong> Officially verified international conversion factors rounded to 6 decimal places.</li>
+      <li><strong>100% Client-Side Privacy:</strong> Zero network transmission; all math runs locally in your browser.</li>
     </ul>
+  </app-info-section>
+
+  <app-info-section heading="Metric vs. Imperial Systems Explained">
+    <p>
+      The metric system is built upon a decimal base-10 structure where prefixes (milli-, centi-, kilo-) define orders of magnitude. The imperial system developed organically from historical trade and agricultural measures (such as 12 inches to a foot, 3 feet to a yard, and 16 ounces to a pound). Having an instant converter ensures seamless communication across international supply chains and cross-border collaborations.
+    </p>
   </app-info-section>
 
   <app-info-section heading="Accuracy &amp; Precision Limitations">
     <p>
-      Calculations utilize high-precision international standards and are rounded to six decimal places for clarity.
-      While suitable for academic study, DIY projects, cooking, and everyday tasks, critical pharmaceutical preparation,
-      aerospace calculations, and legal commerce measurements should always be performed with certified instrumentation.
+      Calculations utilize standard IEEE 754 double-precision arithmetic rounded to six decimal places for clarity. While thoroughly verified for study, cooking, travel, and DIY home improvements, critical medical dosages, pharmaceutical preparations, or aerospace engineering must always rely on certified laboratory instrumentation.
+    </p>
+  </app-info-section>
+
+  <app-info-section heading="Troubleshooting">
+    <ul>
+      <li><strong>Negative Temperature Values:</strong> The converter fully supports negative temperatures (e.g., -40&deg;C = -40&deg;F). Remember that the Kelvin scale cannot drop below absolute zero (0 K).</li>
+      <li><strong>Unit Not Showing:</strong> Switch to the appropriate physical category tab (e.g., switch from Length to Mass) to see weight-related units.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Client-Side Privacy Guarantee">
+    <p>
+      ToolNova performs all calculations natively inside your browser tab. Your inputs and measurements are never transmitted over the internet or logged on any remote server.
     </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />
   <app-related-tools [tools]="relatedTools" />
+  <app-related-guides [guides]="relevantGuides" />
 </app-tool-page-layout>

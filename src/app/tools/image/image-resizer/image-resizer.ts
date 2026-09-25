@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { getToolBySlug, getRelatedTools } from '../../../core/data/tools.data';
+import { getGuidesByToolSlug } from '../../../core/data/guides.data';
 import { ToolPageSeoService } from '../../../core/services/tool-page-seo.service';
 import { ToolPageLayout } from '../../../shared/components/tool-page-layout/tool-page-layout';
 import { InfoSection } from '../../../shared/components/info-section/info-section';
 import { FaqSection } from '../../../shared/components/faq-section/faq-section';
 import { RelatedTools } from '../../../shared/components/related-tools/related-tools';
+import { RelatedGuides } from '../../../shared/components/related-guides/related-guides';
 import { AdSlot } from '../../../shared/components/ad-slot/ad-slot';
 import { ResetButton } from '../../../shared/components/reset-button/reset-button';
 import { FileDropZone } from '../../../shared/components/file-drop-zone/file-drop-zone';
@@ -20,6 +22,7 @@ import { ErrorMessage } from '../../../shared/components/error-message/error-mes
     InfoSection,
     FaqSection,
     RelatedTools,
+    RelatedGuides,
     AdSlot,
     ResetButton,
     FileDropZone,
@@ -32,6 +35,7 @@ import { ErrorMessage } from '../../../shared/components/error-message/error-mes
 export class ImageResizer implements OnInit, OnDestroy {
   private readonly tool = getToolBySlug('image-resizer')!;
   readonly relatedTools = getRelatedTools(this.tool);
+  readonly relevantGuides = getGuidesByToolSlug('image-resizer');
   readonly breadcrumbItems = [
     { label: 'Home', route: '/' },
     { label: 'Image Tools', route: '/tools/image' },

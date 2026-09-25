@@ -1,23 +1,35 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { getToolBySlug, getRelatedTools } from '../../../core/data/tools.data';
+import { getGuidesByToolSlug } from '../../../core/data/guides.data';
 import { ToolPageSeoService } from '../../../core/services/tool-page-seo.service';
 import { ToolPageLayout } from '../../../shared/components/tool-page-layout/tool-page-layout';
 import { InfoSection } from '../../../shared/components/info-section/info-section';
 import { FaqSection } from '../../../shared/components/faq-section/faq-section';
 import { RelatedTools } from '../../../shared/components/related-tools/related-tools';
+import { RelatedGuides } from '../../../shared/components/related-guides/related-guides';
 import { AdSlot } from '../../../shared/components/ad-slot/ad-slot';
 import { ResetButton } from '../../../shared/components/reset-button/reset-button';
 
 @Component({
   selector: 'app-json-validator',
-  imports: [FormsModule, ToolPageLayout, InfoSection, FaqSection, RelatedTools, AdSlot, ResetButton],
+  imports: [
+    FormsModule,
+    ToolPageLayout,
+    InfoSection,
+    FaqSection,
+    RelatedTools,
+    RelatedGuides,
+    AdSlot,
+    ResetButton,
+  ],
   templateUrl: './json-validator.html',
   styleUrl: './json-validator.scss',
 })
 export class JsonValidator implements OnInit {
   private readonly tool = getToolBySlug('json-validator')!;
   readonly relatedTools = getRelatedTools(this.tool);
+  readonly relevantGuides = getGuidesByToolSlug('json-validator');
   readonly breadcrumbItems = [
     { label: 'Home', route: '/' },
     { label: 'Developer Tools', route: '/tools/developer' },

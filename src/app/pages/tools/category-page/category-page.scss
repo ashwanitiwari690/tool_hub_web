@@ -1,10 +1,70 @@
 .page {
-  padding-block: 28px 60px;
+  padding-block: 28px 64px;
 }
 
-.page-desc {
-  margin-bottom: 28px;
-  max-width: 640px;
+.category-hero {
+  margin-bottom: 36px;
+
+  h1 {
+    font-size: clamp(1.875rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .page-desc {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+}
+
+.category-overview-card {
+  padding: 24px 28px;
+  margin-bottom: 36px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  .overview-text {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .why-useful-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .why-useful-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+.category-section {
+  margin-top: 48px;
+
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .section-desc {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
 }
 
 .tool-grid {
@@ -13,9 +73,72 @@
   gap: 16px;
 }
 
+.use-cases-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.use-case-card {
+  padding: 22px;
+
+  h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+}
+
+.category-nav-box {
+  margin-top: 48px;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+
+  h3 {
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+}
+
 @media (min-width: 640px) {
-  .tool-grid {
+  .tool-grid,
+  .use-cases-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-nav-box {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .nav-buttons {
+      margin-top: 0;
+    }
   }
 }
 

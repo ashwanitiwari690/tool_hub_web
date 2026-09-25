@@ -37,37 +37,52 @@
 
   <app-info-section heading="What is JSON?">
     <p>
-      JavaScript Object Notation (JSON) is an open-standard, text-based file format used universally for data exchange
-      across modern web applications, REST APIs, databases, and configuration files. Designed to be lightweight and
-      language-independent, JSON represents structured data using two universal data structures:
+      JavaScript Object Notation (JSON) is an open-standard, lightweight, text-based data interchange format defined by RFC 8259. It is universally used across modern software engineering for REST API communication, configuration files (such as <code>tsconfig.json</code> or <code>package.json</code>), and NoSQL document storage (like MongoDB).
     </p>
+    <p>JSON represents data hierarchically using two core structures:</p>
     <ul>
-      <li><strong>Objects:</strong> Collections of name/value pairs enclosed within curly braces <code>&#123;&#125;</code>.</li>
-      <li><strong>Arrays:</strong> Ordered lists of values enclosed within square brackets <code>[]</code>.</li>
+      <li><strong>Objects:</strong> Key-value collections wrapped in curly braces (<code>&#123;&#125;</code>), where keys are double-quoted strings.</li>
+      <li><strong>Arrays:</strong> Ordered lists of values enclosed in square brackets (<code>[]</code>).</li>
     </ul>
   </app-info-section>
 
   <app-info-section heading="Why Format JSON?">
     <p>
-      Production APIs and databases frequently minify JSON payloads into a single unbroken line to reduce bandwidth
-      and improve transmission speed. However, reading or debugging unformatted JSON is virtually impossible for developers.
-      Formatting (also called pretty-printing) adds consistent line breaks and hierarchical two-space indentation, allowing
-      engineers to quickly inspect payloads, verify nested objects, spot syntax errors, and debug API responses.
+      Production web servers and microservices transmit JSON in "minified" format—stripping all line breaks and spaces to reduce HTTP payload size. However, minified JSON is virtually unreadable for developers debugging API errors. Formatting (pretty-printing) restores indentation and hierarchical structure so engineers can instantly inspect object nesting, verify data types, and spot malformed payloads.
     </p>
+  </app-info-section>
+
+  <app-info-section heading="How the Formatter Works">
+    <p>
+      ToolNova leverages the browser's native JavaScript engine:
+    </p>
+    <ul>
+      <li><strong>Parsing:</strong> The raw text is passed to <code>JSON.parse()</code>. If any syntactic anomaly exists (such as a missing quote or trailing comma), the engine throws a syntax error with line and character position details.</li>
+      <li><strong>Formatting:</strong> The parsed JavaScript object is converted back to string format using <code>JSON.stringify(parsed, null, 2)</code>, which injects two-space indentation at every nesting depth.</li>
+      <li><strong>Minification:</strong> Executing <code>JSON.stringify(parsed)</code> without indentation strips all non-essential whitespace, creating a compact single-line string.</li>
+    </ul>
   </app-info-section>
 
   <app-info-section heading="How to Use JSON Formatter">
     <ol>
-      <li><strong>Paste JSON:</strong> Copy your raw or minified JSON text and paste it into the editor above.</li>
-      <li><strong>Choose Action:</strong>
+      <li><strong>Paste Your JSON:</strong> Copy your raw, messy, or minified JSON text into the workspace above.</li>
+      <li><strong>Select Desired Operation:</strong>
         <ul>
-          <li>Click <strong>Format (Pretty-Print)</strong> to expand the data with clean two-space indentation.</li>
-          <li>Click <strong>Minify</strong> to compress the JSON onto a single line without whitespace.</li>
-          <li>Click <strong>Validate</strong> to test if your payload complies strictly with the RFC 8259 specification.</li>
+          <li><strong>Format (Pretty-Print):</strong> Expands your payload into readable, indented JSON.</li>
+          <li><strong>Minify:</strong> Compresses the JSON onto a single line for lightweight network transport.</li>
+          <li><strong>Validate:</strong> Checks whether your JSON conforms to RFC 8259 specifications.</li>
         </ul>
       </li>
-      <li><strong>Copy or Download:</strong> Use the Copy button to copy the output to your clipboard, or click Download to save a <code>.json</code> file.</li>
+      <li><strong>Export Your Output:</strong> Click <strong>Copy</strong> to copy the output to your clipboard, or click <strong>Download</strong> to save a clean <code>.json</code> file to your device.</li>
     </ol>
+  </app-info-section>
+
+  <app-info-section heading="Practical Developer Use Cases">
+    <ul>
+      <li><strong>API Response Debugging:</strong> Pretty-print dense API responses from curl, Postman, or browser network inspector tabs to quickly read nested attributes.</li>
+      <li><strong>Configuration File Sanitization:</strong> Format <code>manifest.json</code>, VS Code settings, or serverless configuration files before committing to Git.</li>
+      <li><strong>Mock Data Creation:</strong> Generate clean sample JSON datasets for frontend mock servers and unit testing suites.</li>
+    </ul>
   </app-info-section>
 
   <app-info-section heading="Example: Before and After Formatting">
@@ -78,31 +93,39 @@
     <pre class="code-output" style="max-height: 180px;">{{'{\n  "project": "ToolNova",\n  "category": "utilities",\n  "free": true,\n  "tags": [\n    "fast",\n    "private"\n  ]\n}'}}</pre>
   </app-info-section>
 
-  <app-info-section heading="Common JSON Syntax Errors &amp; How to Fix Them">
+  <app-info-section heading="Features">
     <ul>
-      <li>
-        <strong>Trailing Commas:</strong> Placing a comma after the final key in an object (e.g., <code>{{"{\"a\": 1, \"b\": 2,}"}}</code>) will crash the parser. Always remove commas following the last property.
-      </li>
-      <li>
-        <strong>Single Quotes:</strong> JSON strictly requires standard double quotes <code>"</code>. Replacing single quotes (<code>'key'</code>) with double quotes (<code>"key"</code>) resolves this immediately.
-      </li>
-      <li>
-        <strong>Unquoted Keys:</strong> While JavaScript allows unquoted object keys (<code>{{'{ title: "Hello" }'}}</code>), JSON requires all property names to be enclosed in double quotes (<code>{{"{ \"title\": \"Hello\" }"}}</code>).
-      </li>
-      <li>
-        <strong>Unescaped Quotes:</strong> Literal double quotes inside a string value must be escaped with a preceding backslash (e.g., <code>"He said \\"Hello\\""</code>).
-      </li>
+      <li><strong>Fast Pretty-Printing:</strong> Standardized 2-space hierarchical indentation.</li>
+      <li><strong>Lossless Minification:</strong> Eliminates extraneous whitespace while preserving exact string content.</li>
+      <li><strong>File Download:</strong> Export formatted data straight to a <code>.json</code> file.</li>
+      <li><strong>One-Click Clipboard Copy:</strong> Copy formatted code instantly.</li>
+      <li><strong>Zero Server Uploads:</strong> Safe for proprietary tokens and private database dumps.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Limitations &amp; Important Notes">
+    <ul>
+      <li><strong>Strict JSON vs. JavaScript Objects:</strong> Standard JSON does not permit comments (<code>//</code> or <code>/* */</code>), single-quoted strings (<code>'key'</code>), unquoted keys, or undefined values.</li>
+      <li><strong>64-bit Integer Precision:</strong> Numbers exceeding <code>Number.MAX_SAFE_INTEGER</code> (9,007,199,254,740,991) may experience precision loss during standard IEEE 754 JavaScript parsing unless passed as strings.</li>
+      <li><strong>Circular References:</strong> JSON does not support self-referential or circular object trees.</li>
+    </ul>
+  </app-info-section>
+
+  <app-info-section heading="Troubleshooting Common Syntax Errors">
+    <ul>
+      <li><strong>Trailing Commas:</strong> Placing a comma after the final item in an object or array (e.g., <code>{{"{\"a\": 1, \"b\": 2,}"}}</code>) causes an immediate syntax error. Remove the trailing comma.</li>
+      <li><strong>Single Quotes:</strong> Replace all single quotes (<code>'</code>) with standard double quotes (<code>"</code>).</li>
+      <li><strong>Unquoted Keys:</strong> Ensure every object key is enclosed in double quotes (e.g., <code>"username": "alex"</code> instead of <code>username: "alex"</code>).</li>
     </ul>
   </app-info-section>
 
   <app-info-section heading="Security &amp; Client-Side Privacy">
     <p>
-      Unlike other online formatters that transmit your data to remote cloud servers, ToolNova formats your JSON entirely
-      within your browser using native JavaScript execution. Your private API responses, authorization tokens, database dumps,
-      and user records never travel over the network or touch an external server.
+      Unlike third-party web tools that log payloads on remote cloud servers, ToolNova formats your JSON entirely within your browser using native JavaScript execution. Your private API responses, authorization tokens, database dumps, and user records never travel over the network or touch an external server.
     </p>
   </app-info-section>
 
   <app-faq-section [items]="faqItems" />
   <app-related-tools [tools]="relatedTools" />
+  <app-related-guides [guides]="relevantGuides" />
 </app-tool-page-layout>

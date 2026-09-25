@@ -177,7 +177,31 @@
   </url>
   <url>
     <loc>https://tool-hub-web.vercel.app/guides/how-browser-based-tools-protect-privacy</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tool-hub-web.vercel.app/guides/how-to-convert-text-case</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tool-hub-web.vercel.app/guides/static-vs-dynamic-qr-codes</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tool-hub-web.vercel.app/guides/how-to-calculate-age-from-date</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tool-hub-web.vercel.app/guides/metric-vs-imperial-units</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
