@@ -4,6 +4,6 @@ export const environment = {
   production: true,
   earnivo: {
     apiBaseUrl: "https://api.admobility.in/api",
-    apiKey: "ak_9b504d51209aae38bc92fc7a1f1cda10bd9d9178c798ab93",
+    apiKey: "ak_e7eafee07b7e7401fd17cbf74ace63403bdc6c084c0b0de4",
   },
 } as const;
